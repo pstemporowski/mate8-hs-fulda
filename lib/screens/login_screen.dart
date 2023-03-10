@@ -1,11 +1,13 @@
 import 'dart:math';
-
+import 'package:Mate8/styles/static_colors.dart';
+import 'package:Mate8/styles/static_styles.dart';
+import 'package:assorted_layout_widgets/assorted_layout_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:input_form_field/input_form_field.dart';
 import 'package:flutter/foundation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
 import 'background_screen.dart';
-import 'components.dart';
+import '../components/components.dart';
 import 'sign_up_screen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -16,80 +18,47 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: Colors.black,
-      body: Stack(
-        children: [
-          BackgroundScreen(),
-          Padding(
-            padding: const EdgeInsets.only(top: 220, left: 35, right: 35),
-            child: Container(
-                child: Center(
+      backgroundColor: StaticColors.primaryColor,
+      body: SingleChildScrollView(
+        child: ColumnSuper(
+          innerDistance: -50,
+          children: [
+            BackgroundScreen(height: screenHeight * 0.7),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    "MATE8",
+                    "SignIn".tr,
                     style: TextStyle(
-                        fontFamily: "Oswald",
-                        color: Colors.white,
-                        fontSize: 40),
+                        fontWeight: FontWeight.bold,
+                        color: StaticColors.secondaryFontColor,
+                        fontSize: 30),
                   ),
-                  Text(
-                    "Für die Studenten der Hochschule Fulda",
-                    style: TextStyle(
-                        fontFamily: "Oswald",
-                        color: Colors.white,
-                        fontSize: 18),
+                  CustomTextFormField("Email".tr, controller: _emailController),
+                  CustomTextFormField("Password".tr,
+                      controller: _passwordController,
+                      iconData: Icons.security),
+                  const SizedBox(
+                    height: 20,
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      debugPrint("Test");
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => SignUpScreen()));
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Components.CreateInputField(
-                          "Email", _emailController),
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      CustomButton("GoBack".tr,
+                          color: Colors.white, onTap: signIn),
+                      CustomButton("SignIn".tr,
+                          color: Colors.white, onTap: signIn),
+                    ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Components.CreatePasswordInputField(
-                        "Email", "HS-Fulda@de", _passwordController),
-                  ),
-                  GestureDetector(
-                      onTap: () => signIn(),
-                      child: Components.GetButton("Einloggen")),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      //Center Row contents horizontally,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text("Noch kein Account? ",
-                            style: TextStyle(color: Colors.grey)),
-                        GestureDetector(
-                            onTap: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        SignUpScreen(),
-                                  ),
-                                ),
-                            child: Text("jetzt Registrieren",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    decoration: TextDecoration.underline)))
-                      ],
-                    ),
-                  )
                 ],
               ),
-            )),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

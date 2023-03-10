@@ -1,0 +1,173 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'components.dart';
+
+// **************************************************************************
+// FunctionalWidgetGenerator
+// **************************************************************************
+
+class CustomButton extends StatelessWidget {
+  const CustomButton(
+    this.content, {
+    Key? key,
+    this.color,
+    this.fontColor,
+    this.onTap,
+  }) : super(key: key);
+
+  final String content;
+
+  final Color? color;
+
+  final Color? fontColor;
+
+  final void Function()? onTap;
+
+  @override
+  Widget build(BuildContext _context) => customButton(
+        content,
+        color: color,
+        fontColor: fontColor,
+        onTap: onTap,
+      );
+}
+
+class CustomTextFormField extends StatelessWidget {
+  const CustomTextFormField(
+    this.labelText, {
+    Key? key,
+    required this.controller,
+    this.iconData = Icons.mail,
+    this.isNumeric = false,
+    this.hintText,
+    this.isPassword,
+  }) : super(key: key);
+
+  final String labelText;
+
+  final TextEditingController controller;
+
+  final IconData iconData;
+
+  final bool isNumeric;
+
+  final String? hintText;
+
+  final bool? isPassword;
+
+  @override
+  Widget build(BuildContext _context) => customTextFormField(
+        labelText,
+        controller: controller,
+        iconData: iconData,
+        isNumeric: isNumeric,
+        hintText: hintText,
+        isPassword: isPassword,
+      );
+}
+
+class CountryRow extends StatelessWidget {
+  const CountryRow({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext _context) => countryRow();
+}
+
+class ProfileInfoRow extends StatelessWidget {
+  const ProfileInfoRow({
+    Key? key,
+    required this.degreeProgram,
+    this.age,
+    required this.semester,
+  }) : super(key: key);
+
+  final String degreeProgram;
+
+  final String? age;
+
+  final String semester;
+
+  @override
+  Widget build(BuildContext _context) => profileInfoRow(
+        degreeProgram: degreeProgram,
+        age: age,
+        semester: semester,
+      );
+}
+
+class SingleProfileContent extends StatelessWidget {
+  const SingleProfileContent({
+    Key? key,
+    required this.title,
+    this.icon,
+    required this.content,
+  }) : super(key: key);
+
+  final String title;
+
+  final IconData? icon;
+
+  final Widget content;
+
+  @override
+  Widget build(BuildContext _context) => singleProfileContent(
+        title: title,
+        icon: icon,
+        content: content,
+      );
+}
+
+class WrappedInterestsTiles extends StatelessWidget {
+  const WrappedInterestsTiles({
+    Key? key,
+    required this.interests,
+  }) : super(key: key);
+
+  final List<String> interests;
+
+  @override
+  Widget build(BuildContext _context) =>
+      wrappedInterestsTiles(interests: interests);
+}
+
+class InterestsTile extends StatelessWidget {
+  const InterestsTile(
+    this.text, {
+    Key? key,
+  }) : super(key: key);
+
+  final String text;
+
+  @override
+  Widget build(BuildContext _context) => interestsTile(text);
+}
+
+class ColumnSeparator extends StatelessWidget {
+  const ColumnSeparator(
+    this.width, {
+    Key? key,
+  }) : super(key: key);
+
+  final double width;
+
+  @override
+  Widget build(BuildContext _context) => columnSeparator(width);
+}
+
+class DetailInfo extends StatelessWidget {
+  const DetailInfo({
+    Key? key,
+    required this.title,
+    required this.content,
+  }) : super(key: key);
+
+  final String title;
+
+  final String content;
+
+  @override
+  Widget build(BuildContext _context) => detailInfo(
+        title: title,
+        content: content,
+      );
+}

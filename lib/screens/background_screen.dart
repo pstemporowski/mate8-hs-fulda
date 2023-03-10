@@ -1,3 +1,4 @@
+import 'package:Mate8/styles/static_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -11,9 +12,9 @@ class BackgroundScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
         width: double.infinity,
-        height: this.height,
+        height: height,
         child: Column(
           children: [
             Stack(children: [
@@ -34,12 +35,14 @@ class BackgroundScreen extends StatelessWidget {
                         end: FractionalOffset.bottomCenter,
                         colors: [
                           Colors.transparent.withOpacity(0.0),
-                          CupertinoColors.darkBackgroundGray.withOpacity(0.3),
-                          CupertinoColors.darkBackgroundGray,
+                          StaticColors.primaryColor.withOpacity(0.2),
+                          StaticColors.primaryColor.withOpacity(0.4),
+                          StaticColors.primaryColor.withOpacity(1),
                         ],
-                        stops: [
+                        stops: const [
                           0.0,
                           0.5,
+                          0.8,
                           1.0
                         ])),
               )

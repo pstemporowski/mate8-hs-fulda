@@ -1,13 +1,10 @@
 import 'dart:async';
-import 'dart:math';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:input_form_field/input_form_field.dart';
-import 'package:flutter/foundation.dart';
-
+import 'package:get/get.dart';
 
 import 'background_screen.dart';
-import 'components.dart';
+import '../components/components.dart';
 import 'main_screen.dart';
 
 class EmailScreen extends StatefulWidget {
@@ -31,7 +28,7 @@ class _EmailScreenState extends State<EmailScreen> {
     if (!isEmailVerified) {
       sendVerificationEmail();
       timer = Timer.periodic(
-        Duration(seconds: 3),
+        const Duration(seconds: 3),
         (_) => checkEmailVerified(),
       );
     }
@@ -39,7 +36,6 @@ class _EmailScreenState extends State<EmailScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     timer?.cancel();
     super.dispose();
   }
@@ -54,31 +50,30 @@ class _EmailScreenState extends State<EmailScreen> {
               BackgroundScreen(),
               Padding(
                 padding: const EdgeInsets.only(top: 250, left: 35, right: 35),
-                child: Container(
-                    child: Center(
+                child: Center(
                   child: Column(
                     children: [
                       Text(
-                          "Email Verifiezieren!",
-                          style: TextStyle(
-                              fontFamily: "Oswald",
-                              color: Colors.white,
-                              fontSize: 28),
-                        ),
-                        Text(
-                          "Um die App nutzen zu können, müssen Sie sich verifizieren! Sie habe eine e-Mail mit einem Link erhalten",
-                          style: TextStyle(
-                              fontFamily: "Oswald",
-                              color: Colors.white,
-                              fontSize: 18),
-                        ),
-                        Components.GetButton("bereits Verifiziert"),
+                        "EmailVerifyTitle".tr,
+                        style: TextStyle(
+                            fontFamily: "Oswald",
+                            color: Colors.white,
+                            fontSize: 28),
+                      ),
+                      Text(
+                        'EmailVerifyContent'.tr,
+                        style: TextStyle(
+                            fontFamily: "Oswald",
+                            color: Colors.white,
+                            fontSize: 18),
+                      ),
+                      CustomButton("AlreadyVerified".tr),
                       Padding(
                           padding: const EdgeInsets.only(top: 10),
-                          child: Components.GetButton("Abbrechen", Colors.grey))
+                          child: CustomButton("Abort".tr, color: Colors.grey))
                     ],
                   ),
-                )),
+                ),
               )
             ],
           ),

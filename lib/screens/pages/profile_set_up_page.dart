@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import '../components.dart';
+import '../../components/components.dart';
 
 class SetUpPage extends StatefulWidget {
   SetUpPage({Key? key}) : super(key: key);
@@ -41,14 +41,6 @@ class _SetUpPageState extends State<SetUpPage> {
                 "Profil einrichten",
                 style: TextStyle(color: Colors.white, fontSize: 30),
               )),
-              Components.CreateInputField("Vorname", _firstnameController),
-              SizedBox(height: 10),
-              Components.CreateInputField("Nachname", _firstnameController),
-              SizedBox(height: 10),
-              Components.CreateInputField("Alter", _firstnameController,
-                  isNumeric: true),
-              SizedBox(height: 10),
-              Components.CreateInputField("Beschreibung", _firstnameController),
               SizedBox(height: 10),
               DropDownMenu(),
               SizedBox(height: 10),
@@ -56,15 +48,14 @@ class _SetUpPageState extends State<SetUpPage> {
                 width: double.infinity,
                 child: Row(
                   children: [
-                    Flexible(child: Components.GetButton("Bild Anzeigen")),
+                    Flexible(child: CustomButton("Bild Anzeigen")),
                     GestureDetector(
-                        child: Flexible(
-                            child: Components.GetButton("Bild Hochladen"))),
+                        child: Flexible(child: CustomButton("Bild Hochladen"))),
                   ],
                 ),
               ),
               SizedBox(height: 50),
-              Components.GetButton("Anwenden")
+              CustomButton("Anwenden")
             ],
           ),
         ),

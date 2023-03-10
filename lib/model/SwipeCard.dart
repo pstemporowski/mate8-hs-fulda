@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'SwipePersonModel.dart';
+import 'model.dart';
 
 class SwipeCard extends StatelessWidget {
-  final SwipePersonModel candidate;
+  final User candidate;
 
   const SwipeCard({
     Key? key,
@@ -48,10 +48,9 @@ class SwipeCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(15),
             decoration: const BoxDecoration(
-              color: Colors.green,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(10),
-                bottomRight: Radius.circular(10),
+              color: Colors.purple,
+              borderRadius: BorderRadius.all(
+                Radius.circular(10),
               ),
             ),
             child: Row(
@@ -73,7 +72,7 @@ class SwipeCard extends StatelessWidget {
                       height: 5,
                     ),
                     Text(
-                      candidate.studiengang!,
+                      candidate.name,
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 15,
@@ -83,7 +82,7 @@ class SwipeCard extends StatelessWidget {
                       height: 5,
                     ),
                     Text(
-                      candidate.alter.toString(),
+                      candidate.age.toString(),
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 15,

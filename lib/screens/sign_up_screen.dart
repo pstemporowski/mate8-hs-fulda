@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'background_screen.dart';
-import 'components.dart';
+import '../components/components.dart';
 
 class SignUpScreen extends StatelessWidget {
   final TextEditingController _passwordController = TextEditingController();
@@ -18,62 +19,48 @@ class SignUpScreen extends StatelessWidget {
           BackgroundScreen(),
           Padding(
             padding: const EdgeInsets.only(top: 220, left: 35, right: 35),
-            child: Container(
-                child: Center(
-                  child: Column(
-                    children: [
-                      Text(
-                        "MATE8",
-                        style: TextStyle(
-                            fontFamily: "Oswald",
-                            color: Colors.white,
-                            fontSize: 40),
-                      ),
-                      Text(
-                        "Für die Studenten der Hochschule Fulda",
-                        style: TextStyle(
-                            fontFamily: "Oswald",
-                            color: Colors.white,
-                            fontSize: 18),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => SignUpScreen()));
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                      child: Components.CreateInputField(
-                          "Email", _emailController),
-                    ),
+            child: Center(
+              child: Column(
+                children: [
+                  Text(
+                    "SignUp".tr,
+                    style: const TextStyle(
+                        fontFamily: "Oswald",
+                        color: Colors.white,
+                        fontSize: 40),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Components.CreatePasswordInputField(
-                        "Email", "*****", _passwordController),
+                    child: CustomTextFormField("Email".tr,
+                        controller: _emailController),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CustomTextFormField("Password".tr,
+                        controller: _passwordController,
+                        iconData: Icons.security),
                   ),
                   GestureDetector(
-                      onTap: () => signUp(context),
-                      child: Components.GetButton("Registrieren")),
+                      onTap: () => signUp(), child: CustomButton("SignUp".tr)),
                   Padding(
                       padding: const EdgeInsets.only(top: 10),
-                      child: Components.GetButton("Abbrechen", Colors.grey))
+                      child: CustomButton("Abort".tr, color: Colors.grey))
                 ],
               ),
-            )),
+            ),
           )
         ],
       ),
     );
   }
 
-  Future signUp(BuildContext context) async {
+  Future signUp() async {
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: _emailController.text,
         password: _passwordController.text,
       );
-      Navigator.pop(context);
+      Get.back();
     } on FirebaseAuthException catch (e) {
       print(e);
     }

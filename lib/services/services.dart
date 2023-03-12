@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../model/model.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
@@ -8,7 +10,7 @@ class Datastore {
   final CollectionReference usersRef =
       FirebaseFirestore.instance.collection('users');
   final CollectionReference userActionsRef =
-      FirebaseFirestore.instance.collection('user_actions');
+  FirebaseFirestore.instance.collection('user_actions');
   var testGuid = '40f781d5-182d-4091-b11b-bff30cd51b8';
 
   Future<User?> getUser(String userId) async {
@@ -26,32 +28,36 @@ class Datastore {
     return querySnapshot.docs.map((doc) => User.fromFirestore(doc)).toList();
   }
 
-  Future<List<UserAction>> getInteractedUsers() async {
-    QuerySnapshot querySnapshot =
-        await userActionsRef.where('user_id', isEqualTo: '2412312321').get();
-    return querySnapshot.docs
-        .map((doc) => UserAction.fromFirestore(doc))
+  Future<List<UserActionForCurrentUser>> getInteractedUsers(
+      String currentUserId) async {
+    var currentUserDoc =
+        await usersRef.doc(currentUserId).collection('user_actions').get();
+    var list = currentUserDoc.docs
+        .map((doc) => UserActionForCurrentUser.fromFirestore(doc))
         .toList();
+    print(list.length);
+    return list;
   }
 
-  Future<List<User>> getCandidateUsers() async {
+  Future<List<User>> getCandidateUsers(String currentUserID) async {
     var allUsers = await getUsers();
-    var interactedUsers = await getInteractedUsers();
+    var interactedUsers = await getInteractedUsers(currentUserID);
 
-    return allUsers
-        .where((user) => interactedUsers
-            .any((userAction) => userAction.otherUserId != user.id))
-        .toList();
+    return allUsers.where((user) {
+      var userActions = interactedUsers
+          .where((action) => action.otherUserId == user.id)
+          .toList();
+      return userActions.isEmpty;
+    }).toList();
   }
 
-  Future uploadUserAction(
-      {required String currentUserId,
-      required String otherUserId,
-      required bool isMatch}) async {
+  Future uploadUserAction({required String currentUserId,
+    required String otherUserId,
+    required bool isMatch}) async {
     try {
-      DocumentReference currentUserActionRef = userActionsRef
+      DocumentReference currentUserActionRef = usersRef
           .doc(currentUserId)
-          .collection('actions')
+          .collection('user_actions')
           .doc(otherUserId);
 
       DocumentSnapshot currentUserActionDoc = await currentUserActionRef.get();
@@ -60,10 +66,8 @@ class Datastore {
       }
 
       await currentUserActionRef.set({
-        'user_id': currentUserId,
-        'other_user_id': otherUserId,
         'isMatch': isMatch,
-        'timestamp': FieldValue.serverTimestamp(),
+        'timestamp': DateTime.now().millisecondsSinceEpoch,
       });
       if (isMatch) {}
       checkMatch(userId: currentUserId, otherUserId: otherUserId);
@@ -72,17 +76,16 @@ class Datastore {
     }
   }
 
-  Future<void> checkMatch(
-      {required String userId, required String otherUserId}) async {
-    DocumentSnapshot otherUserActionDoc = await userActionsRef
+  Future<void> checkMatch({required String userId, required String otherUserId}) async {
+    DocumentSnapshot otherUserActionsDoc = await usersRef
         .doc(otherUserId)
         .collection('user_actions')
         .doc(userId)
         .get();
-    if (otherUserActionDoc.exists) {
-      bool otherUserActionType = otherUserActionDoc.get('isMatch');
-
-      if (otherUserActionType == true) {
+    if (otherUserActionsDoc.exists) {
+      bool otherUserIsMatch = otherUserActionsDoc.get('isMatch');
+      print(otherUserIsMatch);
+      if (otherUserIsMatch == true) {
         await uploadChat(userId, otherUserId);
       }
     }
@@ -93,18 +96,25 @@ class Datastore {
         FirebaseFirestore.instance.collection('chats');
     DocumentReference chatDocRef = chatsRef.doc();
 
-    CollectionReference messagesRef = chatDocRef.collection('messages');
-
     await chatDocRef.set({
       'users': [currentUserId, otherUserId],
-      'timestamp': FieldValue.serverTimestamp(),
+      'timestamp': DateTime.now().millisecondsSinceEpoch,
     });
+  }
 
-    await messagesRef.add({
-      'senderId': currentUserId,
-      'text': 'Hello, World!',
-      'timestamp': FieldValue.serverTimestamp(),
-    });
+  Future<void> uploadMessage(String chatId, types.TextMessage message) async {
+    // Reference to the `messages` collection in Firestore under the specified chatId
+    final messagesRef = chatsRef.doc(chatId).collection('messages');
+
+    try {
+      await messagesRef.add({
+        'created_at': message.createdAt,
+        'text': message.text,
+        'sender_id': message.author.id,
+      });
+    } catch (e) {
+      print('Error uploading message: $e');
+    }
   }
 
   Future<List<Chat>> getChats(String userId) async {
@@ -133,9 +143,9 @@ class Datastore {
 
   Future<void> listenToChats(String currentUserId,
       {required Function(Chat) onNewChat,
-      required Function(types.TextMessage, Chat) onNewMessage}) async {
+      required Function(types.TextMessage, Chat) onNewMessage,
+      Function()? onAllDataLoaded}) async {
     Stream<QuerySnapshot> chatsStream = chatsRef.snapshots();
-
     chatsStream.listen((QuerySnapshot snapshot) async {
       for (var change in snapshot.docChanges) {
         if (change.type == DocumentChangeType.added) {
@@ -147,7 +157,7 @@ class Datastore {
 
             if (chatUsers.contains(currentUserId)) {
               var otherUserId = chatUsers.firstWhere(
-                  (userId) => userId != currentUserId,
+                      (userId) => userId != currentUserId,
                   orElse: () => null);
 
               if (otherUserId == null) {
@@ -161,7 +171,8 @@ class Datastore {
               }
 
               Chat chat = Chat.fromFirestore(change.doc, otherUser);
-              listenToChatMessages(chat, onNewMessage: onNewMessage);
+              listenToChatMessages(chat,
+                  onNewMessage: (message, chat) => onNewMessage(message, chat));
               onNewChat(chat);
             }
           }
@@ -175,21 +186,22 @@ class Datastore {
     final id = snapshot.id;
     final createdAt = data['created_at'];
     final text = data['text'] as String;
-    final userId = data['sender_id'] as String;
-
+    final senderId = data['sender_id'] as String;
     return types.TextMessage(
       id: id,
       createdAt: createdAt,
       text: text,
-      author: types.User(id: userId),
+      author: types.User(id: senderId),
     );
   }
 
   void listenToChatMessages(Chat chat,
-      {Function(types.TextMessage, Chat)? onNewMessage}) {
-    Stream<QuerySnapshot> messagesStream = chat.messagesRef.snapshots();
+      {Function(types.TextMessage, Chat)? onNewMessage}) async {
+    Stream<QuerySnapshot> messagesStream =
+        chat.messagesRef.orderBy('created_at', descending: false).snapshots();
+    StreamSubscription<QuerySnapshot>? messagesSubscription;
 
-    messagesStream.listen((QuerySnapshot snapshot) {
+    messagesSubscription = messagesStream.listen((QuerySnapshot snapshot) {
       for (var change in snapshot.docChanges) {
         if (change.type == DocumentChangeType.added) {
           var data = change.doc.data();
@@ -199,9 +211,9 @@ class Datastore {
           }
 
           var message = messageFromFirestore(change.doc);
-          chat.messages.add(message);
+          chat.messages.insert(0, message);
           if (onNewMessage != null) {
-            onNewMessage!(message, chat);
+            onNewMessage(message, chat);
           }
         }
       }

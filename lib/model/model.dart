@@ -30,20 +30,17 @@ class User {
   }
 }
 
-class UserAction {
-  final String id;
-  final String userId;
+class UserActionForCurrentUser {
+  final bool isMatch;
   final String otherUserId;
 
-  UserAction(
-      {required this.id, required this.userId, required this.otherUserId});
+  UserActionForCurrentUser({required this.otherUserId, required this.isMatch});
 
-  factory UserAction.fromFirestore(DocumentSnapshot doc) {
+  factory UserActionForCurrentUser.fromFirestore(DocumentSnapshot doc) {
     Map data = doc.data() as Map<String, dynamic>;
-    return UserAction(
-      id: doc.id,
-      userId: data['user_id'] ?? '',
-      otherUserId: data['other_user_id'] ?? '',
+    return UserActionForCurrentUser(
+      otherUserId: doc.id,
+      isMatch: data['isMatch'],
     );
   }
 }
@@ -54,8 +51,9 @@ class FirebaseAuthClass {
 
 class Chat {
   final String id;
+  var isNewMessageAdded = false.obs;
   final User otherUser;
-  int timestamp;
+  final int createdAt;
   final RxList<types.TextMessage> messages;
 
   CollectionReference get messagesRef =>
@@ -64,7 +62,7 @@ class Chat {
   Chat({
     required this.id,
     required this.otherUser,
-    required this.timestamp,
+    required this.createdAt,
     required this.messages,
   });
 
@@ -72,10 +70,11 @@ class Chat {
     Map<String, dynamic>? data = doc.data()! as Map<String, dynamic>;
     var messages = RxList<types.TextMessage>();
     var timestamp = data?['timestamp'] as int ?? 0;
+
     return Chat(
       id: doc.id,
       otherUser: otherUser,
-      timestamp: timestamp,
+      createdAt: timestamp,
       messages: messages,
     );
   }

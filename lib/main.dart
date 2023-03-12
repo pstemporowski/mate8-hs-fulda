@@ -1,5 +1,6 @@
 import 'package:Mate8/controller/matches_controller.dart';
 import 'package:Mate8/screens/main_screen.dart';
+import 'package:Mate8/services/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ Future main() async {
   );
   Get.lazyPut(() => MainScreenController());
   Get.lazyPut(() => MatchesController());
-  Get.lazyPut(() => ChatController());
+  Get.lazyPut(() => Datastore());
   runApp(const MyApp());
 }
 

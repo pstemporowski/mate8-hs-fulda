@@ -54,6 +54,12 @@ dependencies:
   functional_widget: ^0.10.1
   firebase_core: ^2.7.1
   intl: ^0.17.0
+  dart_numerics: ^0.0.6
+  elegant_notification: ^1.7.0
+  icon_badge: ^1.0.0
+  flutter_badged: ^2.0.3
+  badges: ^3.0.2
+  animated_snack_bar: ^0.3.0
 
 
 dev_dependencies:

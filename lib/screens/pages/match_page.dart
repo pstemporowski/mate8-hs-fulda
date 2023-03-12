@@ -4,7 +4,6 @@ import 'package:Mate8/model/model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:appinio_swiper/appinio_swiper.dart';
 import 'package:get/get.dart';
-import '../../model/SwipeCard.dart';
 
 class MatchPage extends GetView<MatchesController> {
   MatchPage({Key? key}) : super(key: key);

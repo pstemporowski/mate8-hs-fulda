@@ -26,6 +26,12 @@
       "languageVersion": "2.19"
     },
     {
+      "name": "animated_snack_bar",
+      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/animated_snack_bar-0.3.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
       "name": "appinio_swiper",
       "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/appinio_swiper-1.1.1",
       "packageUri": "lib/",
@@ -48,6 +54,12 @@
       "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/async-2.10.0",
       "packageUri": "lib/",
       "languageVersion": "2.18"
+    },
+    {
+      "name": "badges",
+      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/badges-3.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
     },
     {
       "name": "boolean_selector",
@@ -194,6 +206,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "dart_numerics",
+      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/dart_numerics-0.0.6",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
       "name": "dart_style",
       "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/dart_style-2.2.5",
       "packageUri": "lib/",
@@ -216,6 +234,12 @@
       "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/dropdown_button2-1.9.4",
       "packageUri": "lib/",
       "languageVersion": "2.17"
+    },
+    {
+      "name": "elegant_notification",
+      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/elegant_notification-1.7.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
     },
     {
       "name": "equatable",
@@ -306,6 +330,12 @@
       "rootUri": "file:///C:/flutter/packages/flutter",
       "packageUri": "lib/",
       "languageVersion": "2.17"
+    },
+    {
+      "name": "flutter_badged",
+      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_badged-2.0.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "flutter_chat_types",
@@ -424,6 +454,12 @@
     {
       "name": "http_parser",
       "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/http_parser-4.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "icon_badge",
+      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/icon_badge-1.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -674,6 +710,12 @@
       "languageVersion": "2.14"
     },
     {
+      "name": "tuple",
+      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/tuple-2.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
       "name": "typed_data",
       "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/typed_data-1.3.1",
       "packageUri": "lib/",
@@ -770,7 +812,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2023-03-09T15:59:12.334513Z",
+  "generated": "2023-03-12T18:16:50.282373Z",
   "generator": "pub",
   "generatorVersion": "2.19.3"
 }

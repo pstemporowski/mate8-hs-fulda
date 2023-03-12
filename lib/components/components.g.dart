@@ -171,3 +171,25 @@ class DetailInfo extends StatelessWidget {
         content: content,
       );
 }
+
+class ChatTile extends StatelessWidget {
+  const ChatTile({
+    Key? key,
+    required this.chat,
+    required this.chatUser,
+    this.onTap,
+  }) : super(key: key);
+
+  final Chat chat;
+
+  final User chatUser;
+
+  final dynamic Function()? onTap;
+
+  @override
+  Widget build(BuildContext _context) => chatTile(
+        chat: chat,
+        chatUser: chatUser,
+        onTap: onTap,
+      );
+}

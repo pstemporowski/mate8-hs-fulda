@@ -1,5 +1,6 @@
-import 'package:Mate8/controller/mainscreen_controller.dart';
+import 'package:Mate8/controller/main_screen_controller.dart';
 import 'package:Mate8/controller/matches_controller.dart';
+import 'package:Mate8/services/services.dart';
 import 'package:Mate8/styles/static_colors.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
@@ -13,6 +14,7 @@ import 'package:badges/badges.dart' as badges;
 class MainScreen extends GetView<MainScreenController> {
   MainScreen({Key? key}) : super(key: key);
   final matchesController = Get.find<MatchesController>();
+  final datastore = Get.find<Datastore>();
   final bool isDone = true;
 
   @override
@@ -81,7 +83,7 @@ class MainScreen extends GetView<MainScreenController> {
         body: Obx(
           () => IndexedStack(
             index: controller.activePageIndex.value,
-            children: controller.tabItems,
+            children: controller.tabItems(),
           ),
         ));
   }

@@ -8,26 +8,57 @@ import 'package:get/get.dart';
 final datastore = Datastore();
 
 class User {
+  final String shortUniversityDepartmentName;
+  final List<String> singleWordsDescription;
   final String id;
   final String name;
   final int age;
-  final String profilePicture;
+  final String profilePictureUrl;
+  final String description;
+  final String? countryCode;
+  final int currentSemester; // new property for current semester
 
-  User(
-      {required this.id,
-      required this.name,
-      required this.age,
-      required this.profilePicture});
+  User({
+    required this.shortUniversityDepartmentName,
+    required this.singleWordsDescription,
+    required this.id,
+    required this.name,
+    required this.age,
+    required this.profilePictureUrl,
+    required this.description,
+    this.countryCode,
+    required this.currentSemester, // initialize new property
+  });
 
   factory User.fromFirestore(DocumentSnapshot doc) {
-    Map data = doc.data() as Map<String, dynamic>;
+    final data = doc.data() as Map<String, dynamic>;
     return User(
       id: doc.id,
       name: data['name'] ?? '',
       age: data['age'] ?? 0,
-      profilePicture: data['profile_picture'] ?? '',
+      profilePictureUrl: data['profile_picture_url'] ?? '',
+      shortUniversityDepartmentName:
+          data['short_university_department_name'] ?? '',
+      singleWordsDescription:
+          List<String>.from(data['single_words_description'] ?? []),
+      countryCode: data['country_code'],
+      description: data['description'] ?? '',
+      currentSemester:
+          data['current_semester'] ?? 0, // get value of new property
     );
   }
+
+  Map<String, dynamic> toFirestore() => {
+        'name': name,
+        'age': age,
+        'short_university_department_name': shortUniversityDepartmentName,
+        'single_words_description':
+            FieldValue.arrayUnion(singleWordsDescription),
+        'country_code': countryCode,
+        'description': description,
+        'profile_picture_url': profilePictureUrl,
+        'current_semester': currentSemester, // add value of new property
+      };
 }
 
 class UserActionForCurrentUser {
@@ -80,47 +111,51 @@ class Chat {
   }
 }
 
-/*
-  final String senderId;
-  final String content;
-  final int timestamp;
+class UniversityDepartment {
+  final String shortName;
+  final String longName;
 
-  Message({
-    required this.senderId,
-    required this.content,
-    required this.timestamp,
-  });
-
-  factory Message.fromMap(Map<String, dynamic> map) {
-    return Message(
-      senderId: map['sender_id'],
-      content: map['content'],
-      timestamp: map['timestamp'],
-    );
-  }
-
-  Map<String, dynamic> toMap() {
-    return {
-      'sender_id': senderId,
-      'content': content,
-      'timestamp': timestamp,
-    };
-  }
+  UniversityDepartment({required this.shortName, required this.longName});
 
   @override
-  types.Message copyWith({types.User? author, int? createdAt, String? id, Map<String, dynamic>? metadata, String? remoteId, types.Message? repliedMessage, String? roomId, bool? showStatus, types.Status? status, int? updatedAt}) {
-    // TODO: implement copyWith
-    throw UnimplementedError();
+  toString() {
+    return longName;
   }
+}
 
-  @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
-
-  @override
-  Map<String, dynamic> toJson() {
-    // TODO: implement toJson
-    throw UnimplementedError();
-  }
-  
-   */
+List<UniversityDepartment> getUniversityDepartments() {
+  return [
+    UniversityDepartment(
+      shortName: 'AI',
+      longName: 'Angewandte Informatik',
+    ),
+    UniversityDepartment(
+      shortName: 'EEIT',
+      longName: 'Elektrotechnik und Informationstechnik',
+    ),
+    UniversityDepartment(
+      shortName: 'LT',
+      longName: 'Lebensmitteltechnologie',
+    ),
+    UniversityDepartment(
+      shortName: 'OT',
+      longName: 'Oecotrophologie',
+    ),
+    UniversityDepartment(
+      shortName: 'GW',
+      longName: 'Gesundheitswissenschaften',
+    ),
+    UniversityDepartment(
+      shortName: 'SKW',
+      longName: 'Sozial- und Kulturwissenschaften',
+    ),
+    UniversityDepartment(
+      shortName: 'SW',
+      longName: 'Sozialwesen',
+    ),
+    UniversityDepartment(
+      shortName: 'WI',
+      longName: 'Wirtschaft',
+    ),
+  ];
+}

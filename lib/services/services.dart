@@ -1,5 +1,7 @@
 import 'dart:async';
-
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../model/model.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
@@ -10,12 +12,10 @@ class Datastore {
   final CollectionReference usersRef =
       FirebaseFirestore.instance.collection('users');
   final CollectionReference userActionsRef =
-  FirebaseFirestore.instance.collection('user_actions');
-  var testGuid = '40f781d5-182d-4091-b11b-bff30cd51b8';
+      FirebaseFirestore.instance.collection('user_actions');
 
   Future<User?> getUser(String userId) async {
     var userSnap = await usersRef.doc(userId).get();
-
     if (userSnap.exists) {
       return User.fromFirestore(userSnap);
     }
@@ -35,7 +35,6 @@ class Datastore {
     var list = currentUserDoc.docs
         .map((doc) => UserActionForCurrentUser.fromFirestore(doc))
         .toList();
-    print(list.length);
     return list;
   }
 
@@ -51,9 +50,10 @@ class Datastore {
     }).toList();
   }
 
-  Future uploadUserAction({required String currentUserId,
-    required String otherUserId,
-    required bool isMatch}) async {
+  Future uploadUserAction(
+      {required String currentUserId,
+      required String otherUserId,
+      required bool isMatch}) async {
     try {
       DocumentReference currentUserActionRef = usersRef
           .doc(currentUserId)
@@ -69,14 +69,49 @@ class Datastore {
         'isMatch': isMatch,
         'timestamp': DateTime.now().millisecondsSinceEpoch,
       });
-      if (isMatch) {}
-      checkMatch(userId: currentUserId, otherUserId: otherUserId);
+      if (isMatch) {
+        checkMatch(userId: currentUserId, otherUserId: otherUserId);
+      }
     } catch (e) {
       print('Error uploading user action: $e');
     }
   }
 
-  Future<void> checkMatch({required String userId, required String otherUserId}) async {
+  Future<String?> uploadImage(File? file, String userId) async {
+    if (file == null) return null;
+
+    final fileName = file.path.split('/').last;
+    final reference = FirebaseStorage.instance.ref(userId).child(fileName);
+    final uploadTask = reference.putFile(file);
+    final snapshot = await uploadTask.whenComplete(() {});
+
+    if (snapshot.state == TaskState.success) {
+      final imageUrl = await snapshot.ref.getDownloadURL();
+      return imageUrl;
+    } else {
+      return null;
+    }
+  }
+
+  Future uploadUser({
+    required User user,
+  }) async {
+    DocumentReference currentUserRef = usersRef.doc();
+    print('why');
+    try {
+      DocumentSnapshot currentUserActionDoc = await currentUserRef.get();
+      if (currentUserActionDoc.exists) {
+        return;
+      }
+      await currentUserRef.set(user.toFirestore());
+      print('is Set');
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> checkMatch(
+      {required String userId, required String otherUserId}) async {
     DocumentSnapshot otherUserActionsDoc = await usersRef
         .doc(otherUserId)
         .collection('user_actions')
@@ -84,7 +119,6 @@ class Datastore {
         .get();
     if (otherUserActionsDoc.exists) {
       bool otherUserIsMatch = otherUserActionsDoc.get('isMatch');
-      print(otherUserIsMatch);
       if (otherUserIsMatch == true) {
         await uploadChat(userId, otherUserId);
       }

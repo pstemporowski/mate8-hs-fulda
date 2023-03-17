@@ -1,26 +1,27 @@
 import 'dart:developer';
-import 'package:Mate8/controller/mainscreen_controller.dart';
+import 'package:Mate8/controller/main_screen_controller.dart';
 import 'package:appinio_swiper/appinio_swiper.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:get/get.dart';
 import '../components/components.dart';
-import '../model/model.dart';
+import '../model/model.dart' as model;
 import '../services/services.dart';
 
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 
 class MatchesController extends GetxController {
-  var swiperController = AppinioSwiperController();
-  var cards = <SwipeCard>[].obs;
-  var users = <User>[];
-  var chats = <Chat>[].obs;
-  var newMessagesCount = 0.obs;
-  var isControllerInit = false.obs;
-
-  var testUserId = '4cceb2b6-0955-4960-b67b-309ff1766b27';
+  //Hotfix because AppinioSwiper Disposed automatically
+  final swiperController = Get.put(AppinioSwiperController());
   var datastore = Get.find<Datastore>();
   var mainScreenController = Get.find<MainScreenController>();
+  var cards = <SwipeCard>[].obs;
+  var chats = <model.Chat>[].obs;
+  var users = <model.User>[];
+  var newMessagesCount = 0.obs;
+  var isControllerInit = false.obs;
 
   @override
   void onInit() {
@@ -28,17 +29,24 @@ class MatchesController extends GetxController {
     _loadData();
   }
 
+  @override
+  void onClose() {
+    print('closing');
+    super.onClose();
+  }
+
   void onMatchSnackBarTapped(GetSnackBar snackBar) async {
     mainScreenController.activePageIndex.value = 1;
   }
 
-  void onNewChat(Chat chat) async {
+  void onNewChat(model.Chat chat) async {
     chats.insert(0, chat);
 
     if (isControllerInit.value == false) {
       return;
     }
-
+    chat.isNewMessageAdded.value = true;
+    newMessagesCount++;
     showSnackBar();
   }
 
@@ -69,21 +77,21 @@ class MatchesController extends GetxController {
     }
   }
 
-  void onNewMessage(types.TextMessage message, Chat chat) async {
-    if (isControllerInit.value == false || message.author.id == testUserId) {
-      return;
-    }
+  void onNewMessage(types.TextMessage message, model.Chat chat) async {
+    if (isControllerInit.value == false) return;
+    _moveChatToTop(chat);
+
+    if (message.author.id == FirebaseAuth.instance.currentUser!.uid) return;
 
     if (chat.isNewMessageAdded.value == false) {
       newMessagesCount++;
       chat.isNewMessageAdded.value = true;
     }
-    _moveChatToTop(chat);
   }
 
-  void _moveChatToTop(Chat chat) {
+  void _moveChatToTop(model.Chat chat) {
     chats.remove(chat);
-    chats.add(chat);
+    chats.insert(0, chat);
   }
 
   void _loadData() async {
@@ -91,13 +99,15 @@ class MatchesController extends GetxController {
     cards.clear();
     //var chats = await datastore.getChats('4cceb2b6-0955-4960-b67b-309ff1766b27');
     //TODO add current USer ID from Authentificator;
-    await datastore.listenToChats(testUserId,
+    await datastore.listenToChats(FirebaseAuth.instance.currentUser!.uid,
         onNewChat: onNewChat, onNewMessage: onNewMessage);
-    var newCandidates = await datastore.getCandidateUsers(testUserId);
+    var newCandidates = await datastore
+        .getCandidateUsers(FirebaseAuth.instance.currentUser!.uid);
     for (var candidate in newCandidates) {
       cards.add(SwipeCard(candidate: candidate));
     }
     users = newCandidates;
+    print(cards.length);
     _finishLoad();
   }
 
@@ -107,27 +117,30 @@ class MatchesController extends GetxController {
     sortChats(chats);
   }
 
+  void onMatchTapped() {
+    swiperController.swipe();
+  }
+
+  void onDismissTapped() {
+    if (isClosed) return;
+
+    swiperController.swipeLeft();
+  }
+
   void swipe(int index, AppinioSwiperDirection direction) {
-    handleMatch(users[index], direction.name == 'left');
+    handleMatch(users[index], direction.name == 'right');
     users.removeAt(index);
   }
 
-  void unswipe(bool unswiped) {
-    if (unswiped) {
-      log("SUCCESS: card was unswiped");
-    } else {
-      log("FAIL: no card left to unswipe");
-    }
-  }
-
-  void handleMatch(User user, bool isMatch) async {
-    print(user.id);
+  void handleMatch(model.User user, bool isMatch) async {
     //TODO Add UserID if verified
     datastore.uploadUserAction(
-        currentUserId: testUserId, otherUserId: user.id, isMatch: isMatch);
+        currentUserId: FirebaseAuth.instance.currentUser!.uid,
+        otherUserId: user.id,
+        isMatch: isMatch);
   }
 
-  Future<void> sortChats(List<Chat> chats) async {
+  Future<void> sortChats(List<model.Chat> chats) async {
     var now = DateTime.now().millisecondsSinceEpoch;
 
     chats.sort((a, b) {

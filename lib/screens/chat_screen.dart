@@ -27,65 +27,75 @@ class ChatScreen extends GetView<ChatController> {
     controller.otherUser = otherUser;
     controller.messages = textMessages;
     controller.chatId = chatId;
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.white,
-        flexibleSpace: SafeArea(
-          child: Container(
-            padding: const EdgeInsets.only(right: 16),
-            child: Row(
-              children: <Widget>[
-                IconButton(
-                  onPressed: () {
-                    Get.back();
-                  },
-                  icon: const Icon(
-                    Icons.arrow_back,
-                    color: Colors.black,
-                  ),
-                ),
-                const SizedBox(
-                  width: 2,
-                ),
-                CircleAvatar(
-                  backgroundImage: NetworkImage(otherUser.imageUrl ?? ""),
-                  maxRadius: 20,
-                ),
-                const SizedBox(
-                  width: 12,
-                ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        otherUser.firstName ?? "",
-                        style: const TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w600),
-                      ),
-                    ],
-                  ),
-                ),
-                const Icon(
-                  Icons.settings,
-                  color: Colors.black54,
-                ),
-              ],
-            ),
+    return Hero(
+      tag: chatId,
+      child: Scaffold(
+        appBar: ProfileAppBar(
+            name: otherUser.firstName ?? "",
+            profileImageUrl: otherUser.imageUrl ?? ""),
+        body: Obx(
+          () => Chat(
+            showUserNames: false,
+            showUserAvatars: false,
+            messages: controller.messages.value,
+            onSendPressed: controller.handleSendPressed,
+            user: currentUser,
+            bubbleBuilder: _bubbleBuilder,
           ),
         ),
       ),
-      body: Obx(
-        () => Chat(
-          showUserNames: false,
-          showUserAvatars: true,
-          messages: controller.messages.value,
-          onSendPressed: controller.handleSendPressed,
-          user: currentUser,
-          bubbleBuilder: _bubbleBuilder,
+    );
+  }
+
+  AppBar ProfileAppBar(
+      {required String name, required String profileImageUrl}) {
+    return AppBar(
+      elevation: 0,
+      automaticallyImplyLeading: false,
+      backgroundColor: Colors.white,
+      flexibleSpace: SafeArea(
+        child: Container(
+          padding: const EdgeInsets.only(right: 16),
+          child: Row(
+            children: <Widget>[
+              IconButton(
+                onPressed: () {
+                  Get.back();
+                },
+                icon: const Icon(
+                  Icons.arrow_back,
+                  color: Colors.black,
+                ),
+              ),
+              const SizedBox(
+                width: 2,
+              ),
+              CircleAvatar(
+                backgroundImage: NetworkImage(profileImageUrl),
+                maxRadius: 20,
+              ),
+              const SizedBox(
+                width: 12,
+              ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      name,
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.w600),
+                    ),
+                  ],
+                ),
+              ),
+              const Icon(
+                Icons.settings,
+                color: Colors.black54,
+              ),
+            ],
+          ),
         ),
       ),
     );

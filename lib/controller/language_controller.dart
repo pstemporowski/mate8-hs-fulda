@@ -15,7 +15,9 @@ class Messages extends Translations {
           'SignUp': 'Registrieren',
           'SignOut': 'Abmelden',
           'Abort': 'Abbrechen',
+          'Error': 'Irgendwas ist falsch',
           'GoBack': 'Zurück',
+          'Next': 'Weiter',
           'Email': 'Email',
           'DegreeProgram': 'Studiengang',
           'Age': 'Alter',
@@ -31,6 +33,11 @@ class Messages extends Translations {
           'Password': 'Passwort',
           'ExistingAccount': 'Berreits ein Account?',
           'Nationality': 'Nationalität',
+          'Details': 'Details',
+          'DescribeIn5Words': 'Beschreibe dich in mindestens 5 Wörtern',
+          'ChipsInputLabel': 'Chips eintragen',
+          'DescribeIn5WordsExample':
+              "Schreibe deine Interessen, Hobbys oder deine Charaktereigenschaften. (Beispiel: Lustig, Basketball)",
         },
         'en_US': {}
       };

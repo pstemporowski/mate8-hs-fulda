@@ -1,3 +1,4 @@
+import 'package:Mate8/controller/sign_up_controller.dart';
 import 'package:Mate8/controller/chat_controller.dart';
 import 'package:get/get.dart';
 

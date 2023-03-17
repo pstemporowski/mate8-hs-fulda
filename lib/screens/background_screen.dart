@@ -26,26 +26,6 @@ class BackgroundScreen extends StatelessWidget {
                 ),
                 height: this.height,
               ),
-              Container(
-                height: this.height,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    gradient: LinearGradient(
-                        begin: FractionalOffset.topCenter,
-                        end: FractionalOffset.bottomCenter,
-                        colors: [
-                          Colors.transparent.withOpacity(0.0),
-                          StaticColors.primaryColor.withOpacity(0.2),
-                          StaticColors.primaryColor.withOpacity(0.4),
-                          StaticColors.primaryColor.withOpacity(1),
-                        ],
-                        stops: const [
-                          0.0,
-                          0.5,
-                          0.8,
-                          1.0
-                        ])),
-              )
             ])
           ],
         ));

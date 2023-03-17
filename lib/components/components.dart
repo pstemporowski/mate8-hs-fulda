@@ -2,19 +2,64 @@ import 'package:Mate8/styles/static_colors.dart';
 import 'package:Mate8/styles/static_styles.dart';
 import 'package:assorted_layout_widgets/assorted_layout_widgets.dart';
 import 'package:country_flags/country_flags.dart';
+import 'package:cupertino_text_button/cupertino_text_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:get/get.dart';
 import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
-
-import '../bindings/chat_binding.dart';
 import '../model/model.dart';
-import '../screens/chat_screen.dart';
 import 'package:badges/badges.dart' as badges;
 
 part 'components.g.dart';
+
+Future showBottomSheet(
+    {required String title,
+    String? textButtonValue,
+    required Widget child,
+    void Function()? onClose}) async {
+  await Get.bottomSheet(
+      Padding(
+        padding: const EdgeInsets.all(15),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  CupertinoTextButton(
+                    text: textButtonValue ?? 'Anwenden',
+                    color: Colors.blue,
+                    style: const TextStyle(fontSize: 15),
+                    onTap: Get.back,
+                  ),
+                ],
+              ),
+              Center(
+                child: Text(
+                  title,
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+              ),
+              child,
+            ],
+          ),
+        ),
+      ),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(25), topRight: Radius.circular(25)),
+      ),
+      backgroundColor: StaticColors.secondaryColor);
+
+  if (onClose != null) {
+    onClose.call();
+  }
+}
 
 @swidget
 Widget customButton(String content,
@@ -41,20 +86,61 @@ Widget customButton(String content,
 }
 
 @swidget
+Widget bottomSheetPicker(
+    {required List<dynamic> items,
+    required FixedExtentScrollController controller,
+    required void Function(int)? onSelectedItemChanged}) {
+  return SizedBox(
+      height: 200,
+      child: CupertinoPicker.builder(
+        magnification: 1.22,
+        squeeze: 1.2,
+        useMagnifier: true,
+        itemExtent: 30,
+        scrollController: controller,
+// This is called when selected item is changed.
+        onSelectedItemChanged: onSelectedItemChanged,
+        childCount: items.length,
+        itemBuilder: (context, index) {
+          return _pickerText(items[index].toString());
+        },
+      ));
+}
+
+Widget _pickerText(String text) {
+  return Center(
+    child: Text(
+      text,
+      style: const TextStyle(fontSize: 17),
+    ),
+  );
+}
+
+@swidget
 Widget customTextFormField(String labelText,
     {required TextEditingController controller,
     IconData iconData = Icons.mail,
     bool isNumeric = false,
     String? hintText,
+    bool isMultiLine = false,
+    bool? isEnabled,
     bool? isPassword}) {
   Icon prefixIcon = Icon(iconData, color: StaticColors.primaryColor);
 
   return TextFormField(
+    enabled: isEnabled,
     controller: controller,
+    minLines: isMultiLine ? 3 : null,
+    maxLines: isMultiLine ? 7 : 1,
+    obscureText: isPassword ?? false,
+    keyboardType: isNumeric
+        ? TextInputType.number
+        : isMultiLine
+            ? TextInputType.multiline
+            : TextInputType.name,
     decoration: InputDecoration(
       floatingLabelBehavior: FloatingLabelBehavior.never,
       prefixIcon: prefixIcon,
-      contentPadding: EdgeInsets.all(StaticStyles.borderRadiusForms),
       filled: true,
       alignLabelWithHint: true,
       border: OutlineInputBorder(
@@ -70,16 +156,6 @@ Widget customTextFormField(String labelText,
       fillColor: Colors.white,
       hintText: hintText,
     ),
-
-/*
-      borderColor: Colors.green,
-      borderType: BorderType.outlined,
-      prefix: prefixIcon,
-      floatingLabelBehavior: FloatingLabelBehavior.auto,
-      borderRadius: BorderRadius.circular(10),
-      errorPadding: EdgeInsets.only(left: 10, top: 10),
-
- */
     validator: (v) {
       if (isNumeric == true) {
         var number = num.tryParse(v ?? "");
@@ -104,7 +180,7 @@ Widget countryRow() {
         width: 35,
         borderRadius: 15,
       ),
-      Text(
+      const Text(
         "Poland",
         style: TextStyle(fontSize: 18),
       )
@@ -217,83 +293,101 @@ String _formattedDate(int timestamp) {
 
 @swidget
 Widget chatTile(
-    {required Chat chat, required User chatUser, Function()? onTap}) {
+    {required Chat chat,
+    required User chatUser,
+    void Function()? onTap,
+    String? tagId}) {
   return Padding(
-    padding: const EdgeInsets.all(10.0),
-    child: InkWell(
-      onTap: () => onTap,
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Container(
-            width: 70,
-            height: 70,
+    padding: const EdgeInsets.all(6.0),
+    child: Hero(
+      tag: chat.id,
+      child: Material(
+        child: InkWell(
+          enableFeedback: true,
+          borderRadius: BorderRadius.circular(StaticStyles.borderRadius),
+          onTap: onTap,
+          child: Ink(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(StaticStyles.borderRadius),
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: NetworkImage(chatUser.profilePicture),
-                )),
-          ),
-          SizedBox(
-            width: 5,
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Text(
-                chatUser.name,
-                style:
-                    const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-              ),
-              Obx(
-                () => chat.messages.isEmpty
-                    ? Text('')
-                    : Text(
-                        chat.messages.first.text,
-                        style: TextStyle(
-                            fontSize: 14,
-                            color: chat.isNewMessageAdded.value
-                                ? Colors.black
-                                : StaticColors.primaryFontColor
-                                    .withOpacity(0.5),
-                            fontWeight: chat.isNewMessageAdded.value
-                                ? FontWeight.bold
-                                : FontWeight.normal),
+                color: Colors.transparent),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Container(
+                  width: 70,
+                  height: 70,
+                  decoration: BoxDecoration(
+                      borderRadius:
+                          BorderRadius.circular(StaticStyles.borderRadius),
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(chatUser.profilePictureUrl ?? ''),
+                      )),
+                ),
+                const SizedBox(
+                  width: 5,
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Text(
+                      chatUser.name,
+                      style: const TextStyle(
+                          fontSize: 17, fontWeight: FontWeight.bold),
+                    ),
+                    Obx(
+                      () => chat.messages.isEmpty
+                          ? Container()
+                          : Text(
+                              chat.messages.first.text,
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: chat.isNewMessageAdded.value
+                                      ? Colors.black
+                                      : StaticColors.primaryFontColor
+                                          .withOpacity(0.5),
+                                  fontWeight: chat.isNewMessageAdded.value
+                                      ? FontWeight.bold
+                                      : FontWeight.normal),
+                            ),
+                    )
+                  ],
+                ),
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: Obx(
+                      () => Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: badges.Badge(
+                          showBadge: chat.isNewMessageAdded.value,
+                          child: Text(
+                            chat.messages.isEmpty
+                                ? _formattedDate(chat.createdAt)
+                                : _formattedDate(
+                                    chat.messages.first.createdAt ??
+                                        DateTime.now().millisecondsSinceEpoch),
+                            style: TextStyle(
+                                fontSize: 14,
+                                color: chat.isNewMessageAdded.value
+                                    ? StaticColors.primaryFontColor
+                                    : StaticColors.primaryFontColor
+                                        .withOpacity(0.5),
+                                fontWeight: chat.isNewMessageAdded.value
+                                    ? FontWeight.bold
+                                    : FontWeight.normal),
+                          ),
+                        ),
                       ),
-              )
-            ],
-          ),
-          Expanded(
-            child: Align(
-              alignment: Alignment.centerRight,
-              child: Obx(
-                () => Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: badges.Badge(
-                    showBadge: chat.isNewMessageAdded.value,
-                    child: Text(
-                      chat.messages.isEmpty
-                          ? _formattedDate(chat.createdAt)
-                          : _formattedDate(chat.messages.first.createdAt ??
-                              DateTime.now().millisecondsSinceEpoch),
-                      style: TextStyle(
-                          fontSize: 14,
-                          color: chat.isNewMessageAdded.value
-                              ? StaticColors.primaryFontColor
-                              : StaticColors.primaryFontColor.withOpacity(0.5),
-                          fontWeight: chat.isNewMessageAdded.value
-                              ? FontWeight.bold
-                              : FontWeight.normal),
                     ),
                   ),
-                ),
-              ),
+                )
+              ],
             ),
-          )
-        ],
+          ),
+        ),
       ),
     ),
   );
@@ -315,8 +409,8 @@ class SwipeCard extends StatelessWidget {
         color: CupertinoColors.white,
         boxShadow: [
           BoxShadow(
-            color: CupertinoColors.systemGrey.withOpacity(0.2),
-            spreadRadius: 3,
+            color: CupertinoColors.black.withOpacity(0.1),
+            spreadRadius: 15,
             blurRadius: 7,
             offset: const Offset(0, 3),
           )
@@ -327,14 +421,14 @@ class SwipeCard extends StatelessWidget {
         children: [
           Flexible(
             child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.cover,
                   image: AssetImage(
                     'assets/images/background.png',
                   ),
                 ),
-                borderRadius: const BorderRadius.only(
+                borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(10),
                   topRight: Radius.circular(10),
                 ),
@@ -342,7 +436,7 @@ class SwipeCard extends StatelessWidget {
             ),
           ),
           Container(
-            padding: const EdgeInsets.all(15),
+            padding: const EdgeInsets.all(20),
             decoration: const BoxDecoration(
               color: Colors.purple,
               borderRadius: BorderRadius.all(

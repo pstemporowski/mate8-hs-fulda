@@ -1,3 +1,5 @@
+import 'package:Mate8/controller/current_user_controller.dart';
+import 'package:Mate8/controller/matches_controller.dart';
 import 'package:Mate8/styles/static_colors.dart';
 import 'package:assorted_layout_widgets/assorted_layout_widgets.dart';
 import 'package:country_flags/country_flags.dart';
@@ -5,13 +7,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../styles/static_styles.dart';
-import '../background_screen.dart';
 import '../../components/components.dart';
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  const ProfilePage(this.user, {super.key});
+
+  final user;
 
   @override
   Widget build(BuildContext context) {
@@ -19,23 +21,7 @@ class ProfilePage extends StatelessWidget {
     var screenWidth = MediaQuery.of(context).size.width;
     var halfScreenHeight = screenHeight * 0.5;
     final double maxHeight = screenHeight * 0.5;
-    final double minHeight = screenHeight * 0.1;
-    var hobbies = [
-      'Fußball',
-      'Tennis',
-      'Baseball',
-      'Football',
-      'Lernen',
-      'Programmieren',
-      'Ficken',
-      'Ficken',
-      'Ficken',
-      'Ficken',
-      'Ficken',
-      'Ficken',
-      'Ficken',
-      'Ficken'
-    ];
+
     var scrollController = ScrollController();
     return Scaffold(
       body: CustomScrollView(
@@ -51,10 +37,11 @@ class ProfilePage extends StatelessWidget {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.vertical(
                           bottom: Radius.circular(StaticStyles.borderRadius)),
-                      image: const DecorationImage(
+                      image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: AssetImage(
-                          'assets/images/profile.jpg', // replace with your image path
+                        image: NetworkImage(
+                          user.profilePictureUrl ??
+                              '', // replace with your image path
                         ),
                       )),
                 ),
@@ -89,18 +76,18 @@ class ProfilePage extends StatelessWidget {
                         SingleProfileContent(
                           title: "Interests".tr,
                           icon: Icons.beach_access_outlined,
-                          content: WrappedInterestsTiles(interests: hobbies),
+                          content: WrappedInterestsTiles(
+                              interests: user.singleWordsDescription),
                         ),
                         SingleProfileContent(
                           title: 'Description'.tr,
                           icon: Icons.description,
                           content: Text(
-                            "Ich spiele grene Fußball und mach dies und das",
+                            user.description,
                             style:
                                 TextStyle(color: StaticColors.primaryFontColor),
                           ),
                         ),
-                        getSettingsPanel(true)
                       ],
                     ))
               ],
@@ -130,7 +117,7 @@ class ProfilePage extends StatelessWidget {
           ),
         ),
         Text(
-          "Annette Mumber",
+          user.name,
           style: TextStyle(
               color: StaticColors.primaryFontColor,
               fontSize: 32,
@@ -139,38 +126,5 @@ class ProfilePage extends StatelessWidget {
         ),
       ],
     );
-  }
-
-  Widget? getSettingsPanel(bool isUser) {
-    if (isUser) {
-      /*
-      return SingleProfileContent(
-        title: "ProfileSetting".tr,
-        content: ColumnSuper(
-          alignment: Alignment.center,
-          innerDistance: 5,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Expanded(
-                    child: Components.customButton("Edit".tr,
-                        color: Colors.purple)),
-                SizedBox(
-                  width: 10,
-                ),
-                Expanded(
-                    child: Components.customButton("SignOut".tr,
-                        color: Colors.red)),
-              ],
-            ),
-          ],
-        ),
-      );
-
-       */
-    }
-
-    return null;
   }
 }

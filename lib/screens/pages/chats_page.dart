@@ -1,4 +1,4 @@
-import 'package:Mate8/bindings/chat_binding.dart';
+import 'package:Mate8/bindings/bindings.dart';
 import 'package:Mate8/controller/matches_controller.dart';
 import 'package:Mate8/model/model.dart';
 import 'package:Mate8/screens/chat_screen.dart';
@@ -8,8 +8,6 @@ import 'package:intl/intl.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import '../../components/components.dart';
 import '../../styles/static_colors.dart';
-import '../../styles/static_styles.dart';
-import 'package:badges/badges.dart' as badges;
 
 class ChatsPage extends GetView<MatchesController> {
   const ChatsPage({Key? key}) : super(key: key);
@@ -38,7 +36,7 @@ class ChatsPage extends GetView<MatchesController> {
                     var otherUser = types.User(
                         id: chatUser.id,
                         firstName: chatUser.name,
-                        imageUrl: chatUser.profilePicture);
+                        imageUrl: chatUser.profilePictureUrl);
 
                     return ChatTile(
                         chat: chat,
@@ -47,15 +45,14 @@ class ChatsPage extends GetView<MatchesController> {
                             onTapChatTile(currentUser, otherUser, chat));
                   })),
             ),
-            ElevatedButton(
-                onPressed: controller.showSnackBar, child: Text('Test'))
           ],
         ),
       ),
     );
   }
 
-  void onTapChatTile(types.User currentUser, types.User otherUser, Chat chat) {
+  void onTapChatTile(
+      types.User currentUser, types.User otherUser, Chat chat) async {
     Get.to(
         ChatScreen(
           currentUser: currentUser,

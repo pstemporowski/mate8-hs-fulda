@@ -32,6 +32,28 @@ class CustomButton extends StatelessWidget {
       );
 }
 
+class BottomSheetPicker extends StatelessWidget {
+  const BottomSheetPicker({
+    Key? key,
+    required this.items,
+    required this.controller,
+    required this.onSelectedItemChanged,
+  }) : super(key: key);
+
+  final List<dynamic> items;
+
+  final FixedExtentScrollController controller;
+
+  final void Function(int)? onSelectedItemChanged;
+
+  @override
+  Widget build(BuildContext _context) => bottomSheetPicker(
+        items: items,
+        controller: controller,
+        onSelectedItemChanged: onSelectedItemChanged,
+      );
+}
+
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField(
     this.labelText, {
@@ -40,6 +62,8 @@ class CustomTextFormField extends StatelessWidget {
     this.iconData = Icons.mail,
     this.isNumeric = false,
     this.hintText,
+    this.isMultiLine = false,
+    this.isEnabled,
     this.isPassword,
   }) : super(key: key);
 
@@ -53,6 +77,10 @@ class CustomTextFormField extends StatelessWidget {
 
   final String? hintText;
 
+  final bool isMultiLine;
+
+  final bool? isEnabled;
+
   final bool? isPassword;
 
   @override
@@ -62,6 +90,8 @@ class CustomTextFormField extends StatelessWidget {
         iconData: iconData,
         isNumeric: isNumeric,
         hintText: hintText,
+        isMultiLine: isMultiLine,
+        isEnabled: isEnabled,
         isPassword: isPassword,
       );
 }
@@ -178,18 +208,22 @@ class ChatTile extends StatelessWidget {
     required this.chat,
     required this.chatUser,
     this.onTap,
+    this.tagId,
   }) : super(key: key);
 
   final Chat chat;
 
   final User chatUser;
 
-  final dynamic Function()? onTap;
+  final void Function()? onTap;
+
+  final String? tagId;
 
   @override
   Widget build(BuildContext _context) => chatTile(
         chat: chat,
         chatUser: chatUser,
         onTap: onTap,
+        tagId: tagId,
       );
 }

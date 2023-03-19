@@ -86,6 +86,15 @@ class SignUpDetailScreen extends GetView<SignUpController> {
                         controller.universityDepartmentTextEditingController,
                   ),
                 ),
+                GestureDetector(
+                  onTap: controller.onSemesterPickerTapped,
+                  child: CustomTextFormField(
+                    isEnabled: false,
+                    "Semester",
+                    iconData: Icons.arrow_drop_down_sharp,
+                    controller: controller.semesterTextEditingController,
+                  ),
+                ),
                 buildSubheading('Beschreibung'),
                 CustomTextFormField(
                   "Beschreibung angeben",

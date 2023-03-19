@@ -1,16 +1,20 @@
 import 'package:Mate8/styles/static_colors.dart';
 import 'package:Mate8/styles/static_styles.dart';
 import 'package:assorted_layout_widgets/assorted_layout_widgets.dart';
+import 'package:blur/blur.dart';
 import 'package:country_flags/country_flags.dart';
 import 'package:cupertino_text_button/cupertino_text_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:get/get.dart';
 import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 import '../model/model.dart';
 import 'package:badges/badges.dart' as badges;
+
+import '../screens/main_pages/profile_page.dart';
 
 part 'components.g.dart';
 
@@ -64,15 +68,19 @@ Future showBottomSheet(
 @swidget
 Widget customButton(String content,
     {Color? color, Color? fontColor, void Function()? onTap}) {
-  return GestureDetector(
-    onTap: onTap,
-    child: Container(
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(StaticStyles.borderRadius),
-          color: color ?? StaticColors.primaryColor),
-      child: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(12),
+  return Material(
+    elevation: 2.0,
+    borderRadius: BorderRadius.circular(StaticStyles.borderRadius),
+    color: color ?? StaticColors.primaryColor,
+    child: InkWell(
+      borderRadius: BorderRadius.circular(StaticStyles.borderRadius),
+      onTap: onTap,
+      highlightColor: Colors.transparent,
+      splashColor: StaticColors.secondaryColor.withOpacity(0.3),
+      onTapDown: (_) => HapticFeedback.lightImpact(),
+      child: Container(
+        padding: const EdgeInsets.all(12.0),
+        child: Center(
           child: Text(content.toUpperCase(),
               style: TextStyle(
                 color: fontColor ?? StaticColors.primaryFontColor,
@@ -190,24 +198,32 @@ Widget countryRow() {
 
 @swidget
 Widget profileInfoRow(
-    {required String degreeProgram, String? age, required String semester}) {
+    {required String degreeProgram,
+    String? age,
+    required String semester,
+    Color? color}) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
     children: [
-      detailInfo(title: "DegreeProgram".tr, content: degreeProgram),
-      detailInfo(title: "Age".tr, content: age ?? ""),
-      detailInfo(title: "Semester".tr, content: semester),
+      detailInfo(
+          title: "DegreeProgram".tr, content: degreeProgram, color: color),
+      detailInfo(title: "Age".tr, content: age ?? "", color: color),
+      detailInfo(title: "Semester".tr, content: semester, color: color),
     ],
   );
 }
 
 @swidget
 Widget singleProfileContent(
-    {required String title, IconData? icon, required Widget content}) {
+    {required String title,
+    IconData? icon,
+    required Widget content,
+    Color? color}) {
   var titleText = Text(
     title,
     style: TextStyle(
-        color: StaticColors.primaryFontColor, fontWeight: FontWeight.bold),
+        color: color ?? StaticColors.primaryFontColor,
+        fontWeight: FontWeight.bold),
   );
   Widget titleWidget;
 
@@ -216,7 +232,10 @@ Widget singleProfileContent(
   } else {
     titleWidget = Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [Icon(icon), titleText],
+      children: [
+        Icon(icon, color: color ?? StaticColors.primaryFontColor),
+        titleText
+      ],
     );
   }
   return Column(
@@ -261,18 +280,19 @@ Widget columnSeparator(double width) => Center(
         height: 1, width: width, color: Colors.grey.withOpacity(0.4)));
 
 @swidget
-Widget detailInfo({required String title, required String content}) {
+Widget detailInfo(
+    {required String title, required String content, Color? color}) {
   return Center(
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
           title,
-          style: TextStyle(color: StaticColors.primaryFontColor),
+          style: TextStyle(color: color ?? StaticColors.primaryFontColor),
         ),
         Text(
           content,
-          style: TextStyle(color: StaticColors.primaryFontColor),
+          style: TextStyle(color: color ?? StaticColors.primaryFontColor),
         ),
       ],
     ),
@@ -297,10 +317,11 @@ Widget chatTile(
     required User chatUser,
     void Function()? onTap,
     String? tagId}) {
+  print('TagId' + (tagId ?? ''));
   return Padding(
     padding: const EdgeInsets.all(6.0),
     child: Hero(
-      tag: chat.id,
+      tag: tagId ?? 'Tag',
       child: Material(
         child: InkWell(
           enableFeedback: true,
@@ -318,7 +339,7 @@ Widget chatTile(
                   height: 70,
                   decoration: BoxDecoration(
                       borderRadius:
-                          BorderRadius.circular(StaticStyles.borderRadius),
+                      BorderRadius.circular(StaticStyles.borderRadius),
                       image: DecorationImage(
                         fit: BoxFit.cover,
                         image: NetworkImage(chatUser.profilePictureUrl ?? ''),
@@ -338,20 +359,20 @@ Widget chatTile(
                           fontSize: 17, fontWeight: FontWeight.bold),
                     ),
                     Obx(
-                      () => chat.messages.isEmpty
+                          () => chat.messages.isEmpty
                           ? Container()
                           : Text(
-                              chat.messages.first.text,
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  color: chat.isNewMessageAdded.value
-                                      ? Colors.black
-                                      : StaticColors.primaryFontColor
-                                          .withOpacity(0.5),
-                                  fontWeight: chat.isNewMessageAdded.value
-                                      ? FontWeight.bold
-                                      : FontWeight.normal),
-                            ),
+                        chat.messages.first.text,
+                        style: TextStyle(
+                            fontSize: 14,
+                            color: chat.isNewMessageAdded.value
+                                ? Colors.black
+                                : StaticColors.primaryFontColor
+                                .withOpacity(0.5),
+                            fontWeight: chat.isNewMessageAdded.value
+                                ? FontWeight.bold
+                                : FontWeight.normal),
+                      ),
                     )
                   ],
                 ),
@@ -359,7 +380,7 @@ Widget chatTile(
                   child: Align(
                     alignment: Alignment.centerRight,
                     child: Obx(
-                      () => Padding(
+                          () => Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: badges.Badge(
                           showBadge: chat.isNewMessageAdded.value,
@@ -367,14 +388,14 @@ Widget chatTile(
                             chat.messages.isEmpty
                                 ? _formattedDate(chat.createdAt)
                                 : _formattedDate(
-                                    chat.messages.first.createdAt ??
-                                        DateTime.now().millisecondsSinceEpoch),
+                                chat.messages.first.createdAt ??
+                                    DateTime.now().millisecondsSinceEpoch),
                             style: TextStyle(
                                 fontSize: 14,
                                 color: chat.isNewMessageAdded.value
                                     ? StaticColors.primaryFontColor
                                     : StaticColors.primaryFontColor
-                                        .withOpacity(0.5),
+                                    .withOpacity(0.5),
                                 fontWeight: chat.isNewMessageAdded.value
                                     ? FontWeight.bold
                                     : FontWeight.normal),
@@ -395,6 +416,7 @@ Widget chatTile(
 
 class SwipeCard extends StatelessWidget {
   final User candidate;
+  final showProfileImage = false;
 
   const SwipeCard({
     Key? key,
@@ -403,88 +425,175 @@ class SwipeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: CupertinoColors.white,
-        boxShadow: [
-          BoxShadow(
-            color: CupertinoColors.black.withOpacity(0.1),
-            spreadRadius: 15,
-            blurRadius: 7,
-            offset: const Offset(0, 3),
-          )
-        ],
-      ),
-      alignment: Alignment.center,
-      child: Column(
-        children: [
-          Flexible(
-            child: Container(
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: AssetImage(
-                    'assets/images/background.png',
-                  ),
-                ),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10),
-                  topRight: Radius.circular(10),
-                ),
-              ),
+    final String tag = 'mainPage:${candidate.id}';
+    return GestureDetector(
+      onTap: () => onSwipeCardTapped(candidate),
+      child: Hero(
+        tag: tag,
+        child: Material(
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: CupertinoColors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: CupertinoColors.black.withOpacity(0.1),
+                  spreadRadius: 7,
+                  blurRadius: 7,
+                  offset: const Offset(0, 0),
+                )
+              ],
             ),
-          ),
-          Container(
-            padding: const EdgeInsets.all(20),
-            decoration: const BoxDecoration(
-              color: Colors.purple,
-              borderRadius: BorderRadius.all(
-                Radius.circular(10),
-              ),
-            ),
-            child: Row(
+            child: Stack(
+              fit: StackFit.expand,
               children: [
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      candidate.name!,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: FractionallySizedBox(
+                      heightFactor: 0.5,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: NetworkImage(candidate.profilePictureUrl),
+                          ),
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10),
+                          ),
+                        ),
+                      ).blurred(
+                        blur: showProfileImage ? 0 : 25,
+                        colorOpacity: showProfileImage ? 0 : 0.7,
+                        borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(StaticStyles.borderRadius)),
+                        overlay: showProfileImage
+                            ? null
+                            : const Center(
+                                child: Text(
+                                    'Das Bild wird nach einem Match freigeschaltet',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.black45,
+                                        fontSize: 18,
+                                        overflow: TextOverflow.fade)),
+                              ),
+                      )),
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: FractionallySizedBox(
+                    heightFactor: 0.6,
+                    child: Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: StaticColors.primaryColor,
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(2),
+                            child: ColumnSuper(
+                              innerDistance: 15,
+                              children: [
+                                buildNameTitle(),
+                                const ColumnSeparator(double.infinity - 50),
+                                ProfileInfoRow(
+                                  degreeProgram:
+                                      candidate.shortUniversityDepartmentName,
+                                  semester:
+                                      candidate.currentSemester.toString(),
+                                  age: candidate.age.toString(),
+                                  color: StaticColors.secondaryFontColor,
+                                ),
+                                const ColumnSeparator(double.infinity - 50),
+                                SingleProfileContent(
+                                  color: StaticColors.secondaryFontColor,
+                                  title: 'Description'.tr,
+                                  icon: Icons.description,
+                                  content: Text(
+                                    candidate.description,
+                                    style: TextStyle(
+                                        color: StaticColors.secondaryFontColor),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      candidate.name,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      candidate.age.toString(),
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                      ),
-                    )
-                  ],
+                  ),
                 ),
               ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }
+
+  void onSwipeCardTapped(User user) {
+    Get.to(() => ProfilePage(
+          user,
+          tag: 'mainPage:${user.id}',
+          showProfileImage: showProfileImage,
+        ));
+  }
+
+  Row buildNameTitle() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          height: 50,
+          width: 50,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(StaticStyles.borderRadius),
+            color: StaticColors.secondaryColor,
+          ),
+          child: Center(
+            child: Icon(
+              Icons.person,
+              color: StaticColors.primaryColor,
+            ),
+          ),
+        ),
+        Text(
+          candidate.name,
+          style: TextStyle(
+              color: StaticColors.secondaryFontColor,
+              fontSize: 32,
+              fontFamily: "Oswald",
+              fontWeight: FontWeight.bold),
+        ),
+      ],
+    );
+  }
+}
+
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const CustomAppBar({super.key, required this.title});
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      title: Text(title),
+      centerTitle: true,
+      shadowColor: Colors.transparent,
+      backgroundColor: StaticColors.primaryColor,
+    );
+  }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

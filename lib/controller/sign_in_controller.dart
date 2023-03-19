@@ -1,3 +1,4 @@
+import 'package:Mate8/screens/verify_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,6 +17,7 @@ class SignInController extends GetxController {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: emailTextEditingController.text,
           password: passwordTextEditingController.text);
+      Get.to(() => VerifyScreen());
     } on FirebaseAuthException catch (e) {
       errorText.value = e.message ?? '';
     }

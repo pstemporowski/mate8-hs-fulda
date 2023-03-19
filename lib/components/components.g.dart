@@ -109,6 +109,7 @@ class ProfileInfoRow extends StatelessWidget {
     required this.degreeProgram,
     this.age,
     required this.semester,
+    this.color,
   }) : super(key: key);
 
   final String degreeProgram;
@@ -117,11 +118,14 @@ class ProfileInfoRow extends StatelessWidget {
 
   final String semester;
 
+  final Color? color;
+
   @override
   Widget build(BuildContext _context) => profileInfoRow(
         degreeProgram: degreeProgram,
         age: age,
         semester: semester,
+        color: color,
       );
 }
 
@@ -131,6 +135,7 @@ class SingleProfileContent extends StatelessWidget {
     required this.title,
     this.icon,
     required this.content,
+    this.color,
   }) : super(key: key);
 
   final String title;
@@ -139,11 +144,14 @@ class SingleProfileContent extends StatelessWidget {
 
   final Widget content;
 
+  final Color? color;
+
   @override
   Widget build(BuildContext _context) => singleProfileContent(
         title: title,
         icon: icon,
         content: content,
+        color: color,
       );
 }
 
@@ -189,16 +197,20 @@ class DetailInfo extends StatelessWidget {
     Key? key,
     required this.title,
     required this.content,
+    this.color,
   }) : super(key: key);
 
   final String title;
 
   final String content;
 
+  final Color? color;
+
   @override
   Widget build(BuildContext _context) => detailInfo(
         title: title,
         content: content,
+        color: color,
       );
 }
 

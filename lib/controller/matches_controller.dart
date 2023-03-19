@@ -1,5 +1,6 @@
 import 'dart:developer';
-import 'package:Mate8/controller/main_screen_controller.dart';
+import 'package:Mate8/controller/routing_controller.dart';
+import 'package:Mate8/screens/main_pages/profile_page.dart';
 import 'package:appinio_swiper/appinio_swiper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
@@ -16,7 +17,7 @@ class MatchesController extends GetxController {
   //Hotfix because AppinioSwiper Disposed automatically
   final swiperController = Get.put(AppinioSwiperController());
   var datastore = Get.find<Datastore>();
-  var mainScreenController = Get.find<MainScreenController>();
+  var mainScreenController = Get.find<RoutingController>();
   var cards = <SwipeCard>[].obs;
   var chats = <model.Chat>[].obs;
   var users = <model.User>[];
@@ -29,11 +30,6 @@ class MatchesController extends GetxController {
     _loadData();
   }
 
-  @override
-  void onClose() {
-    print('closing');
-    super.onClose();
-  }
 
   void onMatchSnackBarTapped(GetSnackBar snackBar) async {
     mainScreenController.activePageIndex.value = 1;
@@ -54,14 +50,14 @@ class MatchesController extends GetxController {
     Get.showSnackbar(
       GetSnackBar(
         onTap: onMatchSnackBarTapped,
-        margin: EdgeInsets.all(10),
+        margin: const EdgeInsets.all(10),
         snackStyle: SnackStyle.FLOATING,
         title: 'Neuer Match',
         borderRadius: 15,
         snackPosition: SnackPosition.TOP,
         message: "Jetzt kannst du mit der Person chatten",
         backgroundColor: Colors.green,
-        icon: Icon(
+        icon: const Icon(
           FluentIcons.handshake_32_filled,
           color: Colors.white,
         ),
@@ -107,12 +103,11 @@ class MatchesController extends GetxController {
       cards.add(SwipeCard(candidate: candidate));
     }
     users = newCandidates;
-    print(cards.length);
     _finishLoad();
   }
 
   void _finishLoad() async {
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
     isControllerInit.value = true;
     sortChats(chats);
   }

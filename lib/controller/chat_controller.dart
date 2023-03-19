@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import '../bindings/bindings.dart';
 import '../model/model.dart';
-import '../screens/chat_screen.dart';
+import '../screens/single_chat_screen.dart';
 import '../services/services.dart';
 
 class ChatController extends GetxController {

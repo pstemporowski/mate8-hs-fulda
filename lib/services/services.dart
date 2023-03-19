@@ -41,12 +41,11 @@ class Datastore {
   Future<List<User>> getCandidateUsers(String currentUserID) async {
     var allUsers = await getUsers();
     var interactedUsers = await getInteractedUsers(currentUserID);
-
     return allUsers.where((user) {
       var userActions = interactedUsers
           .where((action) => action.otherUserId == user.id)
           .toList();
-      return userActions.isEmpty;
+      return userActions.isEmpty && user.id != currentUserID;
     }).toList();
   }
 
@@ -96,7 +95,7 @@ class Datastore {
   Future uploadUser({
     required User user,
   }) async {
-    DocumentReference currentUserRef = usersRef.doc();
+    DocumentReference currentUserRef = usersRef.doc(user.id);
     print('why');
     try {
       DocumentSnapshot currentUserActionDoc = await currentUserRef.get();

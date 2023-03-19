@@ -1,7 +1,7 @@
 import 'package:Mate8/controller/matches_controller.dart';
+import 'package:Mate8/controller/settings_controller.dart';
 import 'package:Mate8/controller/sign_in_controller.dart';
 import 'package:Mate8/controller/sign_up_controller.dart';
-import 'package:Mate8/screens/main_screen.dart';
 import 'package:Mate8/screens/onboarding_screen.dart';
 import 'package:Mate8/screens/verify_screen.dart';
 import 'package:Mate8/services/services.dart';
@@ -12,7 +12,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'controller/current_user_controller.dart';
 import 'controller/language_controller.dart';
-import 'controller/main_screen_controller.dart';
+import 'controller/routing_controller.dart';
 import 'firebase_options.dart';
 
 Future main() async {
@@ -21,13 +21,14 @@ Future main() async {
     name: "Mate8",
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  Get.lazyPut(() => CurrentUserController());
-  Get.put(Datastore());
-  Get.lazyPut(() => MainScreenController());
+  Get.lazyPut(() => Datastore(), fenix: true);
   Get.lazyPut(() => SignInController(), fenix: true);
-  Get.put(MatchesController());
-  Get.put(CurrentUserController());
-  Get.put<SignUpController>(SignUpController());
+  Get.lazyPut(() => SettingsController(), fenix: true);
+  Get.lazyPut(() => LanguageController(), fenix: true);
+  Get.lazyPut(() => MatchesController(), fenix: true);
+  Get.lazyPut(() => CurrentUserController(), fenix: true);
+  Get.lazyPut(() => RoutingController(), fenix: true);
+  Get.lazyPut<SignUpController>(() => SignUpController(), fenix: true);
   runApp(MyApp());
 }
 
@@ -36,9 +37,8 @@ final navigatorKey = GlobalKey<NavigatorState>();
 class MyApp extends StatelessWidget {
   MyApp({super.key});
 
-  final datastore = Get.find<Datastore>();
-  final matchesController = Get.find<MatchesController>();
-  var isCurrentUserSet = false.obs;
+  final languageController = Get.find<LanguageController>();
+  final Stream<User?> _userStream = FirebaseAuth.instance.authStateChanges();
 
   @override
   Widget build(BuildContext context) {
@@ -49,36 +49,39 @@ class MyApp extends StatelessWidget {
         systemNavigationBarContrastEnforced: true,
         systemNavigationBarDividerColor: Colors.white,
         systemNavigationBarColor: Colors.white));
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      navigatorKey: navigatorKey,
-      translations: Messages(),
-      transitionDuration: const Duration(milliseconds: 800),
-      locale: const Locale('de', 'DE'),
-      home: StreamBuilder<User?>(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(
-              child: Text('Error'.tr),
-            );
-          } else if (snapshot.hasData && snapshot.data != null) {
-            return const VerifyScreen();
-          } else {
-            return const OnboardingScreen();
-          }
-        },
-      ),
-    );
-  }
 
-  Widget initMainScreen(String id) {
-    return Obx(() => isCurrentUserSet.value
-        ? MainScreen()
-        : const Center(
-            child: CircularProgressIndicator(),
-          ));
+    return MaterialApp(
+      localizationsDelegates: const [
+        DefaultMaterialLocalizations.delegate,
+        DefaultWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: languageController.supportedLocales,
+      locale: Get.deviceLocale,
+      builder: (context, child) {
+        return GetMaterialApp(
+          debugShowCheckedModeBanner: false,
+          navigatorKey: navigatorKey,
+          translations: Messages(),
+          transitionDuration: const Duration(milliseconds: 800),
+          fallbackLocale: languageController.supportedLocales[0],
+          home: StreamBuilder<User?>(
+            stream: _userStream,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return Center(
+                  child: Text('Error'.tr),
+                );
+              } else if (snapshot.hasData && snapshot.data != null) {
+                return const VerifyScreen();
+              } else {
+                return const OnboardingScreen();
+              }
+            },
+          ),
+        );
+      },
+    );
   }
 }

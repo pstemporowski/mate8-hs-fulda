@@ -13,23 +13,26 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class SignUpController extends GetxController {
-  var datastore = Get.find<Datastore>();
-  var currentUserController = Get.find<CurrentUserController>();
-  var emailTextEditingController = TextEditingController();
-  var passwordTextEditingController = TextEditingController();
-  var nameTextEditingController = TextEditingController();
-  var nationalityTextEditingController = TextEditingController();
-  var ageTextEditingController = TextEditingController();
-  var descriptionTextEditingController = TextEditingController();
-  var chipsTextEditingController = TextEditingController();
-  var universityDepartmentTextEditingController = TextEditingController();
-  var ages = List.generate(86, (index) => index + 15);
+  final datastore = Get.find<Datastore>();
+  final currentUserController = Get.find<CurrentUserController>();
+  final emailTextEditingController = TextEditingController();
+  final passwordTextEditingController = TextEditingController();
+  final nameTextEditingController = TextEditingController();
+  final nationalityTextEditingController = TextEditingController();
+  final ageTextEditingController = TextEditingController();
+  final descriptionTextEditingController = TextEditingController();
+  final chipsTextEditingController = TextEditingController();
+  final semesterTextEditingController = TextEditingController();
+  final universityDepartmentTextEditingController = TextEditingController();
+  final ages = List.generate(86, (index) => index + 15);
+  final semesters = List.generate(20, (index) => index);
+  final universityDepartments = model.getUniversityDepartments();
   var agesIndex = 5;
-  var universityDepartments = model.getUniversityDepartments();
+  var semesterIndex = 5;
   var universityDepartmentIndex = 0;
   var singleWordsDescription = '';
-  var file = File('').obs;
   var errorText = ''.obs;
+  var file = File('').obs;
   Country? selectedCountry;
 
   Future signUp() async {
@@ -98,6 +101,26 @@ class SignUpController extends GetxController {
     );
   }
 
+  Future onSemesterPickerTapped() async {
+    Get.focusScope?.unfocus();
+    await showBottomSheet(
+        title: 'Semester auswählen',
+        onClose: onSemesterPickerClosed,
+        child: BottomSheetPicker(
+          items: semesters,
+          controller: FixedExtentScrollController(initialItem: semesterIndex),
+          onSelectedItemChanged: onSemesterSelected,
+        ));
+  }
+
+  void onSemesterSelected(index) async {
+    semesterIndex = index;
+  }
+
+  void onSemesterPickerClosed() async {
+    semesterTextEditingController.text = semesters[semesterIndex].toString();
+  }
+
   void onDescriptionChipsSubmitted(String value) async =>
       singleWordsDescription = value;
 
@@ -116,11 +139,15 @@ class SignUpController extends GetxController {
     }
 
     if (firestorePath == null) return;
+    var singleWords = singleWordsDescription
+        .trim()
+        .split(',')
+        .where((s) => s.isNotEmpty)
+        .toList();
 
-    var singleWords = singleWordsDescription.split(',');
     var user = model.User(
       age: ages[agesIndex],
-      currentSemester: 0,
+      currentSemester: semesters[semesterIndex],
       name: nameTextEditingController.text,
       id: FirebaseAuth.instance.currentUser?.uid ?? '',
       profilePictureUrl: firestorePath,
@@ -154,7 +181,7 @@ class SignUpController extends GetxController {
       errorText.value = 'Single words cannot be empty';
       return false;
     }
-    if (singleWords.split(',').length > 10) {
+    if (singleWords.split(',').length < 5) {
       errorText.value = 'You can only enter up to 10 single words';
       return false;
     }

@@ -49,13 +49,13 @@ class _EmailScreenState extends State<EmailScreen> {
         appBar: AppBar(
           shadowColor: Colors.transparent,
           title: Text('Details'.tr,
-              style: TextStyle(color: StaticColors.primaryFontColor)),
+              style: const TextStyle(color: StaticColors.primaryFontColor)),
           centerTitle: true,
           backgroundColor: Colors.white,
         ),
         backgroundColor: Colors.white,
         body: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 borderRadius: BorderRadius.vertical(
                     top: Radius.circular(StaticStyles.borderRadius)),
                 color: StaticColors.primaryColor),
@@ -64,18 +64,18 @@ class _EmailScreenState extends State<EmailScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
+                  const Icon(
                     FluentIcons.info_12_regular,
                     color: StaticColors.secondaryFontColor,
                     size: 100,
                   ),
                   Text(
                     "EmailVerifyTitle".tr,
-                    style: TextStyle(color: Colors.white, fontSize: 28),
+                    style: const TextStyle(color: Colors.white, fontSize: 28),
                   ),
                   Text(
                     'EmailVerifyContent'.tr,
-                    style: TextStyle(color: Colors.white, fontSize: 18),
+                    style: const TextStyle(color: Colors.white, fontSize: 18),
                   ),
                   CustomButton(
                     "AlreadyVerified".tr,

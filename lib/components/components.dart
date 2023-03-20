@@ -127,12 +127,13 @@ Widget _pickerText(String text) {
 @swidget
 Widget customTextFormField(String labelText,
     {required TextEditingController controller,
-    IconData iconData = Icons.mail,
-    bool isNumeric = false,
-    String? hintText,
-    bool isMultiLine = false,
-    bool? isEnabled,
-    bool? isPassword}) {
+      IconData iconData = Icons.mail,
+      bool isNumeric = false,
+      String? hintText,
+      bool isMultiLine = false,
+      TextInputType textInputType = TextInputType.text,
+      bool? isEnabled,
+      bool? isPassword}) {
   Icon prefixIcon = Icon(iconData, color: StaticColors.primaryColor);
 
   return TextFormField(
@@ -144,8 +145,8 @@ Widget customTextFormField(String labelText,
     keyboardType: isNumeric
         ? TextInputType.number
         : isMultiLine
-            ? TextInputType.multiline
-            : TextInputType.name,
+        ? TextInputType.multiline
+        : textInputType,
     decoration: InputDecoration(
       floatingLabelBehavior: FloatingLabelBehavior.never,
       prefixIcon: prefixIcon,
@@ -160,7 +161,8 @@ Widget customTextFormField(String labelText,
           borderSide: const BorderSide(
               color: Colors.white, width: 1, style: BorderStyle.solid)),
       labelText: labelText,
-      labelStyle: TextStyle(fontSize: 15, color: StaticColors.primaryColor),
+      labelStyle: const TextStyle(
+          fontSize: 15, color: StaticColors.primaryColor),
       fillColor: Colors.white,
       hintText: hintText,
     ),
@@ -239,7 +241,11 @@ Widget singleProfileContent(
     );
   }
   return Column(
-    children: [titleWidget, content],
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      titleWidget,
+      Flexible(fit: FlexFit.loose, child: Container(child: content)),
+    ],
   );
 }
 
@@ -268,7 +274,7 @@ Widget interestsTile(String text) {
       padding: const EdgeInsets.all(15),
       child: Text(
         text,
-        style: TextStyle(color: StaticColors.primaryFontColor),
+        style: const TextStyle(color: StaticColors.primaryFontColor),
       ),
     ),
   );
@@ -359,7 +365,8 @@ Widget chatTile(
                           fontSize: 17, fontWeight: FontWeight.bold),
                     ),
                     Obx(
-                          () => chat.messages.isEmpty
+                          () =>
+                      chat.messages.isEmpty
                           ? Container()
                           : Text(
                         chat.messages.first.text,
@@ -388,14 +395,14 @@ Widget chatTile(
                             chat.messages.isEmpty
                                 ? _formattedDate(chat.createdAt)
                                 : _formattedDate(
-                                chat.messages.first.createdAt ??
-                                    DateTime.now().millisecondsSinceEpoch),
+                                    chat.messages.first.createdAt ??
+                                        DateTime.now().millisecondsSinceEpoch),
                             style: TextStyle(
                                 fontSize: 14,
                                 color: chat.isNewMessageAdded.value
                                     ? StaticColors.primaryFontColor
                                     : StaticColors.primaryFontColor
-                                    .withOpacity(0.5),
+                                        .withOpacity(0.5),
                                 fontWeight: chat.isNewMessageAdded.value
                                     ? FontWeight.bold
                                     : FontWeight.normal),
@@ -431,10 +438,11 @@ class SwipeCard extends StatelessWidget {
       child: Hero(
         tag: tag,
         child: Material(
+          color: Colors.transparent,
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: CupertinoColors.white,
+              borderRadius: BorderRadius.circular(StaticStyles.borderRadius),
+              color: Colors.transparent,
               boxShadow: [
                 BoxShadow(
                   color: CupertinoColors.black.withOpacity(0.1),
@@ -458,26 +466,27 @@ class SwipeCard extends StatelessWidget {
                             image: NetworkImage(candidate.profilePictureUrl),
                           ),
                           borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(10),
-                            topRight: Radius.circular(10),
+                            topLeft: Radius.circular(StaticStyles.borderRadius),
+                            topRight:
+                                Radius.circular(StaticStyles.borderRadius),
                           ),
                         ),
                       ).blurred(
                         blur: showProfileImage ? 0 : 25,
                         colorOpacity: showProfileImage ? 0 : 0.7,
-                        borderRadius: BorderRadius.vertical(
+                        borderRadius: const BorderRadius.vertical(
                             top: Radius.circular(StaticStyles.borderRadius)),
                         overlay: showProfileImage
                             ? null
                             : const Center(
-                                child: Text(
-                                    'Das Bild wird nach einem Match freigeschaltet',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Colors.black45,
-                                        fontSize: 18,
-                                        overflow: TextOverflow.fade)),
-                              ),
+                          child: Text(
+                              'Das Bild wird nach einem Match freigeschaltet',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Colors.black45,
+                                  fontSize: 18,
+                                  overflow: TextOverflow.fade)),
+                        ),
                       )),
                 ),
                 Align(
@@ -487,10 +496,10 @@ class SwipeCard extends StatelessWidget {
                     child: Container(
                       width: double.infinity,
                       padding: const EdgeInsets.all(20),
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: StaticColors.primaryColor,
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(10),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(StaticStyles.borderRadius),
                         ),
                       ),
                       child: Column(
@@ -507,9 +516,9 @@ class SwipeCard extends StatelessWidget {
                                 const ColumnSeparator(double.infinity - 50),
                                 ProfileInfoRow(
                                   degreeProgram:
-                                      candidate.shortUniversityDepartmentName,
+                                  candidate.shortUniversityDepartmentName,
                                   semester:
-                                      candidate.currentSemester.toString(),
+                                  candidate.currentSemester.toString(),
                                   age: candidate.age.toString(),
                                   color: StaticColors.secondaryFontColor,
                                 ),
@@ -520,7 +529,8 @@ class SwipeCard extends StatelessWidget {
                                   icon: Icons.description,
                                   content: Text(
                                     candidate.description,
-                                    style: TextStyle(
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
                                         color: StaticColors.secondaryFontColor),
                                   ),
                                 ),
@@ -559,7 +569,7 @@ class SwipeCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(StaticStyles.borderRadius),
             color: StaticColors.secondaryColor,
           ),
-          child: Center(
+          child: const Center(
             child: Icon(
               Icons.person,
               color: StaticColors.primaryColor,
@@ -568,7 +578,7 @@ class SwipeCard extends StatelessWidget {
         ),
         Text(
           candidate.name,
-          style: TextStyle(
+          style: const TextStyle(
               color: StaticColors.secondaryFontColor,
               fontSize: 32,
               fontFamily: "Oswald",

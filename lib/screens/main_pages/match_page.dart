@@ -21,28 +21,63 @@ class MatchPage extends GetView<MatchesController> {
             color: StaticColors.secondaryColor,
             borderRadius: BorderRadius.vertical(
                 top: Radius.circular(StaticStyles.borderRadius))),
-        child: Column(
-          children: [
-            Expanded(
-              child: Obx(
-                () => AppinioSwiper(
-                  controller: controller.swiperController,
-                  onSwipe: controller.swipe,
-                  cards: controller.cards.value,
-                ),
-              ),
-            ),
-            Obx(
-              () => controller.cards.isNotEmpty.obs.value
-                  ? _buildMatchControlPanel()
-                  : Container(),
-            ),
-            const SizedBox(
-              height: 5,
-            )
-          ],
+        child: Obx(
+          () => controller.isLoading.value
+              ? _loadingScreen()
+              : controller.cardsAvailable.value
+                  ? _buildCardsAvailableView()
+                  : _buildNoCardsAvailableView(),
         ),
       ),
+    );
+  }
+
+  Widget _loadingScreen() {
+    return Center(
+      child: CircularProgressIndicator(
+        color: StaticColors.primaryColor,
+      ),
+    );
+  }
+
+  Widget _buildNoCardsAvailableView() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text('Keine User mehr verfügbar'),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+          child: CustomButton(
+            'Neu laden',
+            color: StaticColors.primaryColor,
+            fontColor: Colors.white,
+            onTap: controller.onRefreshButtonTapped,
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget _buildCardsAvailableView() {
+    return Column(
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        Expanded(
+          child: Obx(
+            () => AppinioSwiper(
+              controller: controller.swiperController,
+              onSwipe: controller.swipe,
+              cards: controller.cards.value,
+              onEnd: controller.onSwiperEnded,
+            ),
+          ),
+        ),
+        _buildMatchControlPanel(),
+        SizedBox(
+          height: 5,
+        )
+      ],
     );
   }
 

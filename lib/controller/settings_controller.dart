@@ -90,7 +90,8 @@ class SettingsController extends GetxController {
       title: 'App Info',
       content: Column(
         children: [
-          const Text('Version 1.0'),
+          const Text('Version: 1.0'),
+          const Text('Created by: Patryk Stemporowski'),
           components.CustomButton(
             'Close',
             fontColor: Colors.white,

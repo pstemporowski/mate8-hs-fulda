@@ -23,13 +23,14 @@ class MatchesController extends GetxController {
   var users = <model.User>[];
   var newMessagesCount = 0.obs;
   var isControllerInit = false.obs;
+  var cardsAvailable = false.obs;
+  var isLoading = false.obs;
 
   @override
   void onInit() {
     super.onInit();
     _loadData();
   }
-
 
   void onMatchSnackBarTapped(GetSnackBar snackBar) async {
     mainScreenController.activePageIndex.value = 1;
@@ -90,20 +91,28 @@ class MatchesController extends GetxController {
     chats.insert(0, chat);
   }
 
-  void _loadData() async {
+  Future _loadData() async {
+    isLoading.value = true;
     isControllerInit.value = false;
     cards.clear();
     //var chats = await datastore.getChats('4cceb2b6-0955-4960-b67b-309ff1766b27');
     //TODO add current USer ID from Authentificator;
     await datastore.listenToChats(FirebaseAuth.instance.currentUser!.uid,
         onNewChat: onNewChat, onNewMessage: onNewMessage);
+
+    await _loadNewCandidates();
+
+    _finishLoad();
+    isLoading.value = false;
+  }
+
+  Future _loadNewCandidates() async {
     var newCandidates = await datastore
         .getCandidateUsers(FirebaseAuth.instance.currentUser!.uid);
-    for (var candidate in newCandidates) {
-      cards.add(SwipeCard(candidate: candidate));
-    }
+    newCandidates
+        .map((candidate) => cards.add(SwipeCard(candidate: candidate)))
+        .toList();
     users = newCandidates;
-    _finishLoad();
   }
 
   void _finishLoad() async {
@@ -154,5 +163,15 @@ class MatchesController extends GetxController {
         return aDifference.compareTo(bDifference);
       }
     });
+  }
+
+  void onSwiperEnded() async {
+    cardsAvailable.value = true;
+  }
+
+  void onRefreshButtonTapped() async {
+    isLoading.value = true;
+    await _loadNewCandidates();
+    isLoading.value = false;
   }
 }

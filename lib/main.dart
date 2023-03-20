@@ -29,6 +29,13 @@ Future main() async {
   Get.lazyPut(() => CurrentUserController(), fenix: true);
   Get.lazyPut(() => RoutingController(), fenix: true);
   Get.lazyPut<SignUpController>(() => SignUpController(), fenix: true);
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
+      systemNavigationBarIconBrightness: Brightness.dark,
+      systemNavigationBarContrastEnforced: true,
+      systemNavigationBarDividerColor: Colors.transparent,
+      systemNavigationBarColor: Colors.transparent));
   runApp(MyApp());
 }
 
@@ -42,13 +49,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.dark,
-        systemNavigationBarIconBrightness: Brightness.dark,
-        systemNavigationBarContrastEnforced: true,
-        systemNavigationBarDividerColor: Colors.white,
-        systemNavigationBarColor: Colors.white));
 
     return MaterialApp(
       localizationsDelegates: const [

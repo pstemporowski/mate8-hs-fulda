@@ -1,0 +1,1764 @@
+From b9bfb56d05e32ff8e50ba3b6cbab927be752d841 Mon Sep 17 00:00:00 2001
+From: Appollo <appollo@appollo.space>
+Date: Mon, 20 Mar 2023 18:55:33 +0100
+Subject: [PATCH] Appollo patch
+
+---
+ .dart_tool/package_config.json       | 902 +++++++++++++++++++++++++++
+ .dart_tool/package_config_subset     | 597 ++++++++++++++++++
+ .dart_tool/version                   |   1 +
+ .flutter-plugins                     |  42 +-
+ .flutter-plugins-dependencies        |   2 +-
+ ios/Flutter/Debug.xcconfig           |   1 +
+ ios/Flutter/Release.xcconfig         |   1 +
+ ios/Podfile                          |  41 ++
+ ios/Runner.xcodeproj/project.pbxproj |  27 +-
+ 9 files changed, 1580 insertions(+), 34 deletions(-)
+ create mode 100644 .dart_tool/package_config.json
+ create mode 100644 .dart_tool/package_config_subset
+ create mode 100644 .dart_tool/version
+ create mode 100644 ios/Podfile
+
+diff --git a/.dart_tool/package_config.json b/.dart_tool/package_config.json
+new file mode 100644
+index 0000000..5a54fc0
+--- /dev/null
++++ b/.dart_tool/package_config.json
+@@ -0,0 +1,902 @@
++{
++  "configVersion": 2,
++  "packages": [
++    {
++      "name": "_fe_analyzer_shared",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/_fe_analyzer_shared-55.0.0",
++      "packageUri": "lib/",
++      "languageVersion": "2.17"
++    },
++    {
++      "name": "_flutterfire_internals",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/_flutterfire_internals-1.0.17",
++      "packageUri": "lib/",
++      "languageVersion": "2.16"
++    },
++    {
++      "name": "adobe_xd",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/adobe_xd-2.0.1",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "analyzer",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/analyzer-5.7.1",
++      "packageUri": "lib/",
++      "languageVersion": "2.19"
++    },
++    {
++      "name": "animated_snack_bar",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/animated_snack_bar-0.3.0",
++      "packageUri": "lib/",
++      "languageVersion": "2.16"
++    },
++    {
++      "name": "animations",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/animations-2.0.7",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "appinio_swiper",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/appinio_swiper-1.1.1",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "args",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/args-2.4.0",
++      "packageUri": "lib/",
++      "languageVersion": "2.18"
++    },
++    {
++      "name": "assorted_layout_widgets",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/assorted_layout_widgets-7.0.0",
++      "packageUri": "lib/",
++      "languageVersion": "2.18"
++    },
++    {
++      "name": "async",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/async-2.10.0",
++      "packageUri": "lib/",
++      "languageVersion": "2.18"
++    },
++    {
++      "name": "badges",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/badges-3.0.2",
++      "packageUri": "lib/",
++      "languageVersion": "2.17"
++    },
++    {
++      "name": "blur",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/blur-3.1.0",
++      "packageUri": "lib/",
++      "languageVersion": "2.16"
++    },
++    {
++      "name": "boolean_selector",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/boolean_selector-2.1.1",
++      "packageUri": "lib/",
++      "languageVersion": "2.17"
++    },
++    {
++      "name": "bubble",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/bubble-1.2.1",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "build",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/build-2.3.1",
++      "packageUri": "lib/",
++      "languageVersion": "2.17"
++    },
++    {
++      "name": "build_config",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/build_config-1.1.1",
++      "packageUri": "lib/",
++      "languageVersion": "2.14"
++    },
++    {
++      "name": "build_daemon",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/build_daemon-3.1.1",
++      "packageUri": "lib/",
++      "languageVersion": "2.14"
++    },
++    {
++      "name": "build_resolvers",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/build_resolvers-2.2.0",
++      "packageUri": "lib/",
++      "languageVersion": "2.18"
++    },
++    {
++      "name": "build_runner",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/build_runner-2.3.3",
++      "packageUri": "lib/",
++      "languageVersion": "2.14"
++    },
++    {
++      "name": "build_runner_core",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/build_runner_core-7.2.7",
++      "packageUri": "lib/",
++      "languageVersion": "2.17"
++    },
++    {
++      "name": "built_collection",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/built_collection-5.1.1",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "built_value",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/built_value-8.4.4",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "characters",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/characters-1.2.1",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "checked_yaml",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/checked_yaml-2.0.2",
++      "packageUri": "lib/",
++      "languageVersion": "2.18"
++    },
++    {
++      "name": "chips_input",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/chips_input-0.1.0",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "clock",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/clock-1.1.1",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "cloud_firestore",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/cloud_firestore-4.4.4",
++      "packageUri": "lib/",
++      "languageVersion": "2.16"
++    },
++    {
++      "name": "cloud_firestore_platform_interface",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/cloud_firestore_platform_interface-5.11.4",
++      "packageUri": "lib/",
++      "languageVersion": "2.16"
++    },
++    {
++      "name": "cloud_firestore_web",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/cloud_firestore_web-3.3.4",
++      "packageUri": "lib/",
++      "languageVersion": "2.16"
++    },
++    {
++      "name": "code_builder",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/code_builder-4.4.0",
++      "packageUri": "lib/",
++      "languageVersion": "2.17"
++    },
++    {
++      "name": "collection",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/collection-1.17.0",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "convert",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/convert-3.1.1",
++      "packageUri": "lib/",
++      "languageVersion": "2.18"
++    },
++    {
++      "name": "country_code_picker",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/country_code_picker-3.0.0",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "country_codes",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/country_codes-2.2.0",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "country_flags",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/country_flags-1.0.0",
++      "packageUri": "lib/",
++      "languageVersion": "2.17"
++    },
++    {
++      "name": "country_picker",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/country_picker-2.0.20",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "cross_file",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/cross_file-0.3.3+4",
++      "packageUri": "lib/",
++      "languageVersion": "2.17"
++    },
++    {
++      "name": "crypto",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/crypto-3.0.2",
++      "packageUri": "lib/",
++      "languageVersion": "2.14"
++    },
++    {
++      "name": "csslib",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/csslib-0.17.2",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "cupertino_text_button",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/cupertino_text_button-0.0.5",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "curved_navigation_bar",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/curved_navigation_bar-1.0.3",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "dart_numerics",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/dart_numerics-0.0.6",
++      "packageUri": "lib/",
++      "languageVersion": "2.14"
++    },
++    {
++      "name": "dart_style",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/dart_style-2.3.0",
++      "packageUri": "lib/",
++      "languageVersion": "2.19"
++    },
++    {
++      "name": "dependency_validator",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/dependency_validator-3.2.2",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "diffutil_dart",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/diffutil_dart-3.0.0",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "dropdown_button2",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/dropdown_button2-2.0.0",
++      "packageUri": "lib/",
++      "languageVersion": "2.17"
++    },
++    {
++      "name": "elegant_notification",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/elegant_notification-1.8.0",
++      "packageUri": "lib/",
++      "languageVersion": "2.19"
++    },
++    {
++      "name": "equatable",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/equatable-2.0.5",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "fake_async",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/fake_async-1.3.1",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "file",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/file-6.1.4",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "firebase_auth",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_auth-4.2.10",
++      "packageUri": "lib/",
++      "languageVersion": "2.16"
++    },
++    {
++      "name": "firebase_auth_platform_interface",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_auth_platform_interface-6.11.12",
++      "packageUri": "lib/",
++      "languageVersion": "2.16"
++    },
++    {
++      "name": "firebase_auth_web",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_auth_web-5.2.9",
++      "packageUri": "lib/",
++      "languageVersion": "2.16"
++    },
++    {
++      "name": "firebase_core",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_core-2.7.1",
++      "packageUri": "lib/",
++      "languageVersion": "2.16"
++    },
++    {
++      "name": "firebase_core_platform_interface",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_core_platform_interface-4.5.3",
++      "packageUri": "lib/",
++      "languageVersion": "2.16"
++    },
++    {
++      "name": "firebase_core_web",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_core_web-2.2.2",
++      "packageUri": "lib/",
++      "languageVersion": "2.16"
++    },
++    {
++      "name": "firebase_storage",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_storage-11.0.15",
++      "packageUri": "lib/",
++      "languageVersion": "2.16"
++    },
++    {
++      "name": "firebase_storage_platform_interface",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_storage_platform_interface-4.1.31",
++      "packageUri": "lib/",
++      "languageVersion": "2.16"
++    },
++    {
++      "name": "firebase_storage_web",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_storage_web-3.3.24",
++      "packageUri": "lib/",
++      "languageVersion": "2.16"
++    },
++    {
++      "name": "fixnum",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/fixnum-1.1.0",
++      "packageUri": "lib/",
++      "languageVersion": "2.19"
++    },
++    {
++      "name": "fluentui_system_icons",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/fluentui_system_icons-1.1.190",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "flutter",
++      "rootUri": "file:///Users/appollo/sdk/flutter/packages/flutter",
++      "packageUri": "lib/",
++      "languageVersion": "2.17"
++    },
++    {
++      "name": "flutter_badged",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/flutter_badged-2.0.3",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "flutter_card_swiper",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/flutter_card_swiper-2.0.1",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "flutter_chat_types",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/flutter_chat_types-3.6.0",
++      "packageUri": "lib/",
++      "languageVersion": "2.18"
++    },
++    {
++      "name": "flutter_chat_ui",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/flutter_chat_ui-1.6.6",
++      "packageUri": "lib/",
++      "languageVersion": "2.18"
++    },
++    {
++      "name": "flutter_link_previewer",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/flutter_link_previewer-3.2.0",
++      "packageUri": "lib/",
++      "languageVersion": "2.18"
++    },
++    {
++      "name": "flutter_linkify",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/flutter_linkify-5.0.2",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "flutter_lints",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/flutter_lints-2.0.1",
++      "packageUri": "lib/",
++      "languageVersion": "2.17"
++    },
++    {
++      "name": "flutter_onboarding_slider",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/flutter_onboarding_slider-1.0.8",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "flutter_parsed_text",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/flutter_parsed_text-2.2.1",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "flutter_plugin_android_lifecycle",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/flutter_plugin_android_lifecycle-2.0.9",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "flutter_svg",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/flutter_svg-1.1.6",
++      "packageUri": "lib/",
++      "languageVersion": "2.17"
++    },
++    {
++      "name": "flutter_test",
++      "rootUri": "file:///Users/appollo/sdk/flutter/packages/flutter_test",
++      "packageUri": "lib/",
++      "languageVersion": "2.17"
++    },
++    {
++      "name": "flutter_web_plugins",
++      "rootUri": "file:///Users/appollo/sdk/flutter/packages/flutter_web_plugins",
++      "packageUri": "lib/",
++      "languageVersion": "2.17"
++    },
++    {
++      "name": "frontend_server_client",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/frontend_server_client-3.2.0",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "functional_widget",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/functional_widget-0.10.1",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "functional_widget_annotation",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/functional_widget_annotation-0.10.0",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "get",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/get-4.6.5",
++      "packageUri": "lib/",
++      "languageVersion": "2.15"
++    },
++    {
++      "name": "glob",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/glob-2.1.1",
++      "packageUri": "lib/",
++      "languageVersion": "2.15"
++    },
++    {
++      "name": "graphs",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/graphs-2.2.0",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "html",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/html-0.15.2",
++      "packageUri": "lib/",
++      "languageVersion": "2.17"
++    },
++    {
++      "name": "http",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/http-0.13.5",
++      "packageUri": "lib/",
++      "languageVersion": "2.14"
++    },
++    {
++      "name": "http_multi_server",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/http_multi_server-3.2.1",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "http_parser",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/http_parser-4.0.2",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "icon_badge",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/icon_badge-1.0.0",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "image_picker",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/image_picker-0.8.7",
++      "packageUri": "lib/",
++      "languageVersion": "2.17"
++    },
++    {
++      "name": "image_picker_android",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/image_picker_android-0.8.6+1",
++      "packageUri": "lib/",
++      "languageVersion": "2.17"
++    },
++    {
++      "name": "image_picker_for_web",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/image_picker_for_web-2.1.12",
++      "packageUri": "lib/",
++      "languageVersion": "2.17"
++    },
++    {
++      "name": "image_picker_ios",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/image_picker_ios-0.8.7+1",
++      "packageUri": "lib/",
++      "languageVersion": "2.18"
++    },
++    {
++      "name": "image_picker_platform_interface",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/image_picker_platform_interface-2.6.3",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "intl",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/intl-0.17.0",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "io",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/io-1.0.4",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "js",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/js-0.6.5",
++      "packageUri": "lib/",
++      "languageVersion": "2.16"
++    },
++    {
++      "name": "json_annotation",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/json_annotation-4.8.0",
++      "packageUri": "lib/",
++      "languageVersion": "2.18"
++    },
++    {
++      "name": "language_picker",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/language_picker-0.4.3",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "linkify",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/linkify-4.1.0",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "lints",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/lints-2.0.1",
++      "packageUri": "lib/",
++      "languageVersion": "2.17"
++    },
++    {
++      "name": "logging",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/logging-1.1.1",
++      "packageUri": "lib/",
++      "languageVersion": "2.18"
++    },
++    {
++      "name": "matcher",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/matcher-0.12.13",
++      "packageUri": "lib/",
++      "languageVersion": "2.18"
++    },
++    {
++      "name": "material_color_utilities",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/material_color_utilities-0.2.0",
++      "packageUri": "lib/",
++      "languageVersion": "2.13"
++    },
++    {
++      "name": "matrix4_transform",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/matrix4_transform-2.0.1",
++      "packageUri": "lib/",
++      "languageVersion": "2.13"
++    },
++    {
++      "name": "meta",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/meta-1.8.0",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "mime",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/mime-1.0.4",
++      "packageUri": "lib/",
++      "languageVersion": "2.18"
++    },
++    {
++      "name": "nested",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/nested-1.0.0",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "package_config",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/package_config-2.1.0",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "path",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/path-1.8.2",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "path_drawing",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/path_drawing-1.0.1",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "path_parsing",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/path_parsing-1.0.1",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "petitparser",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/petitparser-5.1.0",
++      "packageUri": "lib/",
++      "languageVersion": "2.18"
++    },
++    {
++      "name": "photo_view",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/photo_view-0.14.0",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "plugin_platform_interface",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/plugin_platform_interface-2.1.4",
++      "packageUri": "lib/",
++      "languageVersion": "2.17"
++    },
++    {
++      "name": "pool",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/pool-1.5.1",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "provider",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/provider-6.0.5",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "pub_semver",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/pub_semver-2.1.3",
++      "packageUri": "lib/",
++      "languageVersion": "2.17"
++    },
++    {
++      "name": "pubspec_parse",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/pubspec_parse-1.2.2",
++      "packageUri": "lib/",
++      "languageVersion": "2.18"
++    },
++    {
++      "name": "recase",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/recase-4.1.0",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "salomon_bottom_bar",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/salomon_bottom_bar-3.3.1",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "scroll_to_index",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/scroll_to_index-3.0.1",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "shelf",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/shelf-1.4.0",
++      "packageUri": "lib/",
++      "languageVersion": "2.17"
++    },
++    {
++      "name": "shelf_web_socket",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/shelf_web_socket-1.0.3",
++      "packageUri": "lib/",
++      "languageVersion": "2.17"
++    },
++    {
++      "name": "simple_chips_input",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/simple_chips_input-1.0.0",
++      "packageUri": "lib/",
++      "languageVersion": "2.18"
++    },
++    {
++      "name": "sky_engine",
++      "rootUri": "file:///Users/appollo/sdk/flutter/bin/cache/pkg/sky_engine",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "source_gen",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/source_gen-1.2.7",
++      "packageUri": "lib/",
++      "languageVersion": "2.18"
++    },
++    {
++      "name": "source_span",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/source_span-1.9.1",
++      "packageUri": "lib/",
++      "languageVersion": "2.14"
++    },
++    {
++      "name": "stack_trace",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/stack_trace-1.11.0",
++      "packageUri": "lib/",
++      "languageVersion": "2.18"
++    },
++    {
++      "name": "stream_channel",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/stream_channel-2.1.1",
++      "packageUri": "lib/",
++      "languageVersion": "2.14"
++    },
++    {
++      "name": "stream_transform",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/stream_transform-2.1.0",
++      "packageUri": "lib/",
++      "languageVersion": "2.14"
++    },
++    {
++      "name": "string_scanner",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/string_scanner-1.2.0",
++      "packageUri": "lib/",
++      "languageVersion": "2.18"
++    },
++    {
++      "name": "term_glyph",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/term_glyph-1.2.1",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "test_api",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/test_api-0.4.16",
++      "packageUri": "lib/",
++      "languageVersion": "2.18"
++    },
++    {
++      "name": "timing",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/timing-1.0.1",
++      "packageUri": "lib/",
++      "languageVersion": "2.14"
++    },
++    {
++      "name": "tuple",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/tuple-2.0.1",
++      "packageUri": "lib/",
++      "languageVersion": "2.14"
++    },
++    {
++      "name": "typed_data",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/typed_data-1.3.1",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "url_launcher",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/url_launcher-6.1.10",
++      "packageUri": "lib/",
++      "languageVersion": "2.14"
++    },
++    {
++      "name": "url_launcher_android",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/url_launcher_android-6.0.25",
++      "packageUri": "lib/",
++      "languageVersion": "2.17"
++    },
++    {
++      "name": "url_launcher_ios",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/url_launcher_ios-6.1.2",
++      "packageUri": "lib/",
++      "languageVersion": "2.18"
++    },
++    {
++      "name": "url_launcher_linux",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/url_launcher_linux-3.0.4",
++      "packageUri": "lib/",
++      "languageVersion": "2.17"
++    },
++    {
++      "name": "url_launcher_macos",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/url_launcher_macos-3.0.4",
++      "packageUri": "lib/",
++      "languageVersion": "2.17"
++    },
++    {
++      "name": "url_launcher_platform_interface",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/url_launcher_platform_interface-2.1.2",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "url_launcher_web",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/url_launcher_web-2.0.16",
++      "packageUri": "lib/",
++      "languageVersion": "2.17"
++    },
++    {
++      "name": "url_launcher_windows",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/url_launcher_windows-3.0.5",
++      "packageUri": "lib/",
++      "languageVersion": "2.17"
++    },
++    {
++      "name": "vector_math",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/vector_math-2.1.4",
++      "packageUri": "lib/",
++      "languageVersion": "2.14"
++    },
++    {
++      "name": "visibility_detector",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/visibility_detector-0.3.3",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "watcher",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/watcher-1.0.2",
++      "packageUri": "lib/",
++      "languageVersion": "2.14"
++    },
++    {
++      "name": "web_socket_channel",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/web_socket_channel-2.3.0",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "xml",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/xml-6.2.2",
++      "packageUri": "lib/",
++      "languageVersion": "2.18"
++    },
++    {
++      "name": "yaml",
++      "rootUri": "file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/yaml-3.1.1",
++      "packageUri": "lib/",
++      "languageVersion": "2.12"
++    },
++    {
++      "name": "Mate8",
++      "rootUri": "../",
++      "packageUri": "lib/",
++      "languageVersion": "2.18"
++    }
++  ],
++  "generated": "2023-03-20T17:47:31.359345Z",
++  "generator": "pub",
++  "generatorVersion": "2.19.2"
++}
+diff --git a/.dart_tool/package_config_subset b/.dart_tool/package_config_subset
+new file mode 100644
+index 0000000..f39fddf
+--- /dev/null
++++ b/.dart_tool/package_config_subset
+@@ -0,0 +1,597 @@
++Mate8
++2.18
++file:///Users/appollo/Documents/app/
++file:///Users/appollo/Documents/app/lib/
++_fe_analyzer_shared
++2.17
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/_fe_analyzer_shared-55.0.0/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/_fe_analyzer_shared-55.0.0/lib/
++_flutterfire_internals
++2.16
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/_flutterfire_internals-1.0.17/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/_flutterfire_internals-1.0.17/lib/
++adobe_xd
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/adobe_xd-2.0.1/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/adobe_xd-2.0.1/lib/
++analyzer
++2.19
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/analyzer-5.7.1/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/analyzer-5.7.1/lib/
++animated_snack_bar
++2.16
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/animated_snack_bar-0.3.0/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/animated_snack_bar-0.3.0/lib/
++animations
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/animations-2.0.7/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/animations-2.0.7/lib/
++appinio_swiper
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/appinio_swiper-1.1.1/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/appinio_swiper-1.1.1/lib/
++args
++2.18
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/args-2.4.0/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/args-2.4.0/lib/
++assorted_layout_widgets
++2.18
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/assorted_layout_widgets-7.0.0/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/assorted_layout_widgets-7.0.0/lib/
++async
++2.18
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/async-2.10.0/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/async-2.10.0/lib/
++badges
++2.17
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/badges-3.0.2/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/badges-3.0.2/lib/
++blur
++2.16
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/blur-3.1.0/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/blur-3.1.0/lib/
++boolean_selector
++2.17
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/boolean_selector-2.1.1/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/boolean_selector-2.1.1/lib/
++bubble
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/bubble-1.2.1/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/bubble-1.2.1/lib/
++build
++2.17
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/build-2.3.1/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/build-2.3.1/lib/
++build_config
++2.14
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/build_config-1.1.1/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/build_config-1.1.1/lib/
++build_daemon
++2.14
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/build_daemon-3.1.1/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/build_daemon-3.1.1/lib/
++build_resolvers
++2.18
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/build_resolvers-2.2.0/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/build_resolvers-2.2.0/lib/
++build_runner
++2.14
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/build_runner-2.3.3/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/build_runner-2.3.3/lib/
++build_runner_core
++2.17
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/build_runner_core-7.2.7/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/build_runner_core-7.2.7/lib/
++built_collection
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/built_collection-5.1.1/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/built_collection-5.1.1/lib/
++built_value
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/built_value-8.4.4/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/built_value-8.4.4/lib/
++characters
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/characters-1.2.1/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/characters-1.2.1/lib/
++checked_yaml
++2.18
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/checked_yaml-2.0.2/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/checked_yaml-2.0.2/lib/
++chips_input
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/chips_input-0.1.0/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/chips_input-0.1.0/lib/
++clock
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/clock-1.1.1/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/clock-1.1.1/lib/
++cloud_firestore
++2.16
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/cloud_firestore-4.4.4/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/cloud_firestore-4.4.4/lib/
++cloud_firestore_platform_interface
++2.16
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/cloud_firestore_platform_interface-5.11.4/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/cloud_firestore_platform_interface-5.11.4/lib/
++cloud_firestore_web
++2.16
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/cloud_firestore_web-3.3.4/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/cloud_firestore_web-3.3.4/lib/
++code_builder
++2.17
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/code_builder-4.4.0/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/code_builder-4.4.0/lib/
++collection
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/collection-1.17.0/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/collection-1.17.0/lib/
++convert
++2.18
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/convert-3.1.1/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/convert-3.1.1/lib/
++country_code_picker
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/country_code_picker-3.0.0/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/country_code_picker-3.0.0/lib/
++country_codes
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/country_codes-2.2.0/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/country_codes-2.2.0/lib/
++country_flags
++2.17
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/country_flags-1.0.0/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/country_flags-1.0.0/lib/
++country_picker
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/country_picker-2.0.20/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/country_picker-2.0.20/lib/
++cross_file
++2.17
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/cross_file-0.3.3+4/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/cross_file-0.3.3+4/lib/
++crypto
++2.14
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/crypto-3.0.2/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/crypto-3.0.2/lib/
++csslib
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/csslib-0.17.2/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/csslib-0.17.2/lib/
++cupertino_text_button
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/cupertino_text_button-0.0.5/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/cupertino_text_button-0.0.5/lib/
++curved_navigation_bar
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/curved_navigation_bar-1.0.3/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/curved_navigation_bar-1.0.3/lib/
++dart_numerics
++2.14
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/dart_numerics-0.0.6/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/dart_numerics-0.0.6/lib/
++dart_style
++2.19
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/dart_style-2.3.0/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/dart_style-2.3.0/lib/
++dependency_validator
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/dependency_validator-3.2.2/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/dependency_validator-3.2.2/lib/
++diffutil_dart
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/diffutil_dart-3.0.0/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/diffutil_dart-3.0.0/lib/
++dropdown_button2
++2.17
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/dropdown_button2-2.0.0/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/dropdown_button2-2.0.0/lib/
++elegant_notification
++2.19
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/elegant_notification-1.8.0/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/elegant_notification-1.8.0/lib/
++equatable
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/equatable-2.0.5/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/equatable-2.0.5/lib/
++fake_async
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/fake_async-1.3.1/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/fake_async-1.3.1/lib/
++file
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/file-6.1.4/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/file-6.1.4/lib/
++firebase_auth
++2.16
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_auth-4.2.10/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_auth-4.2.10/lib/
++firebase_auth_platform_interface
++2.16
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_auth_platform_interface-6.11.12/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_auth_platform_interface-6.11.12/lib/
++firebase_auth_web
++2.16
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_auth_web-5.2.9/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_auth_web-5.2.9/lib/
++firebase_core
++2.16
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_core-2.7.1/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_core-2.7.1/lib/
++firebase_core_platform_interface
++2.16
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_core_platform_interface-4.5.3/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_core_platform_interface-4.5.3/lib/
++firebase_core_web
++2.16
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_core_web-2.2.2/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_core_web-2.2.2/lib/
++firebase_storage
++2.16
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_storage-11.0.15/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_storage-11.0.15/lib/
++firebase_storage_platform_interface
++2.16
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_storage_platform_interface-4.1.31/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_storage_platform_interface-4.1.31/lib/
++firebase_storage_web
++2.16
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_storage_web-3.3.24/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_storage_web-3.3.24/lib/
++fixnum
++2.19
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/fixnum-1.1.0/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/fixnum-1.1.0/lib/
++fluentui_system_icons
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/fluentui_system_icons-1.1.190/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/fluentui_system_icons-1.1.190/lib/
++flutter_badged
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/flutter_badged-2.0.3/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/flutter_badged-2.0.3/lib/
++flutter_card_swiper
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/flutter_card_swiper-2.0.1/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/flutter_card_swiper-2.0.1/lib/
++flutter_chat_types
++2.18
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/flutter_chat_types-3.6.0/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/flutter_chat_types-3.6.0/lib/
++flutter_chat_ui
++2.18
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/flutter_chat_ui-1.6.6/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/flutter_chat_ui-1.6.6/lib/
++flutter_link_previewer
++2.18
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/flutter_link_previewer-3.2.0/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/flutter_link_previewer-3.2.0/lib/
++flutter_linkify
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/flutter_linkify-5.0.2/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/flutter_linkify-5.0.2/lib/
++flutter_lints
++2.17
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/flutter_lints-2.0.1/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/flutter_lints-2.0.1/lib/
++flutter_onboarding_slider
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/flutter_onboarding_slider-1.0.8/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/flutter_onboarding_slider-1.0.8/lib/
++flutter_parsed_text
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/flutter_parsed_text-2.2.1/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/flutter_parsed_text-2.2.1/lib/
++flutter_plugin_android_lifecycle
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/flutter_plugin_android_lifecycle-2.0.9/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/flutter_plugin_android_lifecycle-2.0.9/lib/
++flutter_svg
++2.17
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/flutter_svg-1.1.6/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/flutter_svg-1.1.6/lib/
++frontend_server_client
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/frontend_server_client-3.2.0/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/frontend_server_client-3.2.0/lib/
++functional_widget
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/functional_widget-0.10.1/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/functional_widget-0.10.1/lib/
++functional_widget_annotation
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/functional_widget_annotation-0.10.0/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/functional_widget_annotation-0.10.0/lib/
++get
++2.15
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/get-4.6.5/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/get-4.6.5/lib/
++glob
++2.15
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/glob-2.1.1/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/glob-2.1.1/lib/
++graphs
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/graphs-2.2.0/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/graphs-2.2.0/lib/
++html
++2.17
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/html-0.15.2/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/html-0.15.2/lib/
++http
++2.14
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/http-0.13.5/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/http-0.13.5/lib/
++http_multi_server
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/http_multi_server-3.2.1/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/http_multi_server-3.2.1/lib/
++http_parser
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/http_parser-4.0.2/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/http_parser-4.0.2/lib/
++icon_badge
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/icon_badge-1.0.0/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/icon_badge-1.0.0/lib/
++image_picker
++2.17
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/image_picker-0.8.7/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/image_picker-0.8.7/lib/
++image_picker_android
++2.17
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/image_picker_android-0.8.6+1/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/image_picker_android-0.8.6+1/lib/
++image_picker_for_web
++2.17
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/image_picker_for_web-2.1.12/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/image_picker_for_web-2.1.12/lib/
++image_picker_ios
++2.18
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/image_picker_ios-0.8.7+1/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/image_picker_ios-0.8.7+1/lib/
++image_picker_platform_interface
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/image_picker_platform_interface-2.6.3/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/image_picker_platform_interface-2.6.3/lib/
++intl
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/intl-0.17.0/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/intl-0.17.0/lib/
++io
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/io-1.0.4/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/io-1.0.4/lib/
++js
++2.16
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/js-0.6.5/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/js-0.6.5/lib/
++json_annotation
++2.18
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/json_annotation-4.8.0/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/json_annotation-4.8.0/lib/
++language_picker
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/language_picker-0.4.3/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/language_picker-0.4.3/lib/
++linkify
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/linkify-4.1.0/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/linkify-4.1.0/lib/
++lints
++2.17
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/lints-2.0.1/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/lints-2.0.1/lib/
++logging
++2.18
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/logging-1.1.1/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/logging-1.1.1/lib/
++matcher
++2.18
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/matcher-0.12.13/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/matcher-0.12.13/lib/
++material_color_utilities
++2.13
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/material_color_utilities-0.2.0/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/material_color_utilities-0.2.0/lib/
++matrix4_transform
++2.13
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/matrix4_transform-2.0.1/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/matrix4_transform-2.0.1/lib/
++meta
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/meta-1.8.0/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/meta-1.8.0/lib/
++mime
++2.18
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/mime-1.0.4/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/mime-1.0.4/lib/
++nested
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/nested-1.0.0/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/nested-1.0.0/lib/
++package_config
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/package_config-2.1.0/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/package_config-2.1.0/lib/
++path
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/path-1.8.2/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/path-1.8.2/lib/
++path_drawing
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/path_drawing-1.0.1/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/path_drawing-1.0.1/lib/
++path_parsing
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/path_parsing-1.0.1/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/path_parsing-1.0.1/lib/
++petitparser
++2.18
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/petitparser-5.1.0/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/petitparser-5.1.0/lib/
++photo_view
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/photo_view-0.14.0/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/photo_view-0.14.0/lib/
++plugin_platform_interface
++2.17
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/plugin_platform_interface-2.1.4/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/plugin_platform_interface-2.1.4/lib/
++pool
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/pool-1.5.1/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/pool-1.5.1/lib/
++provider
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/provider-6.0.5/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/provider-6.0.5/lib/
++pub_semver
++2.17
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/pub_semver-2.1.3/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/pub_semver-2.1.3/lib/
++pubspec_parse
++2.18
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/pubspec_parse-1.2.2/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/pubspec_parse-1.2.2/lib/
++recase
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/recase-4.1.0/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/recase-4.1.0/lib/
++salomon_bottom_bar
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/salomon_bottom_bar-3.3.1/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/salomon_bottom_bar-3.3.1/lib/
++scroll_to_index
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/scroll_to_index-3.0.1/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/scroll_to_index-3.0.1/lib/
++shelf
++2.17
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/shelf-1.4.0/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/shelf-1.4.0/lib/
++shelf_web_socket
++2.17
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/shelf_web_socket-1.0.3/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/shelf_web_socket-1.0.3/lib/
++simple_chips_input
++2.18
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/simple_chips_input-1.0.0/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/simple_chips_input-1.0.0/lib/
++source_gen
++2.18
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/source_gen-1.2.7/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/source_gen-1.2.7/lib/
++source_span
++2.14
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/source_span-1.9.1/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/source_span-1.9.1/lib/
++stack_trace
++2.18
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/stack_trace-1.11.0/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/stack_trace-1.11.0/lib/
++stream_channel
++2.14
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/stream_channel-2.1.1/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/stream_channel-2.1.1/lib/
++stream_transform
++2.14
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/stream_transform-2.1.0/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/stream_transform-2.1.0/lib/
++string_scanner
++2.18
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/string_scanner-1.2.0/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/string_scanner-1.2.0/lib/
++term_glyph
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/term_glyph-1.2.1/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/term_glyph-1.2.1/lib/
++test_api
++2.18
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/test_api-0.4.16/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/test_api-0.4.16/lib/
++timing
++2.14
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/timing-1.0.1/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/timing-1.0.1/lib/
++tuple
++2.14
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/tuple-2.0.1/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/tuple-2.0.1/lib/
++typed_data
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/typed_data-1.3.1/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/typed_data-1.3.1/lib/
++url_launcher
++2.14
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/url_launcher-6.1.10/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/url_launcher-6.1.10/lib/
++url_launcher_android
++2.17
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/url_launcher_android-6.0.25/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/url_launcher_android-6.0.25/lib/
++url_launcher_ios
++2.18
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/url_launcher_ios-6.1.2/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/url_launcher_ios-6.1.2/lib/
++url_launcher_linux
++2.17
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/url_launcher_linux-3.0.4/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/url_launcher_linux-3.0.4/lib/
++url_launcher_macos
++2.17
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/url_launcher_macos-3.0.4/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/url_launcher_macos-3.0.4/lib/
++url_launcher_platform_interface
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/url_launcher_platform_interface-2.1.2/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/url_launcher_platform_interface-2.1.2/lib/
++url_launcher_web
++2.17
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/url_launcher_web-2.0.16/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/url_launcher_web-2.0.16/lib/
++url_launcher_windows
++2.17
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/url_launcher_windows-3.0.5/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/url_launcher_windows-3.0.5/lib/
++vector_math
++2.14
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/vector_math-2.1.4/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/vector_math-2.1.4/lib/
++visibility_detector
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/visibility_detector-0.3.3/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/visibility_detector-0.3.3/lib/
++watcher
++2.14
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/watcher-1.0.2/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/watcher-1.0.2/lib/
++web_socket_channel
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/web_socket_channel-2.3.0/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/web_socket_channel-2.3.0/lib/
++xml
++2.18
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/xml-6.2.2/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/xml-6.2.2/lib/
++yaml
++2.12
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/yaml-3.1.1/
++file:///Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/yaml-3.1.1/lib/
++sky_engine
++2.12
++file:///Users/appollo/sdk/flutter/bin/cache/pkg/sky_engine/
++file:///Users/appollo/sdk/flutter/bin/cache/pkg/sky_engine/lib/
++flutter
++2.17
++file:///Users/appollo/sdk/flutter/packages/flutter/
++file:///Users/appollo/sdk/flutter/packages/flutter/lib/
++flutter_test
++2.17
++file:///Users/appollo/sdk/flutter/packages/flutter_test/
++file:///Users/appollo/sdk/flutter/packages/flutter_test/lib/
++flutter_web_plugins
++2.17
++file:///Users/appollo/sdk/flutter/packages/flutter_web_plugins/
++file:///Users/appollo/sdk/flutter/packages/flutter_web_plugins/lib/
++2
+diff --git a/.dart_tool/version b/.dart_tool/version
+new file mode 100644
+index 0000000..54a1992
+--- /dev/null
++++ b/.dart_tool/version
+@@ -0,0 +1 @@
++3.7.5
+\ No newline at end of file
+diff --git a/.flutter-plugins b/.flutter-plugins
+index 06459ec..c43b098 100644
+--- a/.flutter-plugins
++++ b/.flutter-plugins
+@@ -1,22 +1,22 @@
+ # This is a generated file; do not edit or check into version control.
+-cloud_firestore=C:\\Users\\pmtbb\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\cloud_firestore-4.4.4\\
+-cloud_firestore_web=C:\\Users\\pmtbb\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\cloud_firestore_web-3.3.4\\
+-country_codes=C:\\Users\\pmtbb\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\country_codes-2.2.0\\
+-firebase_auth=C:\\Users\\pmtbb\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\firebase_auth-4.2.10\\
+-firebase_auth_web=C:\\Users\\pmtbb\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\firebase_auth_web-5.2.9\\
+-firebase_core=C:\\Users\\pmtbb\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\firebase_core-2.7.1\\
+-firebase_core_web=C:\\Users\\pmtbb\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\firebase_core_web-2.2.2\\
+-firebase_storage=C:\\Users\\pmtbb\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\firebase_storage-11.0.15\\
+-firebase_storage_web=C:\\Users\\pmtbb\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\firebase_storage_web-3.3.24\\
+-flutter_plugin_android_lifecycle=C:\\Users\\pmtbb\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\flutter_plugin_android_lifecycle-2.0.9\\
+-image_picker=C:\\Users\\pmtbb\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\image_picker-0.8.7\\
+-image_picker_android=C:\\Users\\pmtbb\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\image_picker_android-0.8.6+1\\
+-image_picker_for_web=C:\\Users\\pmtbb\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\image_picker_for_web-2.1.12\\
+-image_picker_ios=C:\\Users\\pmtbb\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\image_picker_ios-0.8.7+1\\
+-url_launcher=C:\\Users\\pmtbb\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\url_launcher-6.1.10\\
+-url_launcher_android=C:\\Users\\pmtbb\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\url_launcher_android-6.0.25\\
+-url_launcher_ios=C:\\Users\\pmtbb\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\url_launcher_ios-6.1.2\\
+-url_launcher_linux=C:\\Users\\pmtbb\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\url_launcher_linux-3.0.4\\
+-url_launcher_macos=C:\\Users\\pmtbb\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\url_launcher_macos-3.0.4\\
+-url_launcher_web=C:\\Users\\pmtbb\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\url_launcher_web-2.0.16\\
+-url_launcher_windows=C:\\Users\\pmtbb\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\url_launcher_windows-3.0.5\\
++cloud_firestore=/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/cloud_firestore-4.4.4/
++cloud_firestore_web=/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/cloud_firestore_web-3.3.4/
++country_codes=/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/country_codes-2.2.0/
++firebase_auth=/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_auth-4.2.10/
++firebase_auth_web=/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_auth_web-5.2.9/
++firebase_core=/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_core-2.7.1/
++firebase_core_web=/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_core_web-2.2.2/
++firebase_storage=/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_storage-11.0.15/
++firebase_storage_web=/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_storage_web-3.3.24/
++flutter_plugin_android_lifecycle=/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/flutter_plugin_android_lifecycle-2.0.9/
++image_picker=/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/image_picker-0.8.7/
++image_picker_android=/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/image_picker_android-0.8.6+1/
++image_picker_for_web=/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/image_picker_for_web-2.1.12/
++image_picker_ios=/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/image_picker_ios-0.8.7+1/
++url_launcher=/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/url_launcher-6.1.10/
++url_launcher_android=/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/url_launcher_android-6.0.25/
++url_launcher_ios=/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/url_launcher_ios-6.1.2/
++url_launcher_linux=/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/url_launcher_linux-3.0.4/
++url_launcher_macos=/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/url_launcher_macos-3.0.4/
++url_launcher_web=/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/url_launcher_web-2.0.16/
++url_launcher_windows=/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/url_launcher_windows-3.0.5/
+diff --git a/.flutter-plugins-dependencies b/.flutter-plugins-dependencies
+index 2b4b916..eda3692 100644
+--- a/.flutter-plugins-dependencies
++++ b/.flutter-plugins-dependencies
+@@ -1 +1 @@
+-{"info":"This is a generated file; do not edit or check into version control.","plugins":{"ios":[{"name":"cloud_firestore","path":"C:\\\\Users\\\\pmtbb\\\\AppData\\\\Local\\\\Pub\\\\Cache\\\\hosted\\\\pub.dev\\\\cloud_firestore-4.4.4\\\\","native_build":true,"dependencies":["firebase_core"]},{"name":"country_codes","path":"C:\\\\Users\\\\pmtbb\\\\AppData\\\\Local\\\\Pub\\\\Cache\\\\hosted\\\\pub.dev\\\\country_codes-2.2.0\\\\","native_build":true,"dependencies":[]},{"name":"firebase_auth","path":"C:\\\\Users\\\\pmtbb\\\\AppData\\\\Local\\\\Pub\\\\Cache\\\\hosted\\\\pub.dev\\\\firebase_auth-4.2.10\\\\","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_core","path":"C:\\\\Users\\\\pmtbb\\\\AppData\\\\Local\\\\Pub\\\\Cache\\\\hosted\\\\pub.dev\\\\firebase_core-2.7.1\\\\","native_build":true,"dependencies":[]},{"name":"firebase_storage","path":"C:\\\\Users\\\\pmtbb\\\\AppData\\\\Local\\\\Pub\\\\Cache\\\\hosted\\\\pub.dev\\\\firebase_storage-11.0.15\\\\","native_build":true,"dependencies":["firebase_core"]},{"name":"image_picker_ios","path":"C:\\\\Users\\\\pmtbb\\\\AppData\\\\Local\\\\Pub\\\\Cache\\\\hosted\\\\pub.dev\\\\image_picker_ios-0.8.7+1\\\\","native_build":true,"dependencies":[]},{"name":"url_launcher_ios","path":"C:\\\\Users\\\\pmtbb\\\\AppData\\\\Local\\\\Pub\\\\Cache\\\\hosted\\\\pub.dev\\\\url_launcher_ios-6.1.2\\\\","native_build":true,"dependencies":[]}],"android":[{"name":"cloud_firestore","path":"C:\\\\Users\\\\pmtbb\\\\AppData\\\\Local\\\\Pub\\\\Cache\\\\hosted\\\\pub.dev\\\\cloud_firestore-4.4.4\\\\","native_build":true,"dependencies":["firebase_core"]},{"name":"country_codes","path":"C:\\\\Users\\\\pmtbb\\\\AppData\\\\Local\\\\Pub\\\\Cache\\\\hosted\\\\pub.dev\\\\country_codes-2.2.0\\\\","native_build":true,"dependencies":[]},{"name":"firebase_auth","path":"C:\\\\Users\\\\pmtbb\\\\AppData\\\\Local\\\\Pub\\\\Cache\\\\hosted\\\\pub.dev\\\\firebase_auth-4.2.10\\\\","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_core","path":"C:\\\\Users\\\\pmtbb\\\\AppData\\\\Local\\\\Pub\\\\Cache\\\\hosted\\\\pub.dev\\\\firebase_core-2.7.1\\\\","native_build":true,"dependencies":[]},{"name":"firebase_storage","path":"C:\\\\Users\\\\pmtbb\\\\AppData\\\\Local\\\\Pub\\\\Cache\\\\hosted\\\\pub.dev\\\\firebase_storage-11.0.15\\\\","native_build":true,"dependencies":["firebase_core"]},{"name":"flutter_plugin_android_lifecycle","path":"C:\\\\Users\\\\pmtbb\\\\AppData\\\\Local\\\\Pub\\\\Cache\\\\hosted\\\\pub.dev\\\\flutter_plugin_android_lifecycle-2.0.9\\\\","native_build":true,"dependencies":[]},{"name":"image_picker_android","path":"C:\\\\Users\\\\pmtbb\\\\AppData\\\\Local\\\\Pub\\\\Cache\\\\hosted\\\\pub.dev\\\\image_picker_android-0.8.6+1\\\\","native_build":true,"dependencies":["flutter_plugin_android_lifecycle"]},{"name":"url_launcher_android","path":"C:\\\\Users\\\\pmtbb\\\\AppData\\\\Local\\\\Pub\\\\Cache\\\\hosted\\\\pub.dev\\\\url_launcher_android-6.0.25\\\\","native_build":true,"dependencies":[]}],"macos":[{"name":"cloud_firestore","path":"C:\\\\Users\\\\pmtbb\\\\AppData\\\\Local\\\\Pub\\\\Cache\\\\hosted\\\\pub.dev\\\\cloud_firestore-4.4.4\\\\","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_auth","path":"C:\\\\Users\\\\pmtbb\\\\AppData\\\\Local\\\\Pub\\\\Cache\\\\hosted\\\\pub.dev\\\\firebase_auth-4.2.10\\\\","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_core","path":"C:\\\\Users\\\\pmtbb\\\\AppData\\\\Local\\\\Pub\\\\Cache\\\\hosted\\\\pub.dev\\\\firebase_core-2.7.1\\\\","native_build":true,"dependencies":[]},{"name":"firebase_storage","path":"C:\\\\Users\\\\pmtbb\\\\AppData\\\\Local\\\\Pub\\\\Cache\\\\hosted\\\\pub.dev\\\\firebase_storage-11.0.15\\\\","native_build":true,"dependencies":["firebase_core"]},{"name":"url_launcher_macos","path":"C:\\\\Users\\\\pmtbb\\\\AppData\\\\Local\\\\Pub\\\\Cache\\\\hosted\\\\pub.dev\\\\url_launcher_macos-3.0.4\\\\","native_build":true,"dependencies":[]}],"linux":[{"name":"url_launcher_linux","path":"C:\\\\Users\\\\pmtbb\\\\AppData\\\\Local\\\\Pub\\\\Cache\\\\hosted\\\\pub.dev\\\\url_launcher_linux-3.0.4\\\\","native_build":true,"dependencies":[]}],"windows":[{"name":"url_launcher_windows","path":"C:\\\\Users\\\\pmtbb\\\\AppData\\\\Local\\\\Pub\\\\Cache\\\\hosted\\\\pub.dev\\\\url_launcher_windows-3.0.5\\\\","native_build":true,"dependencies":[]}],"web":[{"name":"cloud_firestore_web","path":"C:\\\\Users\\\\pmtbb\\\\AppData\\\\Local\\\\Pub\\\\Cache\\\\hosted\\\\pub.dev\\\\cloud_firestore_web-3.3.4\\\\","dependencies":["firebase_core_web"]},{"name":"firebase_auth_web","path":"C:\\\\Users\\\\pmtbb\\\\AppData\\\\Local\\\\Pub\\\\Cache\\\\hosted\\\\pub.dev\\\\firebase_auth_web-5.2.9\\\\","dependencies":["firebase_core_web"]},{"name":"firebase_core_web","path":"C:\\\\Users\\\\pmtbb\\\\AppData\\\\Local\\\\Pub\\\\Cache\\\\hosted\\\\pub.dev\\\\firebase_core_web-2.2.2\\\\","dependencies":[]},{"name":"firebase_storage_web","path":"C:\\\\Users\\\\pmtbb\\\\AppData\\\\Local\\\\Pub\\\\Cache\\\\hosted\\\\pub.dev\\\\firebase_storage_web-3.3.24\\\\","dependencies":["firebase_core_web"]},{"name":"image_picker_for_web","path":"C:\\\\Users\\\\pmtbb\\\\AppData\\\\Local\\\\Pub\\\\Cache\\\\hosted\\\\pub.dev\\\\image_picker_for_web-2.1.12\\\\","dependencies":[]},{"name":"url_launcher_web","path":"C:\\\\Users\\\\pmtbb\\\\AppData\\\\Local\\\\Pub\\\\Cache\\\\hosted\\\\pub.dev\\\\url_launcher_web-2.0.16\\\\","dependencies":[]}]},"dependencyGraph":[{"name":"cloud_firestore","dependencies":["cloud_firestore_web","firebase_core"]},{"name":"cloud_firestore_web","dependencies":["firebase_core","firebase_core_web"]},{"name":"country_codes","dependencies":[]},{"name":"firebase_auth","dependencies":["firebase_auth_web","firebase_core"]},{"name":"firebase_auth_web","dependencies":["firebase_core","firebase_core_web"]},{"name":"firebase_core","dependencies":["firebase_core_web"]},{"name":"firebase_core_web","dependencies":[]},{"name":"firebase_storage","dependencies":["firebase_core","firebase_storage_web"]},{"name":"firebase_storage_web","dependencies":["firebase_core","firebase_core_web"]},{"name":"flutter_plugin_android_lifecycle","dependencies":[]},{"name":"image_picker","dependencies":["image_picker_android","image_picker_for_web","image_picker_ios"]},{"name":"image_picker_android","dependencies":["flutter_plugin_android_lifecycle"]},{"name":"image_picker_for_web","dependencies":[]},{"name":"image_picker_ios","dependencies":[]},{"name":"url_launcher","dependencies":["url_launcher_android","url_launcher_ios","url_launcher_linux","url_launcher_macos","url_launcher_web","url_launcher_windows"]},{"name":"url_launcher_android","dependencies":[]},{"name":"url_launcher_ios","dependencies":[]},{"name":"url_launcher_linux","dependencies":[]},{"name":"url_launcher_macos","dependencies":[]},{"name":"url_launcher_web","dependencies":[]},{"name":"url_launcher_windows","dependencies":[]}],"date_created":"2023-03-20 16:19:02.108787","version":"3.7.7"}
+\ No newline at end of file
++{"info":"This is a generated file; do not edit or check into version control.","plugins":{"ios":[{"name":"cloud_firestore","path":"/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/cloud_firestore-4.4.4/","native_build":true,"dependencies":["firebase_core"]},{"name":"country_codes","path":"/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/country_codes-2.2.0/","native_build":true,"dependencies":[]},{"name":"firebase_auth","path":"/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_auth-4.2.10/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_core","path":"/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_core-2.7.1/","native_build":true,"dependencies":[]},{"name":"firebase_storage","path":"/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_storage-11.0.15/","native_build":true,"dependencies":["firebase_core"]},{"name":"image_picker_ios","path":"/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/image_picker_ios-0.8.7+1/","native_build":true,"dependencies":[]},{"name":"url_launcher_ios","path":"/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/url_launcher_ios-6.1.2/","native_build":true,"dependencies":[]}],"android":[{"name":"cloud_firestore","path":"/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/cloud_firestore-4.4.4/","native_build":true,"dependencies":["firebase_core"]},{"name":"country_codes","path":"/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/country_codes-2.2.0/","native_build":true,"dependencies":[]},{"name":"firebase_auth","path":"/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_auth-4.2.10/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_core","path":"/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_core-2.7.1/","native_build":true,"dependencies":[]},{"name":"firebase_storage","path":"/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_storage-11.0.15/","native_build":true,"dependencies":["firebase_core"]},{"name":"flutter_plugin_android_lifecycle","path":"/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/flutter_plugin_android_lifecycle-2.0.9/","native_build":true,"dependencies":[]},{"name":"image_picker_android","path":"/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/image_picker_android-0.8.6+1/","native_build":true,"dependencies":["flutter_plugin_android_lifecycle"]},{"name":"url_launcher_android","path":"/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/url_launcher_android-6.0.25/","native_build":true,"dependencies":[]}],"macos":[{"name":"cloud_firestore","path":"/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/cloud_firestore-4.4.4/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_auth","path":"/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_auth-4.2.10/","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_core","path":"/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_core-2.7.1/","native_build":true,"dependencies":[]},{"name":"firebase_storage","path":"/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_storage-11.0.15/","native_build":true,"dependencies":["firebase_core"]},{"name":"url_launcher_macos","path":"/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/url_launcher_macos-3.0.4/","native_build":true,"dependencies":[]}],"linux":[{"name":"url_launcher_linux","path":"/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/url_launcher_linux-3.0.4/","native_build":true,"dependencies":[]}],"windows":[{"name":"url_launcher_windows","path":"/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/url_launcher_windows-3.0.5/","native_build":true,"dependencies":[]}],"web":[{"name":"cloud_firestore_web","path":"/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/cloud_firestore_web-3.3.4/","dependencies":["firebase_core_web"]},{"name":"firebase_auth_web","path":"/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_auth_web-5.2.9/","dependencies":["firebase_core_web"]},{"name":"firebase_core_web","path":"/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_core_web-2.2.2/","dependencies":[]},{"name":"firebase_storage_web","path":"/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/firebase_storage_web-3.3.24/","dependencies":["firebase_core_web"]},{"name":"image_picker_for_web","path":"/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/image_picker_for_web-2.1.12/","dependencies":[]},{"name":"url_launcher_web","path":"/Users/appollo/sdk/flutter/.pub-cache/hosted/pub.dev/url_launcher_web-2.0.16/","dependencies":[]}]},"dependencyGraph":[{"name":"cloud_firestore","dependencies":["cloud_firestore_web","firebase_core"]},{"name":"cloud_firestore_web","dependencies":["firebase_core","firebase_core_web"]},{"name":"country_codes","dependencies":[]},{"name":"firebase_auth","dependencies":["firebase_auth_web","firebase_core"]},{"name":"firebase_auth_web","dependencies":["firebase_core","firebase_core_web"]},{"name":"firebase_core","dependencies":["firebase_core_web"]},{"name":"firebase_core_web","dependencies":[]},{"name":"firebase_storage","dependencies":["firebase_core","firebase_storage_web"]},{"name":"firebase_storage_web","dependencies":["firebase_core","firebase_core_web"]},{"name":"flutter_plugin_android_lifecycle","dependencies":[]},{"name":"image_picker","dependencies":["image_picker_android","image_picker_for_web","image_picker_ios"]},{"name":"image_picker_android","dependencies":["flutter_plugin_android_lifecycle"]},{"name":"image_picker_for_web","dependencies":[]},{"name":"image_picker_ios","dependencies":[]},{"name":"url_launcher","dependencies":["url_launcher_android","url_launcher_ios","url_launcher_linux","url_launcher_macos","url_launcher_web","url_launcher_windows"]},{"name":"url_launcher_android","dependencies":[]},{"name":"url_launcher_ios","dependencies":[]},{"name":"url_launcher_linux","dependencies":[]},{"name":"url_launcher_macos","dependencies":[]},{"name":"url_launcher_web","dependencies":[]},{"name":"url_launcher_windows","dependencies":[]}],"date_created":"2023-03-20 18:47:31.843875","version":"3.7.5"}
+\ No newline at end of file
+diff --git a/ios/Flutter/Debug.xcconfig b/ios/Flutter/Debug.xcconfig
+index 0b2d479..dfd2626 100644
+--- a/ios/Flutter/Debug.xcconfig
++++ b/ios/Flutter/Debug.xcconfig
+@@ -1 +1,2 @@
++#include? "Pods/Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"
+ #include "Generated.xcconfig"
+diff --git a/ios/Flutter/Release.xcconfig b/ios/Flutter/Release.xcconfig
+index 0b2d479..a97381a 100644
+--- a/ios/Flutter/Release.xcconfig
++++ b/ios/Flutter/Release.xcconfig
+@@ -1 +1,2 @@
++#include? "Pods/Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"
+ #include "Generated.xcconfig"
+diff --git a/ios/Podfile b/ios/Podfile
+new file mode 100644
+index 0000000..88359b2
+--- /dev/null
++++ b/ios/Podfile
+@@ -0,0 +1,41 @@
++# Uncomment this line to define a global platform for your project
++# platform :ios, '11.0'
++
++# CocoaPods analytics sends network stats synchronously affecting flutter build latency.
++ENV['COCOAPODS_DISABLE_STATS'] = 'true'
++
++project 'Runner', {
++  'Debug' => :debug,
++  'Profile' => :release,
++  'Release' => :release,
++}
++
++def flutter_root
++  generated_xcode_build_settings_path = File.expand_path(File.join('..', 'Flutter', 'Generated.xcconfig'), __FILE__)
++  unless File.exist?(generated_xcode_build_settings_path)
++    raise "#{generated_xcode_build_settings_path} must exist. If you're running pod install manually, make sure flutter pub get is executed first"
++  end
++
++  File.foreach(generated_xcode_build_settings_path) do |line|
++    matches = line.match(/FLUTTER_ROOT\=(.*)/)
++    return matches[1].strip if matches
++  end
++  raise "FLUTTER_ROOT not found in #{generated_xcode_build_settings_path}. Try deleting Generated.xcconfig, then run flutter pub get"
++end
++
++require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelper'), flutter_root)
++
++flutter_ios_podfile_setup
++
++target 'Runner' do
++  use_frameworks!
++  use_modular_headers!
++
++  flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
++end
++
++post_install do |installer|
++  installer.pods_project.targets.each do |target|
++    flutter_additional_ios_build_settings(target)
++  end
++end
+diff --git a/ios/Runner.xcodeproj/project.pbxproj b/ios/Runner.xcodeproj/project.pbxproj
+index e738c5c..332fbe3 100644
+--- a/ios/Runner.xcodeproj/project.pbxproj
++++ b/ios/Runner.xcodeproj/project.pbxproj
+@@ -259,10 +259,10 @@
+ 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+ 				CLANG_WARN_UNREACHABLE_CODE = YES;
+ 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
++				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "ba56719da7ba1585be3f6e9d205f1b1f67baf9ee";
+ 				COPY_PHASE_STRIP = NO;
+ 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+-				ENABLE_NS_ASSERTIONS = NO;
++				DEVELOPMENT_TEAM = 6A9479MY86;				ENABLE_NS_ASSERTIONS = NO;
+ 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+ 				GCC_C_LANGUAGE_STANDARD = gnu99;
+ 				GCC_NO_COMMON_BLOCKS = YES;
+@@ -272,7 +272,7 @@
+ 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+ 				GCC_WARN_UNUSED_FUNCTION = YES;
+ 				GCC_WARN_UNUSED_VARIABLE = YES;
+-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
++				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+ 				MTL_ENABLE_DEBUG_INFO = NO;
+ 				SDKROOT = iphoneos;
+ 				SUPPORTED_PLATFORMS = iphoneos;
+@@ -294,8 +294,9 @@
+ 					"$(inherited)",
+ 					"@executable_path/Frameworks",
+ 				);
+-				PRODUCT_BUNDLE_IDENTIFIER = com.example.mate8;
++				PRODUCT_BUNDLE_IDENTIFIER = COM.PATRYKSTEMPOROWSKI.MATE8;
+ 				PRODUCT_NAME = "$(TARGET_NAME)";
++				PROVISIONING_PROFILE_SPECIFIER = "83c8b13b-19c2-474d-87ad-9e4dfed3fc5a";
+ 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
+ 				SWIFT_VERSION = 5.0;
+ 				VERSIONING_SYSTEM = "apple-generic";
+@@ -330,10 +331,10 @@
+ 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+ 				CLANG_WARN_UNREACHABLE_CODE = YES;
+ 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
++				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "ba56719da7ba1585be3f6e9d205f1b1f67baf9ee";
+ 				COPY_PHASE_STRIP = NO;
+ 				DEBUG_INFORMATION_FORMAT = dwarf;
+-				ENABLE_STRICT_OBJC_MSGSEND = YES;
++				DEVELOPMENT_TEAM = 6A9479MY86;				ENABLE_STRICT_OBJC_MSGSEND = YES;
+ 				ENABLE_TESTABILITY = YES;
+ 				GCC_C_LANGUAGE_STANDARD = gnu99;
+ 				GCC_DYNAMIC_NO_PIC = NO;
+@@ -349,7 +350,7 @@
+ 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+ 				GCC_WARN_UNUSED_FUNCTION = YES;
+ 				GCC_WARN_UNUSED_VARIABLE = YES;
+-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
++				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+ 				MTL_ENABLE_DEBUG_INFO = YES;
+ 				ONLY_ACTIVE_ARCH = YES;
+ 				SDKROOT = iphoneos;
+@@ -385,10 +386,10 @@
+ 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+ 				CLANG_WARN_UNREACHABLE_CODE = YES;
+ 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
++				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "ba56719da7ba1585be3f6e9d205f1b1f67baf9ee";
+ 				COPY_PHASE_STRIP = NO;
+ 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+-				ENABLE_NS_ASSERTIONS = NO;
++				DEVELOPMENT_TEAM = 6A9479MY86;				ENABLE_NS_ASSERTIONS = NO;
+ 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+ 				GCC_C_LANGUAGE_STANDARD = gnu99;
+ 				GCC_NO_COMMON_BLOCKS = YES;
+@@ -398,7 +399,7 @@
+ 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+ 				GCC_WARN_UNUSED_FUNCTION = YES;
+ 				GCC_WARN_UNUSED_VARIABLE = YES;
+-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
++				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+ 				MTL_ENABLE_DEBUG_INFO = NO;
+ 				SDKROOT = iphoneos;
+ 				SUPPORTED_PLATFORMS = iphoneos;
+@@ -422,8 +423,9 @@
+ 					"$(inherited)",
+ 					"@executable_path/Frameworks",
+ 				);
+-				PRODUCT_BUNDLE_IDENTIFIER = com.example.mate8;
++				PRODUCT_BUNDLE_IDENTIFIER = COM.PATRYKSTEMPOROWSKI.MATE8;
+ 				PRODUCT_NAME = "$(TARGET_NAME)";
++				PROVISIONING_PROFILE_SPECIFIER = "83c8b13b-19c2-474d-87ad-9e4dfed3fc5a";
+ 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
+ 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+ 				SWIFT_VERSION = 5.0;
+@@ -444,8 +446,9 @@
+ 					"$(inherited)",
+ 					"@executable_path/Frameworks",
+ 				);
+-				PRODUCT_BUNDLE_IDENTIFIER = com.example.mate8;
++				PRODUCT_BUNDLE_IDENTIFIER = COM.PATRYKSTEMPOROWSKI.MATE8;
+ 				PRODUCT_NAME = "$(TARGET_NAME)";
++				PROVISIONING_PROFILE_SPECIFIER = "83c8b13b-19c2-474d-87ad-9e4dfed3fc5a";
+ 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
+ 				SWIFT_VERSION = 5.0;
+ 				VERSIONING_SYSTEM = "apple-generic";
+-- 
+2.32.0 (Apple Git-132)
+

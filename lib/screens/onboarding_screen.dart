@@ -18,7 +18,7 @@ class OnboardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
         systemNavigationBarIconBrightness: Brightness.dark,
         systemNavigationBarDividerColor: Colors.transparent,
         systemNavigationBarColor: StaticColors.secondaryColor));
@@ -33,7 +33,7 @@ class OnboardingScreen extends StatelessWidget {
         // Set the system UI overlay style here
         extendBody: true,
         body: Builder(builder: (context) {
-          SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+          SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
               systemNavigationBarIconBrightness: Brightness.dark,
               systemNavigationBarDividerColor: Colors.transparent,
               systemNavigationBarColor: StaticColors.secondaryColor));
@@ -41,8 +41,10 @@ class OnboardingScreen extends StatelessWidget {
             headerBackgroundColor: Colors.white,
             finishButtonText: 'Register',
             onFinish: onSignUpTapped,
-            finishButtonColor: StaticColors.primaryColor,
-            skipTextButton: Icon(
+            finishButtonStyle: const FinishButtonStyle(
+                backgroundColor: StaticColors.primaryColor,
+                foregroundColor: StaticColors.secondaryColor),
+            skipTextButton: const Icon(
               FluentIcons.fast_forward_16_regular,
               color: StaticColors.primaryFontColor,
             ),
@@ -95,7 +97,7 @@ class OnboardingScreen extends StatelessWidget {
             Text(
               title,
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 color: StaticColors.primaryFontColor,
                 fontSize: 24.0,
                 fontWeight: FontWeight.w600,
@@ -124,6 +126,6 @@ class OnboardingScreen extends StatelessWidget {
   }
 
   void onSignInTapped() async {
-    Get.to(() => SignInScreen());
+    Get.to(() => const SignInScreen());
   }
 }

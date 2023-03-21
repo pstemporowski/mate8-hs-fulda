@@ -3,6 +3,7 @@ import 'package:Mate8/controller/matches_controller.dart';
 import 'package:Mate8/model/model.dart';
 import 'package:Mate8/screens/main_pages/profile_page.dart';
 import 'package:Mate8/screens/single_chat_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebase;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -18,9 +19,9 @@ class ChatsPage extends GetView<MatchesController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: StaticColors.primaryColor,
-      appBar: const CustomAppBar(title: 'Chats'),
+      appBar: CustomAppBar(title: 'Chats'.tr),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             color: StaticColors.secondaryColor,
             borderRadius: BorderRadius.vertical(
                 top: Radius.circular(StaticStyles.borderRadius))),
@@ -28,31 +29,45 @@ class ChatsPage extends GetView<MatchesController> {
           child: Column(
             children: [
               Expanded(
-                child: Obx(() => ListView.builder(
-                    itemCount: controller.chats.length,
-                    itemBuilder: (_, index) {
-                      var chat = controller.chats[index];
-                      var chatUser = chat.otherUser;
-                      var currentUser = const types.User(
-                          //Todo add the currentUser from Auth
-                          id: '4cceb2b6-0955-4960-b67b-309ff1766b27');
-                      var otherUser = types.User(
-                          id: chatUser.id,
-                          firstName: chatUser.name,
-                          imageUrl: chatUser.profilePictureUrl);
-                      final tag = 'ProfilePage:${chatUser.id}';
-                      return ChatTile(
-                          chat: chat,
-                          chatUser: chatUser,
-                          tagId: tag,
-                          onTap: () => onTapChatTile(
-                              currentUser, otherUser, chatUser, chat, tag));
-                    })),
+                child: Obx(
+                  () => controller.chats.isEmpty
+                      ? _buildNoChatsAvailableView()
+                      : _buildChatView(),
+                ),
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildChatView() {
+    return Obx(() => ListView.builder(
+        physics: const BouncingScrollPhysics(),
+        itemCount: controller.chats.length,
+        itemBuilder: (_, index) {
+          var chat = controller.chats[index];
+          var chatUser = chat.otherUser;
+          var currentUser = types.User(
+              id: firebase.FirebaseAuth.instance.currentUser!.uid ?? '');
+          var otherUser = types.User(
+              id: chatUser.id,
+              firstName: chatUser.name,
+              imageUrl: chatUser.profilePictureUrl);
+          final tag = 'ProfilePage:${chatUser.id}';
+          return ChatTile(
+              chat: chat,
+              chatUser: chatUser,
+              tagId: tag,
+              onTap: () =>
+                  onTapChatTile(currentUser, otherUser, chatUser, chat, tag));
+        }));
+  }
+
+  Widget _buildNoChatsAvailableView() {
+    return Center(
+      child: Text('NoChatsAvailable'.tr),
     );
   }
 

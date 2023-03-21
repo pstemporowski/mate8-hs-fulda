@@ -7,6 +7,7 @@ import 'package:Mate8/screens/verify_screen.dart';
 import 'package:Mate8/services/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -14,6 +15,7 @@ import 'controller/current_user_controller.dart';
 import 'controller/language_controller.dart';
 import 'controller/routing_controller.dart';
 import 'firebase_options.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +26,7 @@ Future main() async {
   Get.lazyPut(() => Datastore(), fenix: true);
   Get.lazyPut(() => SignInController(), fenix: true);
   Get.lazyPut(() => SettingsController(), fenix: true);
-  Get.lazyPut(() => LanguageController(), fenix: true);
+  Get.put(LanguageController());
   Get.lazyPut(() => MatchesController(), fenix: true);
   Get.lazyPut(() => CurrentUserController(), fenix: true);
   Get.lazyPut(() => RoutingController(), fenix: true);
@@ -49,39 +51,35 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    return MaterialApp(
-      localizationsDelegates: const [
-        DefaultMaterialLocalizations.delegate,
-        DefaultWidgetsLocalizations.delegate,
-      ],
+    return GetMaterialApp(
+      translations: Messages(),
+      debugShowCheckedModeBanner: false,
+      navigatorKey: navigatorKey,
+      transitionDuration: const Duration(milliseconds: 800),
       supportedLocales: languageController.supportedLocales,
+      fallbackLocale: languageController.supportedLocales[0],
       locale: Get.deviceLocale,
-      builder: (context, child) {
-        return GetMaterialApp(
-          debugShowCheckedModeBanner: false,
-          navigatorKey: navigatorKey,
-          translations: Messages(),
-          transitionDuration: const Duration(milliseconds: 800),
-          fallbackLocale: languageController.supportedLocales[0],
-          home: StreamBuilder<User?>(
-            stream: _userStream,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasError) {
-                return Center(
-                  child: Text('Error'.tr),
-                );
-              } else if (snapshot.hasData && snapshot.data != null) {
-                return const VerifyScreen();
-              } else {
-                return const OnboardingScreen();
-              }
-            },
-          ),
-        );
-      },
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      home: StreamBuilder<User?>(
+        stream: _userStream,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text('Error'.tr),
+            );
+          } else if (snapshot.hasData && snapshot.data != null) {
+            return const VerifyScreen();
+          } else {
+            return const OnBoardingScreen();
+          }
+        },
+      ),
     );
   }
 }

@@ -50,7 +50,7 @@ class SignUpController extends GetxController {
   Future onAgePickerTapped() async {
     Get.focusScope?.unfocus();
     await showBottomSheet(
-        title: 'Alter auswählen',
+        title: 'ChooseAge'.tr,
         onClose: onAgePickerClosed,
         child: BottomSheetPicker(
           items: ages,
@@ -70,7 +70,7 @@ class SignUpController extends GetxController {
   void onUniversityDepartmentTapped() async {
     Get.focusScope?.unfocus();
     await showBottomSheet(
-        title: 'Fachbereich wählen',
+        title: 'SelectSubjectArea'.tr,
         onClose: onUniversityDepartmentPickerClosed,
         child: BottomSheetPicker(
           items: universityDepartments,
@@ -104,7 +104,7 @@ class SignUpController extends GetxController {
   Future onSemesterPickerTapped() async {
     Get.focusScope?.unfocus();
     await showBottomSheet(
-        title: 'Semester auswählen',
+        title: 'SelectSemester'.tr,
         onClose: onSemesterPickerClosed,
         child: BottomSheetPicker(
           items: semesters,
@@ -167,7 +167,7 @@ class SignUpController extends GetxController {
     Get.offAll(() => MainScreen());
     dispose();
   }
-
+  
   bool validateInput(String name, String description, String singleWords) {
     if (name.isEmpty) {
       errorText.value = 'Name cannot be empty';

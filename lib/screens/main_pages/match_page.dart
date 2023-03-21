@@ -4,6 +4,7 @@ import 'package:Mate8/controller/matches_controller.dart';
 import 'package:Mate8/styles/static_colors.dart';
 import 'package:Mate8/styles/static_styles.dart';
 import 'package:appinio_swiper/appinio_swiper.dart';
+import 'package:assorted_layout_widgets/assorted_layout_widgets.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,27 +14,42 @@ class MatchPage extends GetView<MatchesController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: StaticColors.primaryColor,
-      appBar: const CustomAppBar(title: 'Matches'),
-      body: Container(
-        decoration: BoxDecoration(
-            color: StaticColors.secondaryColor,
-            borderRadius: BorderRadius.vertical(
-                top: Radius.circular(StaticStyles.borderRadius))),
-        child: Obx(
-          () => controller.isLoading.value
-              ? _loadingScreen()
-              : controller.cardsAvailable.value
-                  ? _buildCardsAvailableView()
-                  : _buildNoCardsAvailableView(),
+    return Container(
+      margin: Pad(bottom: 80),
+      decoration: const BoxDecoration(
+          color: StaticColors.primaryColor,
+          borderRadius: BorderRadius.vertical(
+              top: Radius.circular(StaticStyles.borderRadius))),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: CustomAppBar(title: 'Matches'.tr),
+        extendBody: true,
+        body: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Expanded(
+              child: Container(
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(StaticStyles.borderRadius))),
+                child: Obx(
+                  () => controller.isLoading.value
+                      ? _loadingScreen()
+                      : controller.cardsAvailable.value
+                          ? _buildCardsAvailableView()
+                          : _buildNoCardsAvailableView(),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
 
   Widget _loadingScreen() {
-    return Center(
+    return const Center(
       child: CircularProgressIndicator(
         color: StaticColors.primaryColor,
       ),
@@ -45,11 +61,11 @@ class MatchPage extends GetView<MatchesController> {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text('Keine User mehr verfügbar'),
+        Text('NoUserAvailable'.tr),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30.0),
           child: CustomButton(
-            'Neu laden',
+            'Reload'.tr,
             color: StaticColors.primaryColor,
             fontColor: Colors.white,
             onTap: controller.onRefreshButtonTapped,
@@ -64,32 +80,31 @@ class MatchPage extends GetView<MatchesController> {
       mainAxisSize: MainAxisSize.max,
       children: [
         Expanded(
-          child: Obx(
-            () => AppinioSwiper(
-              controller: controller.swiperController,
-              onSwipe: controller.swipe,
-              cards: controller.cards.value,
-              onEnd: controller.onSwiperEnded,
-            ),
+          child: AppinioSwiper(
+            controller: controller.swiperController,
+            onSwipe: controller.swipe,
+            cards: controller.cards,
+            onEnd: controller.onSwiperEnded,
           ),
         ),
         _buildMatchControlPanel(),
-        SizedBox(
+        Container(
           height: 5,
+          color: Colors.white,
         )
       ],
     );
   }
 
-  Row _buildMatchControlPanel() {
+  Widget _buildMatchControlPanel() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        RoundedIconButton(
+        _buildRoundedIconButton(
             backgroundColor: Colors.red,
             icon: FluentIcons.dismiss_32_regular,
             onTap: controller.onDismissTapped),
-        RoundedIconButton(
+        _buildRoundedIconButton(
             backgroundColor: Colors.green,
             icon: FluentIcons.checkmark_32_regular,
             onTap: controller.onMatchTapped),
@@ -97,7 +112,7 @@ class MatchPage extends GetView<MatchesController> {
     );
   }
 
-  Widget RoundedIconButton(
+  Widget _buildRoundedIconButton(
       {required Color backgroundColor,
       Function()? onTap,
       required IconData icon}) {

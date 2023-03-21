@@ -14,7 +14,7 @@ class CurrentUserController extends GetxController {
     var user = await datastore.getUser(id);
     if (user == null) {
       isCurrentUserSet.value = false;
-      Get.offAll(() => const OnboardingScreen());
+      Get.offAll(() => const OnBoardingScreen());
       return false;
     } else {
       currentUser = user;

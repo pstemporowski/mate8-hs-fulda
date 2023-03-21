@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class BackgroundScreen extends StatelessWidget {
-  BackgroundScreen(
+  const BackgroundScreen(
       {Key? key, this.src = 'assets/images/background.png', this.height = 300})
       : super(key: key);
 
@@ -24,7 +24,7 @@ class BackgroundScreen extends StatelessWidget {
                   image: DecorationImage(
                       fit: BoxFit.cover, image: AssetImage(src)),
                 ),
-                height: this.height,
+                height: height,
               ),
             ])
           ],

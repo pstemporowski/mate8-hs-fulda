@@ -5,6 +5,7 @@ import 'package:Mate8/screens/main_pages/profile_page.dart';
 import 'package:Mate8/styles/static_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:bubble/bubble.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart' as chat_ui;
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 
@@ -32,18 +33,22 @@ class SingleChatScreen extends GetView<ChatController> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+        systemNavigationBarIconBrightness: Brightness.light,
+        systemNavigationBarDividerColor: Colors.transparent,
+        systemNavigationBarColor: Colors.black));
     controller.currentUser = currentUser;
     controller.otherUser = otherUser;
     controller.messages = textMessages;
     controller.chatId = chatId;
-    print(tagId);
     return Scaffold(
-      appBar: ProfileAppBar(
+      appBar: _buildProfileAppBar(
           name: otherUser.firstName ?? "",
           profileImageUrl: otherUser.imageUrl ?? "",
           tag: tagId ?? ''),
       body: Obx(
         () => chat_ui.Chat(
+          scrollPhysics: const BouncingScrollPhysics(),
           showUserNames: false,
           showUserAvatars: false,
           messages: controller.messages.value,
@@ -55,7 +60,7 @@ class SingleChatScreen extends GetView<ChatController> {
     );
   }
 
-  AppBar ProfileAppBar(
+  AppBar _buildProfileAppBar(
       {required String name,
       required String profileImageUrl,
       required String tag}) {
@@ -136,7 +141,7 @@ class SingleChatScreen extends GetView<ChatController> {
   }) =>
       Bubble(
         shadowColor: Colors.transparent,
-        padding: const BubbleEdges.all(0),
+        padding: const BubbleEdges.all(15),
         margin: const BubbleEdges.all(0),
         style: const BubbleStyle(radius: Radius.circular(25)),
         color: currentUser.id != message.author.id ||
@@ -144,6 +149,14 @@ class SingleChatScreen extends GetView<ChatController> {
             ? const Color(0xfff5f5f7)
             : const Color(0xff6f61e8),
         nip: BubbleNip.no,
-        child: child,
+        child: Text(
+          message.text,
+          style: TextStyle(
+            fontSize: 15.0, // Change font size here
+            color: currentUser.id == message.author.id
+                ? Colors.white
+                : Colors.black,
+          ),
+        ),
       );
 }

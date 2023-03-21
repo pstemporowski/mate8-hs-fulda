@@ -18,77 +18,93 @@ class MainScreen extends GetView<RoutingController> {
 
   @override
   Widget build(BuildContext context) {
+    final double navBarHeight = MediaQuery.of(context).padding.bottom;
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
         systemNavigationBarIconBrightness: Brightness.dark,
-        systemNavigationBarDividerColor: Colors.transparent,
-        systemNavigationBarColor: Colors.transparent));
+        systemNavigationBarDividerColor: Colors.white,
+        systemNavigationBarColor: Colors.white));
     final tabItems = controller.tabItems();
     return Scaffold(
-        backgroundColor: Colors.white,
-        bottomNavigationBar: Obx(
-          () => SalomonBottomBar(
-            currentIndex: controller.activePageIndex.value,
-            onTap: (x) async => {controller.activePageIndex.value = x},
-            items: [
-              SalomonBottomBarItem(
-                icon: const Icon(
-                  FluentIcons.home_32_regular,
-                  color: Colors.black,
-                ),
-                activeIcon: const Icon(FluentIcons.home_32_filled),
-                title: Text("Home".tr),
-                selectedColor: StaticColors.primaryColor,
+      extendBody: true,
+      extendBodyBehindAppBar: true,
+      backgroundColor: StaticColors.secondaryColor,
+      bottomNavigationBar: Obx(
+        () => SalomonBottomBar(
+          currentIndex: controller.activePageIndex.value,
+          onTap: (x) async => {controller.activePageIndex.value = x},
+          items: [
+            SalomonBottomBarItem(
+              icon: const Icon(
+                FluentIcons.home_32_regular,
+                color: Colors.black,
               ),
-              SalomonBottomBarItem(
-                icon: Obx(
-                  () => badges.Badge(
-                    badgeAnimation: const badges.BadgeAnimation.slide(),
-                    badgeContent: Text(
-                        matchesController.newMessagesCount.value.toString(),
-                        style: const TextStyle(
-                            color: StaticColors.secondaryFontColor)),
-                    showBadge: matchesController.newMessagesCount.value > 0,
-                    child: const Icon(FluentIcons.chat_32_regular,
-                        color: StaticColors.mainIconColor),
-                  ),
-                ),
-                title: Text("Chats".tr),
-                selectedColor: StaticColors.primaryColor,
-                activeIcon: Obx(
-                  () => badges.Badge(
-                    badgeContent: Text(
-                        matchesController.newMessagesCount.value.toString(),
-                        style: const TextStyle(
-                            color: StaticColors.secondaryFontColor)),
-                    badgeAnimation: const badges.BadgeAnimation.slide(),
-                    showBadge: matchesController.newMessagesCount.value > 0,
-                    child: const Icon(FluentIcons.chat_32_filled,
-                        color: StaticColors.mainIconColor),
-                  ),
+              activeIcon: const Icon(FluentIcons.home_32_filled),
+              title: Text("Home".tr),
+              selectedColor: StaticColors.primaryColor,
+            ),
+            SalomonBottomBarItem(
+              icon: Obx(
+                () => badges.Badge(
+                  badgeAnimation: const badges.BadgeAnimation.slide(),
+                  badgeContent: Text(
+                      matchesController.newMessagesCount.value.toString(),
+                      style: const TextStyle(
+                          color: StaticColors.secondaryFontColor)),
+                  showBadge: matchesController.newMessagesCount.value > 0,
+                  child: const Icon(FluentIcons.chat_32_regular,
+                      color: StaticColors.mainIconColor),
                 ),
               ),
-              SalomonBottomBarItem(
-                icon: const Icon(FluentIcons.person_32_regular,
-                    color: StaticColors.mainIconColor),
-                activeIcon: const Icon(FluentIcons.person_32_filled),
-                title: Text("Profile".tr),
-                selectedColor: StaticColors.primaryColor,
+              title: Text("Chats".tr),
+              selectedColor: StaticColors.primaryColor,
+              activeIcon: Obx(
+                () => badges.Badge(
+                  badgeContent: Text(
+                      matchesController.newMessagesCount.value.toString(),
+                      style: const TextStyle(
+                          color: StaticColors.secondaryFontColor)),
+                  badgeAnimation: const badges.BadgeAnimation.slide(),
+                  showBadge: matchesController.newMessagesCount.value > 0,
+                  child: const Icon(FluentIcons.chat_32_filled,
+                      color: StaticColors.mainIconColor),
+                ),
               ),
-              SalomonBottomBarItem(
-                icon: const Icon(FluentIcons.settings_28_regular,
-                    color: StaticColors.mainIconColor),
-                activeIcon: const Icon(FluentIcons.settings_28_filled),
-                title: Text("Settings".tr),
-                selectedColor: StaticColors.primaryColor,
-              ),
-            ],
-          ),
+            ),
+            SalomonBottomBarItem(
+              icon: const Icon(FluentIcons.person_32_regular,
+                  color: StaticColors.mainIconColor),
+              activeIcon: const Icon(FluentIcons.person_32_filled),
+              title: Text("Profile".tr),
+              selectedColor: StaticColors.primaryColor,
+            ),
+            SalomonBottomBarItem(
+              icon: const Icon(FluentIcons.settings_28_regular,
+                  color: StaticColors.mainIconColor),
+              activeIcon: const Icon(FluentIcons.settings_28_filled),
+              title: Text("Settings".tr),
+              selectedColor: StaticColors.primaryColor,
+            ),
+          ],
         ),
-        body: Obx(
-              () => IndexedStack(
+      ),
+      body: Builder(builder: (context) {
+        Future.delayed(
+            const Duration(milliseconds: 100),
+            () => {
+                  SystemChrome.setSystemUIOverlayStyle(
+                      const SystemUiOverlayStyle(
+                          systemNavigationBarIconBrightness: Brightness.dark,
+                          systemNavigationBarDividerColor: Colors.white,
+                          systemNavigationBarColor: Colors.white))
+                });
+        return Obx(
+          () => IndexedStack(
+            sizing: StackFit.expand,
             index: controller.activePageIndex.value,
             children: tabItems,
           ),
-        ));
+        );
+      }),
+    );
   }
 }

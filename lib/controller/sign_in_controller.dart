@@ -17,7 +17,7 @@ class SignInController extends GetxController {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: emailTextEditingController.text,
           password: passwordTextEditingController.text);
-      Get.to(() => VerifyScreen());
+      Get.to(() => const VerifyScreen());
     } on FirebaseAuthException catch (e) {
       errorText.value = e.message ?? '';
     }

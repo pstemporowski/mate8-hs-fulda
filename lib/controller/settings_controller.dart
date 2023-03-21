@@ -18,7 +18,7 @@ class SettingsController extends GetxController {
   void signOut() async {
     try {
       await FirebaseAuth.instance.signOut();
-      Get.offAll(const OnboardingScreen());
+      Get.offAll(const OnBoardingScreen());
       Get.deleteAll();
     } catch (e) {
       print(e);
@@ -30,9 +30,11 @@ class SettingsController extends GetxController {
   }
 
   void changeLanguage() async {
+    print('im in');
     var supportedLanguages = getSupportedCountriesText();
+    print('test' + supportedLanguages.length.toString());
     await components.showBottomSheet(
-        title: 'Sprache wählen',
+        title: 'ChooseLanguage'.tr,
         child: components.BottomSheetPicker(
             items: supportedLanguages,
             controller: scrollController,
@@ -45,18 +47,18 @@ class SettingsController extends GetxController {
     generalTextEditingController.text = '';
     Get.defaultDialog(
         contentPadding: const EdgeInsets.all(15),
-        title: 'neues Passwort',
+        title: 'NewPassword'.tr,
         content: Column(
           children: [
             components.CustomTextFormField(
-              'Passwort eingeben',
+              'InputPassword'.tr,
               controller: generalTextEditingController,
             ),
             const SizedBox(
               height: 5,
             ),
             components.CustomButton(
-              'Bestätigen',
+              'Apply'.tr,
               fontColor: StaticColors.secondaryFontColor,
               onTap: changePassword,
             ),
@@ -87,13 +89,13 @@ class SettingsController extends GetxController {
 
   void showAppInfo() async {
     Get.defaultDialog(
-      title: 'App Info',
+      title: 'AppInfo'.tr,
       content: Column(
         children: [
-          const Text('Version: 1.0'),
-          const Text('Created by: Patryk Stemporowski'),
+          Text('VersionInfo'.tr),
+          Text('CreatedBy'.tr),
           components.CustomButton(
-            'Close',
+            'Close'.tr,
             fontColor: Colors.white,
             onTap: closeDialog,
           )
@@ -107,14 +109,23 @@ class SettingsController extends GetxController {
   }
 
   List<String> getSupportedCountriesText() {
-    return supportedLocales
-        .map((locale) =>
-            '${getFlagEmoji(locale.countryCode ?? '')} ${getLanguageName(locale)}')
-        .toList();
+    print(supportedLocales.length);
+    return supportedLocales.map((locale) {
+      return '${getFlagEmoji(locale.countryCode ?? '')} ${getLanguageName(locale)}';
+    }).toList();
   }
 
   String getLanguageName(Locale locale) {
-    return Language.fromIsoCode(locale.languageCode).name;
+    try {
+      print(locale.languageCode);
+      if (locale.languageCode == 'zh') return 'Chinese';
+
+      var name = Language.fromIsoCode(locale.languageCode).name;
+      return name;
+    } catch (e) {
+      print('Error in locale: $locale'); // log the error
+      return ''; // return an empty string or a default value
+    }
   }
 
   String getFlagEmoji(String countryCode) {

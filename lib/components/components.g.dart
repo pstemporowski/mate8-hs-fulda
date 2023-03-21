@@ -63,6 +63,7 @@ class CustomTextFormField extends StatelessWidget {
     this.isNumeric = false,
     this.hintText,
     this.isMultiLine = false,
+    this.textInputType = TextInputType.text,
     this.isEnabled,
     this.isPassword,
   }) : super(key: key);
@@ -79,6 +80,8 @@ class CustomTextFormField extends StatelessWidget {
 
   final bool isMultiLine;
 
+  final TextInputType textInputType;
+
   final bool? isEnabled;
 
   final bool? isPassword;
@@ -91,16 +94,22 @@ class CustomTextFormField extends StatelessWidget {
         isNumeric: isNumeric,
         hintText: hintText,
         isMultiLine: isMultiLine,
+        textInputType: textInputType,
         isEnabled: isEnabled,
         isPassword: isPassword,
       );
 }
 
 class CountryRow extends StatelessWidget {
-  const CountryRow({Key? key}) : super(key: key);
+  const CountryRow(
+    this.countryCode, {
+    Key? key,
+  }) : super(key: key);
+
+  final String countryCode;
 
   @override
-  Widget build(BuildContext _context) => countryRow();
+  Widget build(BuildContext _context) => countryRow(countryCode);
 }
 
 class ProfileInfoRow extends StatelessWidget {

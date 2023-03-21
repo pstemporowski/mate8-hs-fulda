@@ -15,15 +15,6 @@ class ChatController extends GetxController {
   var datastore = Get.find<Datastore>();
   var chatId = '';
 
-  void loadMessages() async {
-    for (int i = 0; i < 20; i++) {
-      addMessage(types.TextMessage(
-          author: otherUser,
-          createdAt: DateTime.now().millisecondsSinceEpoch,
-          id: randomString(),
-          text: "test"));
-    }
-  }
 
   void addMessage(types.TextMessage message) async {
     datastore.uploadMessage(chatId, message);

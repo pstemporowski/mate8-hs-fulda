@@ -53,10 +53,10 @@ class MatchesController extends GetxController {
         onTap: onMatchSnackBarTapped,
         margin: const EdgeInsets.all(10),
         snackStyle: SnackStyle.FLOATING,
-        title: 'Neuer Match',
+        title: 'NewMatch'.tr,
         borderRadius: 15,
         snackPosition: SnackPosition.TOP,
-        message: "Jetzt kannst du mit der Person chatten",
+        message: 'ChatNow'.tr,
         backgroundColor: Colors.green,
         icon: const Icon(
           FluentIcons.handshake_32_filled,
@@ -95,14 +95,13 @@ class MatchesController extends GetxController {
     isLoading.value = true;
     isControllerInit.value = false;
     cards.clear();
-    //var chats = await datastore.getChats('4cceb2b6-0955-4960-b67b-309ff1766b27');
-    //TODO add current USer ID from Authentificator;
     await datastore.listenToChats(FirebaseAuth.instance.currentUser!.uid,
         onNewChat: onNewChat, onNewMessage: onNewMessage);
 
     await _loadNewCandidates();
 
     _finishLoad();
+
     isLoading.value = false;
   }
 
@@ -113,6 +112,8 @@ class MatchesController extends GetxController {
         .map((candidate) => cards.add(SwipeCard(candidate: candidate)))
         .toList();
     users = newCandidates;
+
+    if (cards.isNotEmpty) cardsAvailable.value = true;
   }
 
   void _finishLoad() async {
@@ -121,17 +122,17 @@ class MatchesController extends GetxController {
     sortChats(chats);
   }
 
-  void onMatchTapped() {
+  void onMatchTapped() async {
     swiperController.swipe();
   }
 
-  void onDismissTapped() {
+  void onDismissTapped() async {
     if (isClosed) return;
 
     swiperController.swipeLeft();
   }
 
-  void swipe(int index, AppinioSwiperDirection direction) {
+  void swipe(int index, AppinioSwiperDirection direction) async {
     handleMatch(users[index], direction.name == 'right');
     users.removeAt(index);
   }
@@ -166,7 +167,7 @@ class MatchesController extends GetxController {
   }
 
   void onSwiperEnded() async {
-    cardsAvailable.value = true;
+    cardsAvailable.value = false;
   }
 
   void onRefreshButtonTapped() async {

@@ -35,7 +35,7 @@ class SignUpDetailScreen extends GetView<SignUpController> {
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
           shadowColor: Colors.transparent,
-          title: Text('Details',
+          title: Text('Details'.tr,
               style: TextStyle(color: StaticColors.primaryFontColor)),
           centerTitle: true,
           backgroundColor: Colors.transparent,
@@ -52,15 +52,15 @@ class SignUpDetailScreen extends GetView<SignUpController> {
               padding: const EdgeInsets.all(30),
               child: Column(children: [
                 buildProfileImageContainer(),
-                buildSubheading('Allgemeine Informationen'),
+                buildSubheading('Information'.tr),
                 CustomTextFormField("Name".tr,
                     controller: controller.nameTextEditingController,
                     iconData: Icons.person),
-                buildSubheading('Weitere Informationen'),
+                buildSubheading('MoreInformation'.tr),
                 GestureDetector(
                   onTap: () => controller.onCountryPickerTapped(context),
                   child: CustomTextFormField(
-                    "Nationalität",
+                    "Nationality".tr,
                     isEnabled: false,
                     iconData: Icons.flag,
                     controller: controller.nationalityTextEditingController,
@@ -69,7 +69,7 @@ class SignUpDetailScreen extends GetView<SignUpController> {
                 GestureDetector(
                   onTap: controller.onAgePickerTapped,
                   child: CustomTextFormField(
-                    "Alter",
+                    "Age".tr,
                     isEnabled: false,
                     isNumeric: true,
                     iconData: Icons.calendar_month,
@@ -80,7 +80,7 @@ class SignUpDetailScreen extends GetView<SignUpController> {
                   onTap: controller.onUniversityDepartmentTapped,
                   child: CustomTextFormField(
                     isEnabled: false,
-                    "Fachbereich",
+                    "DegreeProgram".tr,
                     iconData: Icons.arrow_drop_down_sharp,
                     controller:
                         controller.universityDepartmentTextEditingController,
@@ -90,14 +90,14 @@ class SignUpDetailScreen extends GetView<SignUpController> {
                   onTap: controller.onSemesterPickerTapped,
                   child: CustomTextFormField(
                     isEnabled: false,
-                    "Semester",
+                    "Semester".tr,
                     iconData: Icons.arrow_drop_down_sharp,
                     controller: controller.semesterTextEditingController,
                   ),
                 ),
-                buildSubheading('Beschreibung'),
+                buildSubheading('Description'.tr),
                 CustomTextFormField(
-                  "Beschreibung angeben",
+                  "DescriptionInput".tr,
                   isMultiLine: true,
                   iconData: Icons.description,
                   controller: controller.descriptionTextEditingController,
@@ -115,7 +115,7 @@ class SignUpDetailScreen extends GetView<SignUpController> {
                   height: 30,
                 ),
                 CustomButton(
-                  "Abschließen",
+                  "End".tr,
                   color: Colors.white,
                   onTap: controller.setProfile,
                 ),

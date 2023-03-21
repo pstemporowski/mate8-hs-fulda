@@ -1,6 +1,5 @@
 import 'package:Mate8/controller/settings_controller.dart';
 import 'package:assorted_layout_widgets/assorted_layout_widgets.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -23,7 +22,7 @@ class SettingsPage extends GetView<SettingsController> {
         backgroundColor: StaticColors.primaryColor,
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             color: StaticColors.secondaryColor,
             borderRadius: BorderRadius.vertical(
                 top: Radius.circular(StaticStyles.borderRadius))),
@@ -33,35 +32,35 @@ class SettingsPage extends GetView<SettingsController> {
             children: [
               _buildSettingsPanel(
                   icon: FluentIcons.flag_16_regular,
-                  text: 'Sprache wählen',
+                  text: 'ChooseLanguage'.tr,
                   onTap: controller.changeLanguage),
               _buildSeperator(),
               _buildSettingsPanel(
-                  icon: FluentIcons.wrench_16_regular,
-                  text: 'Profil bearbeiten'),
+                  icon: FluentIcons.wrench_16_regular, text: 'EditProfile'.tr),
               _buildSeperator(),
               _buildSettingsPanel(
                   icon: FluentIcons.password_16_regular,
-                  text: 'Passwort ändern',
+                  text: 'ChangePassword'.tr,
                   onTap: controller.showChangePasswordDialog),
               _buildSeperator(),
               _buildSettingsPanel(
                   icon: FluentIcons.eye_16_regular,
-                  text: 'Sichtbarkeit ändern'),
+                  text: 'ChangeVisibility'.tr),
               _buildSeperator(),
               _buildSettingsPanel(
-                  icon: FluentIcons.delete_16_regular, text: 'Profil löschen'),
+                  icon: FluentIcons.delete_16_regular,
+                  text: 'DeleteProfile'.tr),
               _buildSeperator(),
               _buildSettingsPanel(
                   icon: FluentIcons.info_16_regular,
-                  text: 'App Info',
+                  text: 'AppInfo'.tr,
                   onTap: controller.showAppInfo),
               _buildSeperator(),
               const SizedBox(
                 height: 50,
               ),
               CustomButton(
-                "Abmelden",
+                "SignOut".tr,
                 onTap: controller.signOut,
                 fontColor: Colors.white,
                 color: Colors.red,
@@ -75,7 +74,7 @@ class SettingsPage extends GetView<SettingsController> {
 
   Widget _buildSettingsPanel(
       {required IconData icon, required String text, void Function()? onTap}) {
-    return GestureDetector(
+    return InkWell(
       onTap: onTap,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 15),

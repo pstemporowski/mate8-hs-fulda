@@ -2,6 +2,7 @@ import 'package:Mate8/styles/static_colors.dart';
 import 'package:Mate8/styles/static_styles.dart';
 import 'package:assorted_layout_widgets/assorted_layout_widgets.dart';
 import 'package:blur/blur.dart';
+import 'package:country_code/country_code.dart';
 import 'package:country_flags/country_flags.dart';
 import 'package:cupertino_text_button/cupertino_text_button.dart';
 import 'package:flutter/cupertino.dart';
@@ -35,7 +36,7 @@ Future showBottomSheet(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   CupertinoTextButton(
-                    text: textButtonValue ?? 'Anwenden',
+                    text: textButtonValue ?? 'Apply2'.tr,
                     color: Colors.blue,
                     style: const TextStyle(fontSize: 15),
                     onTap: Get.back,
@@ -179,20 +180,25 @@ Widget customTextFormField(String labelText,
 }
 
 @swidget
-Widget countryRow() {
+Widget countryRow(String countryCode) {
   return RowSuper(
     innerDistance: 14,
     alignment: Alignment.center,
     children: [
-      CountryFlags.flag(
-        'pl',
-        height: 35,
-        width: 35,
-        borderRadius: 15,
+      Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            border: Border.all(color: Colors.grey, width: 0.5)),
+        child: CountryFlags.flag(
+          countryCode,
+          height: 30,
+          width: 40,
+          borderRadius: 15,
+        ),
       ),
-      const Text(
-        "Poland",
-        style: TextStyle(fontSize: 18),
+      Text(
+        CountryCode.tryParse(countryCode)?.alpha3 ?? '',
+        style: const TextStyle(fontSize: 18),
       )
     ],
   );
@@ -323,12 +329,13 @@ Widget chatTile(
     required User chatUser,
     void Function()? onTap,
     String? tagId}) {
-  print('TagId' + (tagId ?? ''));
   return Padding(
     padding: const EdgeInsets.all(6.0),
     child: Hero(
       tag: tagId ?? 'Tag',
       child: Material(
+        borderRadius: BorderRadius.circular(StaticStyles.borderRadius),
+        color: Colors.white,
         child: InkWell(
           enableFeedback: true,
           borderRadius: BorderRadius.circular(StaticStyles.borderRadius),
@@ -478,15 +485,14 @@ class SwipeCard extends StatelessWidget {
                             top: Radius.circular(StaticStyles.borderRadius)),
                         overlay: showProfileImage
                             ? null
-                            : const Center(
-                          child: Text(
-                              'Das Bild wird nach einem Match freigeschaltet',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.black45,
-                                  fontSize: 18,
-                                  overflow: TextOverflow.fade)),
-                        ),
+                            : Center(
+                                child: Text('UnlockedImage'.tr,
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                        color: Colors.black45,
+                                        fontSize: 18,
+                                        overflow: TextOverflow.fade)),
+                              ),
                       )),
                 ),
                 Align(
@@ -597,6 +603,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      elevation: 0,
       title: Text(title),
       centerTitle: true,
       shadowColor: Colors.transparent,

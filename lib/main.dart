@@ -20,7 +20,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    name: "Mate8",
     options: DefaultFirebaseOptions.currentPlatform,
   );
   Get.lazyPut(() => Datastore(), fenix: true);

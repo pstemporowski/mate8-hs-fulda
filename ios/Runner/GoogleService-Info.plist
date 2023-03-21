@@ -29,6 +29,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:974498641144:ios:ad25a31b51dfb3a93db70d</string>
+	<string>1:974498641144:ios:41f292ae084bf6963db70d</string>
+	<key>DATABASE_URL</key>
+	<string>https://mate8-e545d-default-rtdb.europe-west1.firebasedatabase.app</string>
 </dict>
 </plist>

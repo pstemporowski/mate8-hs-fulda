@@ -1,11 +1,8 @@
-import 'dart:developer';
 import 'package:Mate8/controller/routing_controller.dart';
-import 'package:Mate8/screens/main_pages/profile_page.dart';
 import 'package:appinio_swiper/appinio_swiper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:get/get.dart';
 import '../components/components.dart';
 import '../model/model.dart' as model;

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>974498641144-g6v6sknsmicocu22eptioteghvfhlelo.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.974498641144-g6v6sknsmicocu22eptioteghvfhlelo</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBwBuWTm00eTmvag0PHvXonXIFfcWNX47c</string>
+	<key>GCM_SENDER_ID</key>
+	<string>974498641144</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.projectcompany.app</string>
+	<key>PROJECT_ID</key>
+	<string>mate8-e545d</string>
+	<key>STORAGE_BUCKET</key>
+	<string>mate8-e545d.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:974498641144:ios:d3e79ce2e8a7b20d3db70d</string>
+	<key>DATABASE_URL</key>
+	<string>https://mate8-e545d-default-rtdb.europe-west1.firebasedatabase.app</string>
+</dict>
+</plist>

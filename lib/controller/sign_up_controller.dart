@@ -1,8 +1,6 @@
 import 'dart:io';
-
 import 'package:Mate8/components/components.dart';
 import 'package:Mate8/controller/current_user_controller.dart';
-import 'package:Mate8/controller/matches_controller.dart';
 import 'package:Mate8/model/model.dart' as model;
 import 'package:Mate8/screens/main_screen.dart';
 import 'package:Mate8/services/services.dart';

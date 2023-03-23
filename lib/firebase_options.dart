@@ -28,10 +28,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -61,14 +58,27 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyBwBuWTm00eTmvag0PHvXonXIFfcWNX47c',
-    appId: '1:974498641144:ios:41f292ae084bf6963db70d',
+    appId: '1:974498641144:ios:d3e79ce2e8a7b20d3db70d',
     messagingSenderId: '974498641144',
     projectId: 'mate8-e545d',
     databaseURL:
         'https://mate8-e545d-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'mate8-e545d.appspot.com',
     iosClientId:
-        '974498641144-5fmn74jjr488b72uf8ai4atnj0hgl4u7.apps.googleusercontent.com',
-    iosBundleId: 'com.example.mate8',
+        '974498641144-g6v6sknsmicocu22eptioteghvfhlelo.apps.googleusercontent.com',
+    iosBundleId: 'com.projectcompany.app',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyBwBuWTm00eTmvag0PHvXonXIFfcWNX47c',
+    appId: '1:974498641144:ios:d3e79ce2e8a7b20d3db70d',
+    messagingSenderId: '974498641144',
+    projectId: 'mate8-e545d',
+    databaseURL:
+        'https://mate8-e545d-default-rtdb.europe-west1.firebasedatabase.app',
+    storageBucket: 'mate8-e545d.appspot.com',
+    iosClientId:
+        '974498641144-g6v6sknsmicocu22eptioteghvfhlelo.apps.googleusercontent.com',
+    iosBundleId: 'com.projectcompany.app',
   );
 }

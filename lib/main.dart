@@ -25,7 +25,7 @@ Future main() async {
   Get.lazyPut(() => Datastore(), fenix: true);
   Get.lazyPut(() => SignInController(), fenix: true);
   Get.lazyPut(() => SettingsController(), fenix: true);
-  Get.put(LanguageController());
+  Get.lazyPut(() => LanguageController(), fenix: true);
   Get.lazyPut(() => MatchesController(), fenix: true);
   Get.lazyPut(() => CurrentUserController(), fenix: true);
   Get.lazyPut(() => RoutingController(), fenix: true);

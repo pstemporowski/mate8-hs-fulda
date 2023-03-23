@@ -355,7 +355,7 @@ Widget chatTile(
                       BorderRadius.circular(StaticStyles.borderRadius),
                       image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: NetworkImage(chatUser.profilePictureUrl ?? ''),
+                        image: NetworkImage(chatUser.profilePictureUrl),
                       )),
                 ),
                 const SizedBox(
@@ -535,7 +535,9 @@ class SwipeCard extends StatelessWidget {
                                   icon: Icons.description,
                                   content: Text(
                                     candidate.description,
+                                    maxLines: 6,
                                     overflow: TextOverflow.ellipsis,
+                                    softWrap: true,
                                     style: const TextStyle(
                                         color: StaticColors.secondaryFontColor),
                                   ),

@@ -250,7 +250,7 @@ Widget singleProfileContent(
     mainAxisSize: MainAxisSize.min,
     children: [
       titleWidget,
-      Flexible(fit: FlexFit.loose, child: Container(child: content)),
+      content,
     ],
   );
 }
@@ -533,13 +533,17 @@ class SwipeCard extends StatelessWidget {
                                   color: StaticColors.secondaryFontColor,
                                   title: 'Description'.tr,
                                   icon: Icons.description,
-                                  content: Text(
-                                    candidate.description,
-                                    maxLines: 6,
-                                    overflow: TextOverflow.ellipsis,
-                                    softWrap: true,
-                                    style: const TextStyle(
-                                        color: StaticColors.secondaryFontColor),
+                                  content: Flexible(
+                                    fit: FlexFit.loose,
+                                    child: Text(
+                                      candidate.description,
+                                      maxLines: 4,
+                                      overflow: TextOverflow.ellipsis,
+                                      softWrap: true,
+                                      style: const TextStyle(
+                                          color:
+                                              StaticColors.secondaryFontColor),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -583,6 +587,9 @@ class SwipeCard extends StatelessWidget {
               color: StaticColors.primaryColor,
             ),
           ),
+        ),
+        SizedBox(
+          width: 5,
         ),
         Text(
           candidate.name,

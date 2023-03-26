@@ -65,7 +65,7 @@ class _EmailScreenState extends State<EmailScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Icon(
-                    FluentIcons.info_12_regular,
+                    FluentIcons.mail_unread_16_regular,
                     color: StaticColors.secondaryFontColor,
                     size: 100,
                   ),
@@ -73,9 +73,15 @@ class _EmailScreenState extends State<EmailScreen> {
                     "EmailVerifyTitle".tr,
                     style: const TextStyle(color: Colors.white, fontSize: 28),
                   ),
+                  const SizedBox(
+                    height: 15,
+                  ),
                   Text(
                     'EmailVerifyContent'.tr,
                     style: const TextStyle(color: Colors.white, fontSize: 18),
+                  ),
+                  const SizedBox(
+                    height: 15,
                   ),
                   CustomButton(
                     "AlreadyVerified".tr,

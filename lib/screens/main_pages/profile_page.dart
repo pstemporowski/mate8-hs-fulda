@@ -15,10 +15,14 @@ import 'package:blur/blur.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage(this.user,
-      {super.key, this.tag, required this.showProfileImage});
+      {super.key,
+      this.tag,
+      required this.showProfileImage,
+      this.showNavBar = false});
 
   final User user;
   final bool showProfileImage;
+  final bool showNavBar;
   final String? tag;
 
   @override
@@ -34,7 +38,7 @@ class ProfilePage extends StatelessWidget {
       child: Material(
         color: Colors.white,
         child: Container(
-          margin: const Pad(bottom: 60),
+          margin: showNavBar ? const Pad(bottom: 60) : null,
           child: Scaffold(
             extendBodyBehindAppBar: true,
             extendBody: true,

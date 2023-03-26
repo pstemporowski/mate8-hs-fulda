@@ -109,7 +109,7 @@ class SignUpScreen extends GetView<SignUpController> {
         password: controller.passwordTextEditingController.text,
       );
 
-      Get.to(() => const EmailScreen());
+      Get.offAll((() => const EmailScreen()));
     } on FirebaseAuthException catch (e) {
       controller.errorText.value = e.message ?? '';
     }

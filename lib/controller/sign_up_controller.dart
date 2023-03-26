@@ -39,7 +39,6 @@ class SignUpController extends GetxController {
         email: emailTextEditingController.text,
         password: passwordTextEditingController.text,
       );
-      Get.back();
     } on FirebaseAuthException catch (e) {
       print(e);
     }
@@ -165,7 +164,7 @@ class SignUpController extends GetxController {
     Get.offAll(() => MainScreen());
     dispose();
   }
-  
+
   bool validateInput(String name, String description, String singleWords) {
     if (name.isEmpty) {
       errorText.value = 'Name cannot be empty';

@@ -20,6 +20,7 @@ class RoutingController extends GetxController {
       ProfilePage(
         currentUserController.currentUser!,
         showProfileImage: true,
+        showNavBar: true,
       ),
       const SettingsPage()
     ];

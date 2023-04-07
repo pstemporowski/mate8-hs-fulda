@@ -3,15 +3,15 @@
   "packages": [
     {
       "name": "_fe_analyzer_shared",
-      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/_fe_analyzer_shared-56.0.0",
+      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/_fe_analyzer_shared-58.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "_flutterfire_internals",
-      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/_flutterfire_internals-1.0.18",
+      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/_flutterfire_internals-1.1.0",
       "packageUri": "lib/",
-      "languageVersion": "2.16"
+      "languageVersion": "2.18"
     },
     {
       "name": "adobe_xd",
@@ -21,7 +21,7 @@
     },
     {
       "name": "analyzer",
-      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/analyzer-5.8.0",
+      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/analyzer-5.10.0",
       "packageUri": "lib/",
       "languageVersion": "2.19"
     },
@@ -39,7 +39,7 @@
     },
     {
       "name": "appinio_swiper",
-      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/appinio_swiper-1.1.1",
+      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/appinio_swiper-2.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -57,7 +57,7 @@
     },
     {
       "name": "assorted_layout_widgets",
-      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/assorted_layout_widgets-7.0.1",
+      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/assorted_layout_widgets-8.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
@@ -69,7 +69,7 @@
     },
     {
       "name": "badges",
-      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/badges-3.0.2",
+      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/badges-3.0.3",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
@@ -171,21 +171,21 @@
     },
     {
       "name": "cloud_firestore",
-      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/cloud_firestore-4.4.5",
+      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/cloud_firestore-4.5.0",
       "packageUri": "lib/",
-      "languageVersion": "2.16"
+      "languageVersion": "2.18"
     },
     {
       "name": "cloud_firestore_platform_interface",
-      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/cloud_firestore_platform_interface-5.11.5",
+      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/cloud_firestore_platform_interface-5.12.0",
       "packageUri": "lib/",
-      "languageVersion": "2.16"
+      "languageVersion": "2.18"
     },
     {
       "name": "cloud_firestore_web",
-      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/cloud_firestore_web-3.3.5",
+      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/cloud_firestore_web-3.4.0",
       "packageUri": "lib/",
-      "languageVersion": "2.16"
+      "languageVersion": "2.18"
     },
     {
       "name": "code_builder",
@@ -321,57 +321,57 @@
     },
     {
       "name": "firebase_auth",
-      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_auth-4.3.0",
+      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_auth-4.4.0",
       "packageUri": "lib/",
-      "languageVersion": "2.16"
+      "languageVersion": "2.18"
     },
     {
       "name": "firebase_auth_platform_interface",
-      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_auth_platform_interface-6.12.0",
+      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_auth_platform_interface-6.13.0",
       "packageUri": "lib/",
-      "languageVersion": "2.16"
+      "languageVersion": "2.18"
     },
     {
       "name": "firebase_auth_web",
-      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_auth_web-5.2.10",
+      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_auth_web-5.3.0",
       "packageUri": "lib/",
-      "languageVersion": "2.16"
+      "languageVersion": "2.18"
     },
     {
       "name": "firebase_core",
-      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_core-2.8.0",
+      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_core-2.9.0",
       "packageUri": "lib/",
-      "languageVersion": "2.16"
+      "languageVersion": "2.18"
     },
     {
       "name": "firebase_core_platform_interface",
-      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_core_platform_interface-4.5.3",
+      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_core_platform_interface-4.6.0",
       "packageUri": "lib/",
-      "languageVersion": "2.16"
+      "languageVersion": "2.18"
     },
     {
       "name": "firebase_core_web",
-      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_core_web-2.2.2",
+      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_core_web-2.3.0",
       "packageUri": "lib/",
-      "languageVersion": "2.16"
+      "languageVersion": "2.18"
     },
     {
       "name": "firebase_storage",
-      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_storage-11.0.16",
+      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_storage-11.1.0",
       "packageUri": "lib/",
-      "languageVersion": "2.16"
+      "languageVersion": "2.18"
     },
     {
       "name": "firebase_storage_platform_interface",
-      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_storage_platform_interface-4.1.32",
+      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_storage_platform_interface-4.2.0",
       "packageUri": "lib/",
-      "languageVersion": "2.16"
+      "languageVersion": "2.18"
     },
     {
       "name": "firebase_storage_web",
-      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_storage_web-3.3.25",
+      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_storage_web-3.4.0",
       "packageUri": "lib/",
-      "languageVersion": "2.16"
+      "languageVersion": "2.18"
     },
     {
       "name": "fixnum",
@@ -381,7 +381,7 @@
     },
     {
       "name": "fluentui_system_icons",
-      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/fluentui_system_icons-1.1.190",
+      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/fluentui_system_icons-1.1.198",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -399,7 +399,7 @@
     },
     {
       "name": "flutter_card_swiper",
-      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_card_swiper-2.1.0",
+      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_card_swiper-4.1.0+2",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -561,13 +561,13 @@
     },
     {
       "name": "image_picker",
-      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker-0.8.7",
+      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker-0.8.7+1",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "image_picker_android",
-      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_android-0.8.6+5",
+      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_android-0.8.6+6",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
@@ -579,7 +579,7 @@
     },
     {
       "name": "image_picker_ios",
-      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_ios-0.8.7+1",
+      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_ios-0.8.7+2",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
@@ -717,7 +717,7 @@
     },
     {
       "name": "pointycastle",
-      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/pointycastle-3.7.0",
+      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/pointycastle-3.7.2",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
@@ -753,7 +753,7 @@
     },
     {
       "name": "salomon_bottom_bar",
-      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/salomon_bottom_bar-3.3.1",
+      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/salomon_bottom_bar-3.3.2",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -867,7 +867,7 @@
     },
     {
       "name": "url_launcher_android",
-      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher_android-6.0.25",
+      "rootUri": "file:///C:/Users/pmtbb/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher_android-6.0.26",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
@@ -950,7 +950,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2023-03-26T14:15:58.987626Z",
+  "generated": "2023-04-07T06:04:08.294159Z",
   "generator": "pub",
-  "generatorVersion": "2.19.5"
+  "generatorVersion": "2.19.6"
 }

@@ -15,7 +15,7 @@ class MatchPage extends GetView<MatchesController> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: Pad(bottom: 80),
+      margin: const Pad(bottom: 80),
       decoration: const BoxDecoration(
           color: StaticColors.primaryColor,
           borderRadius: BorderRadius.vertical(
@@ -85,6 +85,10 @@ class MatchPage extends GetView<MatchesController> {
             onSwipe: controller.swipe,
             cards: controller.cards,
             onEnd: controller.onSwiperEnded,
+            cardsBuilder: (BuildContext context, int index) {
+              return controller.cards
+              ,
+            },
           ),
         ),
         _buildMatchControlPanel(),

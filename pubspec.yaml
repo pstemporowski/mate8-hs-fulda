@@ -38,7 +38,7 @@ dependencies:
   functional_widget_annotation: ^0.10.0
   adobe_xd: ^2.0.1
   curved_navigation_bar: ^1.0.3
-  appinio_swiper: ^1.1.1
+  appinio_swiper: ^2.0.0
   flutter_chat_ui: ^1.6.6
   bubble: ^1.2.1
   firebase_auth: ^4.2.5
@@ -48,8 +48,8 @@ dependencies:
   cloud_firestore: ^4.3.1
   get: ^4.6.5
   salomon_bottom_bar: ^3.3.1
-  assorted_layout_widgets: ^7.0.0
-  fluentui_system_icons: ^1.1.190
+  assorted_layout_widgets: ^8.0.0
+  fluentui_system_icons: ^1.1.198
   country_flags: ^1.0.0
   functional_widget: ^0.10.1
   firebase_core: ^2.7.1
@@ -60,7 +60,7 @@ dependencies:
   flutter_badged: ^2.0.3
   badges: ^3.0.2
   animated_snack_bar: ^0.3.0
-  flutter_card_swiper: ^2.0.1
+  flutter_card_swiper: ^4.1.0+2
   flutter_onboarding_slider: ^1.0.8
   simple_chips_input: ^1.0.0
   chips_input: ^0.1.0

@@ -541,8 +541,8 @@ class SwipeCard extends StatelessWidget {
                                       overflow: TextOverflow.ellipsis,
                                       softWrap: true,
                                       style: const TextStyle(
-                                          color:
-                                              StaticColors.secondaryFontColor),
+                                          color: StaticColors
+                                              .secondaryFontColor),
                                     ),
                                   ),
                                 ),
@@ -588,7 +588,7 @@ class SwipeCard extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           width: 5,
         ),
         Text(
